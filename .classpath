@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Ingenious MedCare/src"/>
+	<classpathentry kind="lib" path="Ingenious MedCare/lib/mysql-connector-java-5.0.5-bin.jar"/>
+	<classpathentry kind="lib" path="Ingenious MedCare/lib/swing2swt.jar"/>
+	<classpathentry kind="lib" path="Ingenious MedCare/miglayout15-swing.jar"/>
+	<classpathentry kind="lib" path="Ingenious MedCare/swing2swt.jar"/>
+	<classpathentry kind="lib" path="org.eclipse.swt/bin/swt.jar"/>
+	<classpathentry kind="lib" path="org.eclipse.swt/swt-debug.jar"/>
+	<classpathentry kind="lib" path="org.eclipse.swt/swt.jar"/>
+	<classpathentry kind="output" path="Ingenious MedCare/bin"/>
+</classpath>

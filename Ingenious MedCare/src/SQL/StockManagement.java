@@ -4,12 +4,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class StockManagement {
-	static SqlConnection sqlconnection = new SqlConnection();
-	
+public class StockManagement extends SqlConnection{	
 	  public static  java.sql.ResultSet select() {
 		  java.sql.ResultSet rs =null;
-			Connection cn = sqlconnection.getInstance();
+			Connection cn = getInstance();
 			try {
 				Statement st = cn.createStatement();
 				String sql = "SELECT * FROM User";

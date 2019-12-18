@@ -5,18 +5,32 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class StockManagement extends SqlConnection{	
-	  public static  java.sql.ResultSet select() {
+	// Récupérer tous le stock médical
+	  public static  java.sql.ResultSet getAllMedicalStock() {
 		  java.sql.ResultSet rs =null;
 			Connection cn = getInstance();
 			try {
 				Statement st = cn.createStatement();
-				String sql = "SELECT * FROM User";
+				String sql = "SELECT M.id, M.name, M.description, M.indication, M.laboratory, M.composition, M.quantity, M.cisCode, M.idToxicity FROM medicalstock AS M";
 				 rs = st.executeQuery(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return rs;		
-			
+		}
+	  // Récupérer un médicament par rapport à son id unique
+	  public static  java.sql.ResultSet getMedicalStockById(int id) {
+		  java.sql.ResultSet rs =null;
+			Connection cn = getInstance();
+			try {
+				Statement st = cn.createStatement();
+				String sql = "SELECT M.id, M.name, M.description, M.indication, M.laboratory, M.composition, M.quantity, M.cisCode, M.idToxicity FROM medicalstock AS M WHERE M.id = " + id;
+				 rs = st.executeQuery(sql);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return rs;		
 		}
 }

@@ -72,6 +72,7 @@ public class Login {
 		btnConnexion.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				/* Exemple de récupération d'une requête SELECT au clic
 				java.sql.ResultSet sql = StockManagement.select();
 				try {
 					if(sql.next()) {
@@ -82,7 +83,7 @@ public class Login {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+				*/
 				if(textField.getText().equals("stock") && passwordField.getText().equals("stock")) {
 					Stock stock = new Stock();
 					stock.main(null);

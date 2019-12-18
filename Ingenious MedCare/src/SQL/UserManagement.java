@@ -36,6 +36,45 @@ public class UserManagement extends SqlConnection{
 			return rs;		
 		}
 	  
+	  public static  void createUser(String login,String email,String password,String name,String firstName, String idRole) {
+			Connection cn = getInstance();
+			if (login.isEmpty() || email.isEmpty() || password.isEmpty() || name.isEmpty() || firstName.isEmpty() || idRole.isEmpty()) {
+				// A gérer une gestion d'erreur
+				System.out.print("Tous les champs ne sont pas remplis");
+			}
+			else {
+			try {
+				Statement st = cn.createStatement();
+				String sql = "INSERT INTO utilisateurs (login, email, password, name, firstName, idRole) "
+						+ "VALUES ('" + login + "','" + email + "','" + password + "','" + name + "','" + firstName + "','" + idRole + "')";
+				st.executeUpdate(sql);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+			
+		}
+	  }
+	  
+	  public static  void updateUser(String id, String login,String email,String password,String name,String firstName, String idRole) {
+			Connection cn = getInstance();
+			if (id.isEmpty() || login.isEmpty() || email.isEmpty() || password.isEmpty() || name.isEmpty() || firstName.isEmpty() || idRole.isEmpty()) {
+				// A gérer une gestion d'erreur
+				System.out.print("Tous les champs ne sont pas remplis");
+			}
+			else {
+			try {
+				Statement st = cn.createStatement();
+				String sql = "UPDATE user SET login='" + login + "',email='" + email + "', password='" + password + "',name='" + name + "',firstName='" + firstName + "' WHERE idRole='" + idRole + "'";
+				st.executeUpdate(sql);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	  }
+	  
 	  public static  void deleteUser(String id) {
 			Connection cn = getInstance();
 			if (id.isEmpty()) {

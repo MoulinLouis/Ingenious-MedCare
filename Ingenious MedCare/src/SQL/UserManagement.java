@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JOptionPane;
+
 public class UserManagement extends SqlConnection{	
 	// Récupérer tous les utilisateurs
 	  public static  java.sql.ResultSet getAllUser() {
@@ -33,4 +35,23 @@ public class UserManagement extends SqlConnection{
 			}
 			return rs;		
 		}
+	  
+	  public static  void deleteUser(String id) {
+			Connection cn = getInstance();
+			if (id.isEmpty()) {
+				// A gérer une gestion d'erreur
+				System.out.print("L'id est vide");
+			}
+			else {
+			try {
+				Statement st = cn.createStatement();
+				String sql = "DELETE FROM user WHERE id='" + id + "'";
+				st.executeUpdate(sql);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	  }
 }

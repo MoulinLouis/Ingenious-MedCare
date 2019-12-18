@@ -75,4 +75,23 @@ public class PatientManagement extends SqlConnection{
 		}
 	  }
 	  
+	  public static  void deletePatient(String id) {
+			Connection cn = getInstance();
+			if (id.isEmpty()) {
+				// A gérer une gestion d'erreur
+				System.out.print("L'id est vide");
+			}
+			else {
+			try {
+				Statement st = cn.createStatement();
+				String sql = "DELETE FROM patient WHERE id='" + id + "'";
+				st.executeUpdate(sql);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	  }
+	  
 }

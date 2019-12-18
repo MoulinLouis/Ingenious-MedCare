@@ -45,7 +45,7 @@ public class PatientManagement extends SqlConnection{
 			else {
 			try {
 				Statement st = cn.createStatement();
-				String sql = "INSERT INTO utilisateurs (name, firstName, birthDate, email, gender, address, city, postalCode, phoneNumber, homePhoneNumber, country, profession, civilStatus, mutualNumber, bloodGroup, pathology, note, familyDoctor) "
+				String sql = "INSERT INTO patient (name, firstName, birthDate, email, gender, address, city, postalCode, phoneNumber, homePhoneNumber, country, profession, civilStatus, mutualNumber, bloodGroup, pathology, note, familyDoctor) "
 						+ "VALUES ('" + name + "','" + firstName + "','" + birthDate + "','" + email + "','" + gender + "','" + address + "','" + city + "','" + postalCode + "','" + phoneNumber + "','" + homePhoneNumber + "','" + country + "','" + profession + "','" + civilStatus + "','" + mutualNumber + "','" + bloodGroup + "','" + pathology + "','" + note + "','" + familyDoctor + "')";
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
@@ -65,7 +65,7 @@ public class PatientManagement extends SqlConnection{
 			else {
 			try {
 				Statement st = cn.createStatement();
-				String sql = "UPDATE user SET name='" + name + "',firstName='" + firstName + "', birthDate='" + birthDate + "',email='" + email + "',gender='" + gender + "',address='" + address + "',city='" + city + "',postalCode='" + postalCode + "',phoneNumber='" + phoneNumber + "',homePhoneNumber='" + homePhoneNumber + "',country='" + country + "',profession='" + profession + "',civilStatus='" + civilStatus + "',mutualNumber='" + mutualNumber + "',bloodGroup='" + bloodGroup + "',pathology='" + pathology + "',note='" + note + "',familyDoctor='" + familyDoctor + "' WHERE id='" + id + "'";
+				String sql = "UPDATE patient SET name='" + name + "',firstName='" + firstName + "', birthDate='" + birthDate + "',email='" + email + "',gender='" + gender + "',address='" + address + "',city='" + city + "',postalCode='" + postalCode + "',phoneNumber='" + phoneNumber + "',homePhoneNumber='" + homePhoneNumber + "',country='" + country + "',profession='" + profession + "',civilStatus='" + civilStatus + "',mutualNumber='" + mutualNumber + "',bloodGroup='" + bloodGroup + "',pathology='" + pathology + "',note='" + note + "',familyDoctor='" + familyDoctor + "' WHERE id='" + id + "'";
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

@@ -21,7 +21,7 @@ import SQL.*;
 
 public class Login {
 	private JFrame frmIngeniousMedcare;
-	private JTextField textField;
+	private JTextField emailField;
 	private JPasswordField passwordField;
 
 
@@ -72,30 +72,10 @@ public class Login {
 		btnConnexion.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				/* Exemple de récupération d'une requête SELECT au clic
-				java.sql.ResultSet sql = StockManagement.select();
-				try {
-					if(sql.next()) {
-						String a = sql.getString("login");
-						System.out.print(a);
-					}
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				*/
-				if(textField.getText().equals("stock") && passwordField.getText().equals("stock")) {
-					Stock stock = new Stock();
-					stock.main(null);
-					frmIngeniousMedcare.dispose();
-				} else if(textField.getText().equals("admin") && passwordField.getText().equals("admin")) {
-					Administratif administratif = new Administratif();
-					administratif.main(null);
-					frmIngeniousMedcare.dispose();
-				} else if(textField.getText().equals("adm") && passwordField.getText().equals("adm")) {
-					Admin admin = new Admin();
-					admin.main(null);
-					frmIngeniousMedcare.dispose();
+				if(emailField.getText().equals("") || passwordField.getText().equals("")) {
+					System.out.print("Un des champs est vide");
+				} else {
+					UserManagement.connectUser(emailField.getText(), passwordField.getText(), frmIngeniousMedcare);
 				}
 			}
 		});
@@ -104,8 +84,8 @@ public class Login {
 		
 		passwordField = new JPasswordField();
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		emailField = new JTextField();
+		emailField.setColumns(10);
 		
 		JLabel lblMotDePasse = new JLabel("Mot de passe");
 		GroupLayout gl_panel = new GroupLayout(panel);
@@ -118,7 +98,7 @@ public class Login {
 						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
 							.addComponent(lblMotDePasse)
 							.addComponent(lblEmail)
-							.addComponent(textField)
+							.addComponent(emailField)
 							.addComponent(passwordField)))
 					.addContainerGap(171, Short.MAX_VALUE))
 		);
@@ -128,7 +108,7 @@ public class Login {
 					.addContainerGap(95, Short.MAX_VALUE)
 					.addComponent(lblEmail)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(emailField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(4)
 					.addComponent(lblMotDePasse)
 					.addPreferredGap(ComponentPlacement.RELATED)

@@ -4,9 +4,56 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import fenetre.Admin;
+import fenetre.Administratif;
+import fenetre.Stock;
+
 public class UserManagement extends SqlConnection{	
+	
+	  public static void connectUser(String login,String password, JFrame frmIngeniousMedcare) {
+		  java.sql.ResultSet rs =null;
+			Connection cn = getInstance();
+			String loginBase = "";
+			String passwordBase = "";
+			try {
+				Statement st = cn.createStatement();
+				String sql = "SELECT login, password, idRole FROM user WHERE login='" + login + "' AND password='" + password + "' ";
+				rs = st.executeQuery(sql);
+				if(rs.next()) {
+					loginBase = rs.getString("login");
+					passwordBase = rs.getString("password");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(loginBase.isEmpty() && passwordBase.isEmpty()) {
+				if(login.equals("adm") && password.equals("adm")) {
+					Admin admin = new Admin();
+					admin.main(null);
+					frmIngeniousMedcare.dispose();
+				} else {
+					// Gérer gestion d'erreur
+					System.out.print("Login ou mot de passe faux");
+				}
+			} else {
+				if(login.equals(loginBase) && password.equals(passwordBase)) {
+					if(login.equals("s")) {
+						Stock stock = new Stock();
+						stock.main(null);
+						frmIngeniousMedcare.dispose();
+					} else if(login.equals("a")) {
+						Administratif administratif = new Administratif();
+						administratif.main(null);
+						frmIngeniousMedcare.dispose();
+					}
+				}
+			}
+		}
+	
 	// Récupérer tous les utilisateurs
 	  public static  java.sql.ResultSet getAllUser() {
 		  java.sql.ResultSet rs = null;

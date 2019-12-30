@@ -17,3 +17,7 @@ Stock :
 Administratif :
 > - login : a
 > - mot de passe : a
+
+## Stock médical
+
+Les informations du stock médical proviennent du site : [VIDAL](https://www.vidal.fr/Sommaires/Medicaments-A.htm)

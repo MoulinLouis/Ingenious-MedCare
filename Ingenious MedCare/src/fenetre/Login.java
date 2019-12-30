@@ -21,8 +21,8 @@ import SQL.*;
 
 public class Login {
 	private JFrame frmIngeniousMedcare;
-	private JTextField emailField;
-	private JPasswordField passwordField;
+	private JTextField fieldEmail;
+	private JPasswordField fieldPassword;
 
 
 	/**
@@ -72,20 +72,20 @@ public class Login {
 		btnConnexion.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(emailField.getText().equals("") || passwordField.getText().equals("")) {
+				if(fieldEmail.getText().equals("") || fieldPassword.getText().equals("")) {
 					System.out.print("Un des champs est vide");
 				} else {
-					UserManagement.connectUser(emailField.getText(), passwordField.getText(), frmIngeniousMedcare);
+					UserManagement.connectUser(fieldEmail.getText(), fieldPassword.getText(), frmIngeniousMedcare);
 				}
 			}
 		});
 		
-		JLabel lblEmail = new JLabel("Email");
+		JLabel labelEmail = new JLabel("Email");
 		
-		passwordField = new JPasswordField();
+		fieldPassword = new JPasswordField();
 		
-		emailField = new JTextField();
-		emailField.setColumns(10);
+		fieldEmail = new JTextField();
+		fieldEmail.setColumns(10);
 		
 		JLabel lblMotDePasse = new JLabel("Mot de passe");
 		GroupLayout gl_panel = new GroupLayout(panel);
@@ -97,22 +97,22 @@ public class Login {
 						.addComponent(btnConnexion)
 						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
 							.addComponent(lblMotDePasse)
-							.addComponent(lblEmail)
-							.addComponent(emailField)
-							.addComponent(passwordField)))
+							.addComponent(labelEmail)
+							.addComponent(fieldEmail)
+							.addComponent(fieldPassword)))
 					.addContainerGap(171, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap(95, Short.MAX_VALUE)
-					.addComponent(lblEmail)
+					.addComponent(labelEmail)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(emailField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(fieldEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(4)
 					.addComponent(lblMotDePasse)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(fieldPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnConnexion)
 					.addGap(55))

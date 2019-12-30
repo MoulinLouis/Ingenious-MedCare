@@ -13,10 +13,12 @@ import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 
+
+import SQL.*;
 public class Administratif {
 
 	private JFrame frmIngeniousMedcare;
-	private JTable table;
+	private JTable tableAllPatient;
 
 	/**
 	 * Launch the application.
@@ -61,52 +63,52 @@ public class Administratif {
 				.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
 		);
 		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("Accueil", null, panel, null);
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+		JPanel panelAccueil = new JPanel();
+		tabbedPane.addTab("Accueil", null, panelAccueil, null);
+		GroupLayout gl_panelAccueil = new GroupLayout(panelAccueil);
+		gl_panelAccueil.setHorizontalGroup(
+			gl_panelAccueil.createParallelGroup(Alignment.LEADING)
 				.addGap(0, 431, Short.MAX_VALUE)
 		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+		gl_panelAccueil.setVerticalGroup(
+			gl_panelAccueil.createParallelGroup(Alignment.LEADING)
 				.addGap(0, 235, Short.MAX_VALUE)
 		);
-		panel.setLayout(gl_panel);
+		panelAccueil.setLayout(gl_panelAccueil);
 		
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("Patients", null, panel_1, null);
+		JPanel panelPatients = new JPanel();
+		tabbedPane.addTab("Patients", null, panelPatients, null);
 		
-		table = new JTable();
+		tableAllPatient = new JTable();
 		
 		JLabel lblListeDesPatients = new JLabel("Liste des patients");
 		
 		JButton btnAjouterUnPatient = new JButton("Ajouter un patient");
-		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
+		GroupLayout gl_panelPatients = new GroupLayout(panelPatients);
+		gl_panelPatients.setHorizontalGroup(
+			gl_panelPatients.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelPatients.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addComponent(table, GroupLayout.PREFERRED_SIZE, 411, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_panel_1.createSequentialGroup()
+					.addGroup(gl_panelPatients.createParallelGroup(Alignment.LEADING)
+						.addComponent(tableAllPatient, GroupLayout.PREFERRED_SIZE, 411, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panelPatients.createSequentialGroup()
 							.addComponent(lblListeDesPatients)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnAjouterUnPatient)))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
-		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
+		gl_panelPatients.setVerticalGroup(
+			gl_panelPatients.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelPatients.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_panelPatients.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblListeDesPatients)
 						.addComponent(btnAjouterUnPatient))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(table, GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+					.addComponent(tableAllPatient, GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
 					.addContainerGap())
 		);
-		panel_1.setLayout(gl_panel_1);
+		panelPatients.setLayout(gl_panelPatients);
 		frmIngeniousMedcare.getContentPane().setLayout(groupLayout);
 	}
 }

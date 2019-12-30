@@ -69,29 +69,29 @@ public class Admin {
 				.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
 		);
 		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("Accueil", null, panel, null);
+		JPanel panelAccueil = new JPanel();
+		tabbedPane.addTab("Accueil", null, panelAccueil, null);
 		
-		JLabel label = new JLabel("Bienvenue sur le logiciel Ingenious MedCare");
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+		JLabel labelAccueil1 = new JLabel("Bienvenue sur le logiciel Ingenious MedCare");
+		GroupLayout gl_panelAccueil = new GroupLayout(panelAccueil);
+		gl_panelAccueil.setHorizontalGroup(
+			gl_panelAccueil.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panelAccueil.createSequentialGroup()
 					.addContainerGap(110, Short.MAX_VALUE)
-					.addComponent(label)
+					.addComponent(labelAccueil1)
 					.addGap(104))
 		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
+		gl_panelAccueil.setVerticalGroup(
+			gl_panelAccueil.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelAccueil.createSequentialGroup()
 					.addGap(99)
-					.addComponent(label)
+					.addComponent(labelAccueil1)
 					.addContainerGap(122, Short.MAX_VALUE))
 		);
-		panel.setLayout(gl_panel);
+		panelAccueil.setLayout(gl_panelAccueil);
 		
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("Utilisateur", null, panel_1, null);
+		JPanel panelUtilisateur = new JPanel();
+		tabbedPane.addTab("Utilisateur", null, panelUtilisateur, null);
 		try {
 			tableAllUser = new JTable(buildTableModel.buildTableModel(UserManagement.getAllUser()));
 			tableAllUser.setEnabled(false);
@@ -99,25 +99,25 @@ public class Admin {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
+		GroupLayout gl_panelUtilisateur = new GroupLayout(panelUtilisateur);
+		gl_panelUtilisateur.setHorizontalGroup(
+			gl_panelUtilisateur.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelUtilisateur.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(tableAllUser, GroupLayout.PREFERRED_SIZE, 409, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
-		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
+		gl_panelUtilisateur.setVerticalGroup(
+			gl_panelUtilisateur.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panelUtilisateur.createSequentialGroup()
 					.addContainerGap(45, Short.MAX_VALUE)
 					.addComponent(tableAllUser, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
-		panel_1.setLayout(gl_panel_1);
+		panelUtilisateur.setLayout(gl_panelUtilisateur);
 		
-		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("Stock", null, panel_2, null);
+		JPanel panelStock = new JPanel();
+		tabbedPane.addTab("Stock", null, panelStock, null);
 		
 		try {
 			tableAllStock = new JTable(buildTableModel.buildTableModel(StockManagement.getAllMedicalStock()));
@@ -126,25 +126,25 @@ public class Admin {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
-		gl_panel_2.setHorizontalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup()
+		GroupLayout gl_panelStock = new GroupLayout(panelStock);
+		gl_panelStock.setHorizontalGroup(
+			gl_panelStock.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelStock.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(tableAllStock, GroupLayout.PREFERRED_SIZE, 409, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
-		gl_panel_2.setVerticalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
+		gl_panelStock.setVerticalGroup(
+			gl_panelStock.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panelStock.createSequentialGroup()
 					.addContainerGap(45, Short.MAX_VALUE)
 					.addComponent(tableAllStock, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
-		panel_2.setLayout(gl_panel_2);
+		panelStock.setLayout(gl_panelStock);
 		
-		JPanel panel_3 = new JPanel();
-		tabbedPane.addTab("Patient", null, panel_3, null);
+		JPanel panelPatient = new JPanel();
+		tabbedPane.addTab("Patient", null, panelPatient, null);
 		
 		try {
 			tableAllPatient = new JTable(buildTableModel.buildTableModel(PatientManagement.getAllPatient()));
@@ -153,22 +153,22 @@ public class Admin {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
-		gl_panel_3.setHorizontalGroup(
-			gl_panel_3.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_3.createSequentialGroup()
+		GroupLayout gl_panelPatient = new GroupLayout(panelPatient);
+		gl_panelPatient.setHorizontalGroup(
+			gl_panelPatient.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelPatient.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(tableAllPatient, GroupLayout.PREFERRED_SIZE, 409, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
-		gl_panel_3.setVerticalGroup(
-			gl_panel_3.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_3.createSequentialGroup()
+		gl_panelPatient.setVerticalGroup(
+			gl_panelPatient.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panelPatient.createSequentialGroup()
 					.addContainerGap(45, Short.MAX_VALUE)
 					.addComponent(tableAllPatient, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
-		panel_3.setLayout(gl_panel_3);
+		panelPatient.setLayout(gl_panelPatient);
 		frmIngeniousMedcare.getContentPane().setLayout(groupLayout);
 	}
 }

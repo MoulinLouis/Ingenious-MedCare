@@ -12,7 +12,7 @@ import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
-
+import static javax.swing.JOptionPane.showMessageDialog;
 
 import SQL.*;
 public class Administratif {

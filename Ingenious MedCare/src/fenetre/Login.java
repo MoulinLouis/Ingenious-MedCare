@@ -13,6 +13,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
+import static javax.swing.JOptionPane.showMessageDialog;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
@@ -56,7 +57,7 @@ public class Login {
 		frmIngeniousMedcare.setTitle("Ingenious MedCare - Connexion");
 		frmIngeniousMedcare.setBounds(100, 100, 450, 300);
 		frmIngeniousMedcare.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(frmIngeniousMedcare.getContentPane());
 		groupLayout.setHorizontalGroup(

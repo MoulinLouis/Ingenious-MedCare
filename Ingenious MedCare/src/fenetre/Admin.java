@@ -14,10 +14,15 @@ import javax.swing.JPanel;
 import javax.swing.JLayeredPane;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import static javax.swing.JOptionPane.showMessageDialog;
 import java.awt.FlowLayout;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.table.TableModel;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Admin {
 
@@ -99,18 +104,39 @@ public class Admin {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		JLabel lblListeDesUtilisateurs = new JLabel("Liste des utilisateurs");
+		
+		JButton btnAjouterUnUtilisateur = new JButton("Ajouter un utilisateur");
+		btnAjouterUnUtilisateur.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				addUserForm addUserForm = new addUserForm();
+				addUserForm.main(null);
+				frmIngeniousMedcare.dispose();
+			}
+		});
 		GroupLayout gl_panelUtilisateur = new GroupLayout(panelUtilisateur);
 		gl_panelUtilisateur.setHorizontalGroup(
 			gl_panelUtilisateur.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelUtilisateur.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(tableAllUser, GroupLayout.PREFERRED_SIZE, 409, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_panelUtilisateur.createParallelGroup(Alignment.LEADING)
+						.addComponent(tableAllUser, GroupLayout.PREFERRED_SIZE, 409, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panelUtilisateur.createSequentialGroup()
+							.addComponent(lblListeDesUtilisateurs)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnAjouterUnUtilisateur)))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		gl_panelUtilisateur.setVerticalGroup(
-			gl_panelUtilisateur.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panelUtilisateur.createSequentialGroup()
-					.addContainerGap(45, Short.MAX_VALUE)
+			gl_panelUtilisateur.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panelUtilisateur.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelUtilisateur.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblListeDesUtilisateurs)
+						.addComponent(btnAjouterUnUtilisateur))
+					.addPreferredGap(ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
 					.addComponent(tableAllUser, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);

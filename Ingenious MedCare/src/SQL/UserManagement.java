@@ -1,5 +1,7 @@
 package SQL;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -32,20 +34,22 @@ public class UserManagement extends SqlConnection{
 			}
 			if(loginBase.isEmpty() && passwordBase.isEmpty()) {
 				if(login.equals("adm") && password.equals("adm")) {
+					showMessageDialog(null, "Connexion effectuée en tant qu'administrateur avec succès !");
 					Admin admin = new Admin();
 					admin.main(null);
 					frmIngeniousMedcare.dispose();
 				} else {
-					// Gérer gestion d'erreur
-					System.out.print("Login ou mot de passe faux");
+					showMessageDialog(null, "Login ou mot de passe incorrect");
 				}
 			} else {
 				if(login.equals(loginBase) && password.equals(passwordBase)) {
 					if(login.equals("s")) {
+						showMessageDialog(null, "Connexion effectuée en tant que gestionnaire de stock avec succès !");
 						Stock stock = new Stock();
 						stock.main(null);
 						frmIngeniousMedcare.dispose();
 					} else if(login.equals("a")) {
+						showMessageDialog(null, "Connexion effectuée en tant qu'administratif avec succès !");
 						Administratif administratif = new Administratif();
 						administratif.main(null);
 						frmIngeniousMedcare.dispose();

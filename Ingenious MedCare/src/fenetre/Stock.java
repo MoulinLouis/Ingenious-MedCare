@@ -1,12 +1,12 @@
 package fenetre;
 import SQL.*;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
-import SQL.UserManagement;
 import model.buildTableModel;
 
 import javax.swing.JTabbedPane;
@@ -105,7 +105,12 @@ public class Stock {
 		JPanel panelStock = new JPanel();
 		tabbedPane.addTab("Stock", null, panelStock, null);
 		
-		tableAllStock = new JTable();
+		try {
+			tableAllStock = new JTable(buildTableModel.buildTableModel(StockManagement.getAllMedicalStock()));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		JLabel labelListeStock = new JLabel("Liste du stock");
 		

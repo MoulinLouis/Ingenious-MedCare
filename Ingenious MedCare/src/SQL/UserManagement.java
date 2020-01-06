@@ -20,6 +20,7 @@ public class UserManagement extends SqlConnection{
 			Connection cn = getInstance();
 			String loginBase = "";
 			String passwordBase = "";
+			int roleIdBase = 0;
 			try {
 				Statement st = cn.createStatement();
 				String sql = "SELECT login, password, idRole FROM user WHERE login='" + login + "' AND password='" + password + "' ";
@@ -27,6 +28,7 @@ public class UserManagement extends SqlConnection{
 				if(rs.next()) {
 					loginBase = rs.getString("login");
 					passwordBase = rs.getString("password");
+					roleIdBase = rs.getInt("idRole");
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -43,12 +45,12 @@ public class UserManagement extends SqlConnection{
 				}
 			} else {
 				if(login.equals(loginBase) && password.equals(passwordBase)) {
-					if(login.equals("s")) {
+					if(roleIdBase == 2) {
 						showMessageDialog(null, "Connexion effectuée en tant que gestionnaire de stock avec succès !");
 						Stock stock = new Stock();
 						stock.main(null);
 						frmIngeniousMedcare.dispose();
-					} else if(login.equals("a")) {
+					} else if(roleIdBase == 1) {
 						showMessageDialog(null, "Connexion effectuée en tant qu'administratif avec succès !");
 						Administratif administratif = new Administratif();
 						administratif.main(null);

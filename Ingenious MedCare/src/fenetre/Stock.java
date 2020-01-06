@@ -67,7 +67,7 @@ public class Stock {
 	private void initialize() {
 		frmIngeniousMedcare = new JFrame();
 		frmIngeniousMedcare.setTitle("Ingenious MedCare - Stock");
-		frmIngeniousMedcare.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frmIngeniousMedcare.setBounds(100, 100, 450, 300);
 		frmIngeniousMedcare.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -123,7 +123,7 @@ public class Stock {
 				.addGroup(gl_panelStock.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelStock.createParallelGroup(Alignment.LEADING)
-						.addComponent(tableAllStock, GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+						.addComponent(tableAllStock, GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
 						.addGroup(gl_panelStock.createSequentialGroup()
 							.addComponent(labelListeStock)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
@@ -133,8 +133,8 @@ public class Stock {
 					.addContainerGap())
 		);
 		gl_panelStock.setVerticalGroup(
-			gl_panelStock.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_panelStock.createSequentialGroup()
+			gl_panelStock.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelStock.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelStock.createParallelGroup(Alignment.BASELINE)
 						.addComponent(labelListeStock)

@@ -122,12 +122,12 @@ public class Admin {
 				.addGroup(gl_panelUtilisateur.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelUtilisateur.createParallelGroup(Alignment.LEADING)
-						.addComponent(tableAllUser, GroupLayout.PREFERRED_SIZE, 409, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tableAllUser, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
 						.addGroup(gl_panelUtilisateur.createSequentialGroup()
 							.addComponent(lblListeDesUtilisateurs)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnAjouterUnUtilisateur)))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(12))
 		);
 		gl_panelUtilisateur.setVerticalGroup(
 			gl_panelUtilisateur.createParallelGroup(Alignment.TRAILING)
@@ -136,8 +136,8 @@ public class Admin {
 					.addGroup(gl_panelUtilisateur.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblListeDesUtilisateurs)
 						.addComponent(btnAjouterUnUtilisateur))
-					.addPreferredGap(ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-					.addComponent(tableAllUser, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
+					.addGap(13)
+					.addComponent(tableAllUser, GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		panelUtilisateur.setLayout(gl_panelUtilisateur);
@@ -157,14 +157,14 @@ public class Admin {
 			gl_panelStock.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelStock.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(tableAllStock, GroupLayout.PREFERRED_SIZE, 409, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addComponent(tableAllStock, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
+					.addGap(12))
 		);
 		gl_panelStock.setVerticalGroup(
-			gl_panelStock.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panelStock.createSequentialGroup()
-					.addContainerGap(45, Short.MAX_VALUE)
-					.addComponent(tableAllStock, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
+			gl_panelStock.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panelStock.createSequentialGroup()
+					.addGap(47)
+					.addComponent(tableAllStock, GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		panelStock.setLayout(gl_panelStock);
@@ -184,14 +184,14 @@ public class Admin {
 			gl_panelPatient.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelPatient.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(tableAllPatient, GroupLayout.PREFERRED_SIZE, 409, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addComponent(tableAllPatient, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
+					.addGap(12))
 		);
 		gl_panelPatient.setVerticalGroup(
-			gl_panelPatient.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panelPatient.createSequentialGroup()
-					.addContainerGap(45, Short.MAX_VALUE)
-					.addComponent(tableAllPatient, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
+			gl_panelPatient.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panelPatient.createSequentialGroup()
+					.addGap(47)
+					.addComponent(tableAllPatient, GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		panelPatient.setLayout(gl_panelPatient);

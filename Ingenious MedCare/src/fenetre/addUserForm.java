@@ -9,25 +9,30 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import SQL.UserManagement;
+import constructor.User;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.lang.reflect.Field;
 
 public class addUserForm {
 
 	private JFrame frmIngeniousMedcare;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField fieldLogin;
+	private JTextField fieldEmail;
 	private JLabel lblEmail;
-	private JTextField textField_2;
+	private JTextField fieldMdp;
 	private JLabel lblMotDePasse;
-	private JTextField textField_3;
+	private JTextField fieldNom;
 	private JLabel lblNom;
 	private JLabel lblPrnom;
-	private JTextField textField_4;
+	private JTextField fieldPrenom;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
@@ -77,39 +82,52 @@ public class addUserForm {
 		
 		JLabel labelLogin = new JLabel("Login");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		fieldLogin = new JTextField();
+		fieldLogin.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
+		fieldEmail = new JTextField();
+		fieldEmail.setColumns(10);
 		
 		lblEmail = new JLabel("Email");
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
+		fieldMdp = new JTextField();
+		fieldMdp.setColumns(10);
 		
 		lblMotDePasse = new JLabel("Mot de passe");
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
+		fieldNom = new JTextField();
+		fieldNom.setColumns(10);
 		
 		lblNom = new JLabel("Nom");
 		
 		lblPrnom = new JLabel("Pr\u00E9nom");
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		
-		JLabel lblAjouterUnUtilisateur = new JLabel("Ajouter un utilisateur");
-		lblAjouterUnUtilisateur.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		
-		JButton btnCrerLutilisateur = new JButton("Cr\u00E9er l'utilisateur");
+		fieldPrenom = new JTextField();
+		fieldPrenom.setColumns(10);
 		
 		JRadioButton radioBtnStock = new JRadioButton("Stock");
 		buttonGroup.add(radioBtnStock);
 		
 		JRadioButton radioBtnAdministratif = new JRadioButton("Administratif");
 		buttonGroup.add(radioBtnAdministratif);
+		JLabel lblAjouterUnUtilisateur = new JLabel("Ajouter un utilisateur");
+		lblAjouterUnUtilisateur.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		
+		JButton btnCrerLutilisateur = new JButton("Cr\u00E9er l'utilisateur");
+		btnCrerLutilisateur.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String radioBtnSelected = "";
+				if(radioBtnStock.isSelected()) {
+					radioBtnSelected = "2";
+				} else if(radioBtnAdministratif.isSelected()) {
+					radioBtnSelected = "1";
+				}
+				UserManagement.createUser(fieldLogin.getText(), fieldEmail.getText(), fieldMdp.getText(), fieldNom.getText(), fieldPrenom.getText(), radioBtnSelected, frmIngeniousMedcare);
+			}
+		});
+		
+
 		
 		JButton btnRetour = new JButton("Retour");
 		btnRetour.addMouseListener(new MouseAdapter() {
@@ -136,19 +154,19 @@ public class addUserForm {
 								.addGroup(gl_panelAddUser.createSequentialGroup()
 									.addGroup(gl_panelAddUser.createParallelGroup(Alignment.LEADING)
 										.addGroup(gl_panelAddUser.createSequentialGroup()
-											.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addComponent(fieldMdp, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 											.addGap(18)
 											.addComponent(lblNom))
 										.addGroup(gl_panelAddUser.createSequentialGroup()
-											.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addComponent(fieldLogin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 											.addGap(18)
 											.addComponent(lblEmail)))
 									.addGap(32)
 									.addGroup(gl_panelAddUser.createParallelGroup(Alignment.LEADING)
-										.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+										.addComponent(fieldNom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(fieldEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 								.addGroup(gl_panelAddUser.createSequentialGroup()
-									.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(fieldPrenom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.UNRELATED)
 									.addComponent(radioBtnStock)
 									.addPreferredGap(ComponentPlacement.UNRELATED)
@@ -175,22 +193,22 @@ public class addUserForm {
 						.addGroup(gl_panelAddUser.createSequentialGroup()
 							.addGap(3)
 							.addComponent(lblEmail))
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(fieldEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_panelAddUser.createParallelGroup(Alignment.BASELINE)
 							.addComponent(labelLogin)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(fieldLogin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addGap(3)
 					.addGroup(gl_panelAddUser.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelAddUser.createParallelGroup(Alignment.BASELINE)
 							.addComponent(lblMotDePasse)
-							.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(fieldMdp, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panelAddUser.createParallelGroup(Alignment.BASELINE)
-							.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(fieldNom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addComponent(lblNom)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panelAddUser.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelAddUser.createParallelGroup(Alignment.BASELINE)
-							.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(fieldPrenom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addComponent(radioBtnStock)
 							.addComponent(radioBtnAdministratif))
 						.addComponent(lblPrnom))

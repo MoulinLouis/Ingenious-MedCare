@@ -80,18 +80,18 @@ public class Admin {
 		JLabel labelAccueil1 = new JLabel("Bienvenue sur le logiciel Ingenious MedCare");
 		GroupLayout gl_panelAccueil = new GroupLayout(panelAccueil);
 		gl_panelAccueil.setHorizontalGroup(
-			gl_panelAccueil.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panelAccueil.createSequentialGroup()
-					.addContainerGap(110, Short.MAX_VALUE)
-					.addComponent(labelAccueil1)
+			gl_panelAccueil.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panelAccueil.createSequentialGroup()
+					.addGap(110)
+					.addComponent(labelAccueil1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGap(104))
 		);
 		gl_panelAccueil.setVerticalGroup(
 			gl_panelAccueil.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelAccueil.createSequentialGroup()
 					.addGap(99)
-					.addComponent(labelAccueil1)
-					.addContainerGap(122, Short.MAX_VALUE))
+					.addComponent(labelAccueil1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(122))
 		);
 		panelAccueil.setLayout(gl_panelAccueil);
 		

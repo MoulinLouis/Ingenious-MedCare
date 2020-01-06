@@ -89,18 +89,22 @@ public class UserManagement extends SqlConnection{
 			return rs;		
 		}
 	  
-	  public static  void createUser(String login,String email,String password,String name,String firstName, String idRole) {
+	  public static  void createUser(String login,String email,String password,String name,String firstName, String idRole, JFrame frmIngeniousMedcare) {
 			Connection cn = getInstance();
 			if (login.isEmpty() || email.isEmpty() || password.isEmpty() || name.isEmpty() || firstName.isEmpty() || idRole.isEmpty()) {
 				// A gérer une gestion d'erreur
-				System.out.print("Tous les champs ne sont pas remplis");
+				showMessageDialog(null, "Tous les champs ne sont pas remplis");
 			}
 			else {
 			try {
 				Statement st = cn.createStatement();
-				String sql = "INSERT INTO utilisateurs (login, email, password, name, firstName, idRole) "
+				String sql = "INSERT INTO user (login, email, password, name, firstName, idRole) "
 						+ "VALUES ('" + login + "','" + email + "','" + password + "','" + name + "','" + firstName + "','" + idRole + "')";
 				st.executeUpdate(sql);
+				showMessageDialog(null, "Insertion effectué avec succès");
+				Admin admin = new Admin();
+				admin.main(null);
+				frmIngeniousMedcare.dispose();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -49,7 +49,7 @@ public class Administratif {
 	private void initialize() {
 		frmIngeniousMedcare = new JFrame();
 		frmIngeniousMedcare.setTitle("Ingenious MedCare - Administratif");
-		frmIngeniousMedcare.setBounds(100, 100, 450, 300);
+		frmIngeniousMedcare.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frmIngeniousMedcare.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);

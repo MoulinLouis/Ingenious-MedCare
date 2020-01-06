@@ -60,9 +60,9 @@ public class Admin {
 	private void initialize() {
 		frmIngeniousMedcare = new JFrame();
 		frmIngeniousMedcare.setTitle("Ingenious MedCare - Administrateur");
-		frmIngeniousMedcare.setBounds(100, 100, 450, 300);
 		frmIngeniousMedcare.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		frmIngeniousMedcare.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GroupLayout groupLayout = new GroupLayout(frmIngeniousMedcare.getContentPane());
 		groupLayout.setHorizontalGroup(

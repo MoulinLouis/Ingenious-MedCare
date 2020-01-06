@@ -1,11 +1,14 @@
 package fenetre;
 
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.CardLayout;
+import java.awt.Dimension;
+
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
@@ -24,7 +27,8 @@ public class Login {
 	private JFrame frmIngeniousMedcare;
 	private JTextField fieldEmail;
 	private JPasswordField fieldPassword;
-
+	Toolkit toolkit = Toolkit.getDefaultToolkit();  
+	Dimension screenSize = toolkit.getScreenSize();
 
 	/**
 	 * Launch the application.
@@ -57,6 +61,9 @@ public class Login {
 		frmIngeniousMedcare.setTitle("Ingenious MedCare - Connexion");
 		frmIngeniousMedcare.setBounds(100, 100, 450, 300);
 		frmIngeniousMedcare.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		int x = (screenSize.width - frmIngeniousMedcare.getWidth()) / 2;  
+		int y = (screenSize.height - frmIngeniousMedcare.getHeight()) / 2;
+		frmIngeniousMedcare.setLocation(x, y);  
 
 		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(frmIngeniousMedcare.getContentPane());

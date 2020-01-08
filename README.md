@@ -21,3 +21,7 @@ Administratif :
 ## Stock médical
 
 Les informations du stock médical proviennent du site : [VIDAL](https://www.vidal.fr/Sommaires/Medicaments-A.htm)
+
+## License
+
+[Ingenious MedCare MIT License](https://github.com/MoulinLouis/Ingenious-MedCare/blob/master/LICENSE)

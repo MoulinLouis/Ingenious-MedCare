@@ -179,18 +179,35 @@ public class Admin {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		JLabel lblListeDesPatients = new JLabel("Liste des patients");
+		
+		JButton btnAjouterUnPatient = new JButton("Ajouter un patient");
 		GroupLayout gl_panelPatient = new GroupLayout(panelPatient);
 		gl_panelPatient.setHorizontalGroup(
 			gl_panelPatient.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelPatient.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(tableAllPatient, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
-					.addGap(12))
+					.addGroup(gl_panelPatient.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelPatient.createSequentialGroup()
+							.addComponent(tableAllPatient, GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+							.addGap(12))
+						.addGroup(gl_panelPatient.createSequentialGroup()
+							.addComponent(lblListeDesPatients, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
+							.addGap(10)
+							.addComponent(btnAjouterUnPatient, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(179, Short.MAX_VALUE))))
 		);
 		gl_panelPatient.setVerticalGroup(
 			gl_panelPatient.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panelPatient.createSequentialGroup()
-					.addGap(47)
+					.addGap(8)
+					.addGroup(gl_panelPatient.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelPatient.createSequentialGroup()
+							.addGap(4)
+							.addComponent(lblListeDesPatients))
+						.addComponent(btnAjouterUnPatient))
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(tableAllPatient, GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
 					.addContainerGap())
 		);

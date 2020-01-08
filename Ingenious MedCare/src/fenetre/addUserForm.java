@@ -1,5 +1,6 @@
 package fenetre;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -14,6 +15,8 @@ import SQL.UserManagement;
 import constructor.User;
 
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
@@ -34,7 +37,9 @@ public class addUserForm {
 	private JLabel lblPrnom;
 	private JTextField fieldPrenom;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-
+	Toolkit toolkit = Toolkit.getDefaultToolkit();  
+	Dimension screenSize = toolkit.getScreenSize();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -66,6 +71,9 @@ public class addUserForm {
 		frmIngeniousMedcare.setTitle("Ingenious MedCare - Ajout d'utilisateur");
 		frmIngeniousMedcare.setBounds(100, 100, 450, 300);
 		frmIngeniousMedcare.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		int x = (screenSize.width - frmIngeniousMedcare.getWidth()) / 2;  
+		int y = (screenSize.height - frmIngeniousMedcare.getHeight()) / 2;
+		frmIngeniousMedcare.setLocation(x, y); 
 		
 		JPanel panelAddUser = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(frmIngeniousMedcare.getContentPane());

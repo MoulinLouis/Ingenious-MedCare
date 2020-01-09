@@ -22,6 +22,7 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
 import SQL.*;
+import javax.swing.ImageIcon;
 
 public class Login {
 	private JFrame frmIngeniousMedcare;
@@ -59,7 +60,7 @@ public class Login {
 	private void initialize() {
 		frmIngeniousMedcare = new JFrame();
 		frmIngeniousMedcare.setTitle("Ingenious MedCare - Connexion");
-		frmIngeniousMedcare.setBounds(100, 100, 450, 300);
+		frmIngeniousMedcare.setBounds(100, 100, 600, 400);
 		frmIngeniousMedcare.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		int x = (screenSize.width - frmIngeniousMedcare.getWidth()) / 2;  
 		int y = (screenSize.height - frmIngeniousMedcare.getHeight()) / 2;
@@ -96,31 +97,42 @@ public class Login {
 		fieldEmail.setColumns(10);
 		
 		JLabel lblMotDePasse = new JLabel("Mot de passe");
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/img/logo.png")));
+		lblNewLabel.setSize(20, 20);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(169)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnConnexion)
-						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-							.addComponent(lblMotDePasse)
-							.addComponent(labelEmail)
-							.addComponent(fieldEmail)
-							.addComponent(fieldPassword)))
-					.addContainerGap(171, Short.MAX_VALUE))
+					.addGap(117)
+					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(125))
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(252)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(labelEmail)
+						.addComponent(lblMotDePasse)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(btnConnexion)
+							.addPreferredGap(ComponentPlacement.RELATED, 18, Short.MAX_VALUE))
+						.addComponent(fieldPassword, GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+						.addComponent(fieldEmail))
+					.addGap(231))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap(95, Short.MAX_VALUE)
+					.addGap(18)
+					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(labelEmail)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(fieldEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(4)
-					.addComponent(lblMotDePasse)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(fieldPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(lblMotDePasse)
+					.addGap(4)
+					.addComponent(fieldPassword, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnConnexion)
 					.addGap(55))

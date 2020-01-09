@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="Ingenious MedCare/src"/>
+	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="lib" path="Ingenious MedCare/lib/mysql-connector-java-5.0.5-bin.jar"/>
 	<classpathentry kind="lib" path="Ingenious MedCare/lib/swing2swt.jar"/>
 	<classpathentry kind="lib" path="Ingenious MedCare/miglayout15-swing.jar"/>

@@ -23,6 +23,7 @@ import javax.swing.ButtonGroup;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.Field;
+import javax.swing.ImageIcon;
 
 public class addUserForm {
 
@@ -148,8 +149,8 @@ public class addUserForm {
 		});
 		GroupLayout gl_panelAddUser = new GroupLayout(panelAddUser);
 		gl_panelAddUser.setHorizontalGroup(
-			gl_panelAddUser.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_panelAddUser.createSequentialGroup()
+			gl_panelAddUser.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelAddUser.createSequentialGroup()
 					.addGap(38)
 					.addGroup(gl_panelAddUser.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panelAddUser.createSequentialGroup()
@@ -180,11 +181,9 @@ public class addUserForm {
 									.addPreferredGap(ComponentPlacement.UNRELATED)
 									.addComponent(radioBtnAdministratif))))
 						.addGroup(gl_panelAddUser.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED, 81, GroupLayout.PREFERRED_SIZE)
 							.addComponent(lblAjouterUnUtilisateur)
 							.addGap(83))
 						.addGroup(gl_panelAddUser.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED, 55, GroupLayout.PREFERRED_SIZE)
 							.addComponent(btnRetour)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnCrerLutilisateur)
@@ -224,7 +223,7 @@ public class addUserForm {
 					.addGroup(gl_panelAddUser.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnCrerLutilisateur)
 						.addComponent(btnRetour))
-					.addContainerGap(86, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panelAddUser.setLayout(gl_panelAddUser);
 		frmIngeniousMedcare.getContentPane().setLayout(groupLayout);

@@ -32,11 +32,13 @@ import javax.swing.JButton;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.JMenuBar;
+import java.awt.BorderLayout;
 
 public class Stock {
 
 	private JFrame frmIngeniousMedcare;
-	private JTable tableAllStock;
+	private JTable tableAllUser;
 
 	/**
 	 * Launch the application.
@@ -70,34 +72,34 @@ public class Stock {
 		frmIngeniousMedcare.setBounds(100, 100, 450, 300);
 		frmIngeniousMedcare.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		JMenuBar menuBar = new JMenuBar();
+		frmIngeniousMedcare.getContentPane().add(menuBar, BorderLayout.NORTH);
+		
+		JButton btnDeconnect = new JButton("DECONNECT");
+		menuBar.add(btnDeconnect);
+		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		GroupLayout groupLayout = new GroupLayout(frmIngeniousMedcare.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-		);
+		frmIngeniousMedcare.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
 		JPanel panelAccueil = new JPanel();
 		tabbedPane.addTab("Accueil", null, panelAccueil, null);
 		
-		JLabel labelAccueil = new JLabel("Bienvenue sur le logiciel Ingenious MedCare");
+		JLabel label = new JLabel("Bienvenue sur le logiciel Ingenious MedCare");
 		GroupLayout gl_panelAccueil = new GroupLayout(panelAccueil);
 		gl_panelAccueil.setHorizontalGroup(
-			gl_panelAccueil.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panelAccueil.createSequentialGroup()
+			gl_panelAccueil.createParallelGroup(Alignment.TRAILING)
+				.addGap(0, 429, Short.MAX_VALUE)
+				.addGroup(gl_panelAccueil.createSequentialGroup()
 					.addGap(103)
-					.addComponent(labelAccueil, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(label, GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
 					.addGap(97))
 		);
 		gl_panelAccueil.setVerticalGroup(
 			gl_panelAccueil.createParallelGroup(Alignment.TRAILING)
+				.addGap(0, 208, Short.MAX_VALUE)
 				.addGroup(gl_panelAccueil.createSequentialGroup()
 					.addGap(103)
-					.addComponent(labelAccueil, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(label, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGap(96))
 		);
 		panelAccueil.setLayout(gl_panelAccueil);
@@ -106,42 +108,59 @@ public class Stock {
 		tabbedPane.addTab("Stock", null, panelStock, null);
 		
 		try {
-			tableAllStock = new JTable(buildTableModel.buildTableModel(StockManagement.getAllMedicalStock()));
+			tableAllUser = new JTable(buildTableModel.buildTableModel(StockManagement.getAllMedicalStock()));
+			tableAllUser.setEnabled(false);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		JLabel labelListeStock = new JLabel("Liste du stock");
+		tableAllUser.addMouseListener(new java.awt.event.MouseAdapter() {
+		    @Override
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {
+		    	int index = tableAllUser.getSelectedRow();
+		        int row = tableAllUser.rowAtPoint(evt.getPoint());
+		        int col = tableAllUser.columnAtPoint(evt.getPoint());
+		        if (row >= 0 && col >= 0) {
+		           System.out.print(index);
+		           System.out.print(row);
+		           System.out.print(col);
+		        }
+		    }
+		});
 		
-		JButton btnAjouterDuStock = new JButton("Ajouter du stock");
+		JLabel label_1 = new JLabel("Liste du stock");
 		
-		JButton btnCommanderDuStock = new JButton("Commander du stock");
+		JButton button = new JButton("Ajouter du stock");
+		
+		JButton button_1 = new JButton("Commander du stock");
 		GroupLayout gl_panelStock = new GroupLayout(panelStock);
 		gl_panelStock.setHorizontalGroup(
 			gl_panelStock.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 429, Short.MAX_VALUE)
 				.addGroup(gl_panelStock.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelStock.createParallelGroup(Alignment.LEADING)
-						.addComponent(tableAllStock, GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
+						.addComponent(tableAllUser, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
 						.addGroup(gl_panelStock.createSequentialGroup()
-							.addComponent(labelListeStock)
+							.addComponent(label_1)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnAjouterDuStock)
+							.addComponent(button)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnCommanderDuStock)))
+							.addComponent(button_1)))
 					.addContainerGap())
 		);
 		gl_panelStock.setVerticalGroup(
 			gl_panelStock.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 208, Short.MAX_VALUE)
 				.addGroup(gl_panelStock.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelStock.createParallelGroup(Alignment.BASELINE)
-						.addComponent(labelListeStock)
-						.addComponent(btnAjouterDuStock)
-						.addComponent(btnCommanderDuStock))
+						.addComponent(label_1)
+						.addComponent(button)
+						.addComponent(button_1))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(tableAllStock, GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+					.addComponent(tableAllUser, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		panelStock.setLayout(gl_panelStock);
@@ -151,13 +170,15 @@ public class Stock {
 		GroupLayout gl_panelFacturation = new GroupLayout(panelFacturation);
 		gl_panelFacturation.setHorizontalGroup(
 			gl_panelFacturation.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 417, Short.MAX_VALUE)
+				.addGap(0, 429, Short.MAX_VALUE)
+				.addGap(0, 429, Short.MAX_VALUE)
 		);
 		gl_panelFacturation.setVerticalGroup(
 			gl_panelFacturation.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 213, Short.MAX_VALUE)
+				.addGap(0, 208, Short.MAX_VALUE)
+				.addGap(0, 208, Short.MAX_VALUE)
 		);
 		panelFacturation.setLayout(gl_panelFacturation);
-		frmIngeniousMedcare.getContentPane().setLayout(groupLayout);
+		
 	}
 }

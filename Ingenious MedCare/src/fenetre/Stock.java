@@ -4,7 +4,10 @@ import SQL.*;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 
 import model.buildTableModel;
@@ -30,15 +33,23 @@ import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JMenuBar;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Stock {
 
 	private JFrame frmIngeniousMedcare;
 	private JTable tableAllUser;
+	private ImageIcon iconDeconnexion = new ImageIcon(Stock.class.getResource("/img/deconnexion.png"));
 
 	/**
 	 * Launch the application.
@@ -69,14 +80,29 @@ public class Stock {
 	private void initialize() {
 		frmIngeniousMedcare = new JFrame();
 		frmIngeniousMedcare.setTitle("Ingenious MedCare - Stock");
-		frmIngeniousMedcare.setBounds(100, 100, 450, 300);
 		frmIngeniousMedcare.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		frmIngeniousMedcare.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
 		JMenuBar menuBar = new JMenuBar();
 		frmIngeniousMedcare.getContentPane().add(menuBar, BorderLayout.NORTH);
 		
-		JButton btnDeconnect = new JButton("DECONNECT");
+		Image img = iconDeconnexion.getImage();
+		Image newimg = img.getScaledInstance(35, 35, java.awt.Image.SCALE_SMOOTH);
+		iconDeconnexion = new ImageIcon(newimg);
+		
+		JButton btnDeconnect = new JButton(iconDeconnexion);
+		btnDeconnect.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Login login = new Login();
+				login.main(null);
+				frmIngeniousMedcare.dispose();
+			}
+		});
+		btnDeconnect.setBorder(BorderFactory.createEmptyBorder());
+		btnDeconnect.setContentAreaFilled(false);
 		menuBar.add(btnDeconnect);
+		
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		frmIngeniousMedcare.getContentPane().add(tabbedPane, BorderLayout.CENTER);

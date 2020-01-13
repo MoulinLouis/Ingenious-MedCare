@@ -145,7 +145,7 @@ public class Admin {
 		tabbedPane.addTab("Stock", null, panelStock, null);
 		
 		try {
-			tableAllStock = new JTable(buildTableModel.buildTableModel(StockManagement.getAllMedicalStock()));
+			tableAllStock = new JTable(buildTableModel.buildTableModel(StockManagement.getAllMedicalProduct()));
 			tableAllStock.setEnabled(false);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

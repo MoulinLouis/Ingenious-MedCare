@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+
 import javax.swing.JMenuBar;
 import javax.swing.JTabbedPane;
 import javax.swing.GroupLayout;
@@ -16,17 +18,23 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
+
 import java.awt.Window.Type;
 import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.Dialog.ModalityType;
 
 public class addProductForm {
 
-	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JDialog frmIngeniousMedcare;
+	private JTextField textFieldClassification;
+	private JTextField textFieldNom;
+	private JTextField textFieldSubstance;
+	private JTextField textFieldExcipient;
+	private JTextField textFieldConservation;
+	Toolkit toolkit = Toolkit.getDefaultToolkit();  
+	Dimension screenSize = toolkit.getScreenSize();
 
 	/**
 	 * Launch the application.
@@ -36,7 +44,7 @@ public class addProductForm {
 			public void run() {
 				try {
 					addProductForm window = new addProductForm();
-					window.frame.setVisible(true);
+					window.frmIngeniousMedcare.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -55,44 +63,57 @@ public class addProductForm {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setType(Type.POPUP);
-		frame.setResizable(false);
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmIngeniousMedcare = new JDialog();
+		frmIngeniousMedcare.setType(Type.POPUP);
+		frmIngeniousMedcare.setResizable(false);
+		frmIngeniousMedcare.setBounds(100, 100, 450, 300);
+		frmIngeniousMedcare.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		
+		frmIngeniousMedcare.setModalityType(ModalityType.APPLICATION_MODAL);
+		frmIngeniousMedcare.setResizable(false);
+		frmIngeniousMedcare.setType(Type.POPUP);
+		frmIngeniousMedcare.setTitle("Ingenious MedCare - Ajout Produit");
+		frmIngeniousMedcare.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		int x = (screenSize.width - frmIngeniousMedcare.getWidth()) / 2;  
+		int y = (screenSize.height - frmIngeniousMedcare.getHeight()) / 2;
+		frmIngeniousMedcare.setLocation(x, y);
 		
 		JPanel panel = new JPanel();
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
+		frmIngeniousMedcare.getContentPane().add(panel, BorderLayout.CENTER);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
+		textFieldNom = new JTextField();
+		textFieldNom.setColumns(10);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		textFieldClassification = new JTextField();
+		textFieldClassification.setColumns(10);
 		
 		JLabel lblNom = new JLabel("Nom");
 		
 		JLabel lblClassification = new JLabel("Classification");
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
+		textFieldSubstance = new JTextField();
+		textFieldSubstance.setColumns(10);
 		
 		JLabel lblSubstance = new JLabel("Substance");
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
+		textFieldExcipient = new JTextField();
+		textFieldExcipient.setColumns(10);
 		
 		JLabel lblExcipient = new JLabel("Excipient");
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
+		textFieldConservation = new JTextField();
+		textFieldConservation.setColumns(10);
 		
 		JLabel lblConservation = new JLabel("Conservation");
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox comboBoxToxicite = new JComboBox();
 		
 		JLabel lblAddProduct = new JLabel("Add Product");
 		lblAddProduct.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		
+		JButton btnAjouter = new JButton("Ajouter");
+		
+		JButton btnRetour = new JButton("Retour");
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -100,53 +121,78 @@ public class addProductForm {
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(75)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(textField_2)
-								.addComponent(lblClassification, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblNom, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField_1)
-								.addComponent(textField)
-								.addComponent(lblSubstance, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addGap(77)
-							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(comboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(textField_3, Alignment.LEADING)
-								.addComponent(textField_4, Alignment.LEADING)
-								.addComponent(lblConservation, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblExcipient, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(lblClassification, GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(lblNom, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(textFieldNom, 102, 102, 102)
+									.addPreferredGap(ComponentPlacement.RELATED))
+								.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+									.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+										.addComponent(textFieldClassification, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+										.addComponent(lblSubstance, GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE))
+									.addPreferredGap(ComponentPlacement.RELATED))
+								.addComponent(textFieldSubstance, 102, 102, 102))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+									.addComponent(textFieldExcipient, 173, 173, Short.MAX_VALUE)
+									.addComponent(lblExcipient, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+									.addGroup(gl_panel.createSequentialGroup()
+										.addGap(10)
+										.addComponent(lblConservation, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+										.addGap(17))
+									.addComponent(textFieldConservation, GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
+								.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+									.addComponent(comboBoxToxicite, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+									.addGap(38))))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(168)
 							.addComponent(lblAddProduct, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(102, Short.MAX_VALUE))
+					.addGap(90))
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(134)
+					.addComponent(btnRetour)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnAjouter)
+					.addContainerGap(168, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(26)
 					.addComponent(lblAddProduct)
-					.addGap(33)
+					.addGap(18)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNom)
 						.addComponent(lblExcipient))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(textFieldNom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textFieldExcipient, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblClassification)
 						.addComponent(lblConservation))
 					.addGap(3)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(textFieldClassification, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textFieldConservation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblSubstance)
-					.addGap(3)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(54, Short.MAX_VALUE))
+						.addComponent(textFieldSubstance, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(comboBoxToxicite, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnRetour)
+						.addComponent(btnAjouter))
+					.addContainerGap(31, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 	}

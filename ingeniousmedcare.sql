@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 18 déc. 2019 à 13:06
--- Version du serveur :  10.4.10-MariaDB
--- Version de PHP :  7.3.12
+-- Généré le :  lun. 13 jan. 2020 à 16:19
+-- Version du serveur :  5.7.26
+-- Version de PHP :  7.2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -23,6 +23,22 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `ingeniousmedcare` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
 USE `ingeniousmedcare`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `command`
+--
+
+DROP TABLE IF EXISTS `command`;
+CREATE TABLE IF NOT EXISTS `command` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id_medicalProduct` int(10) NOT NULL,
+  `quantity` int(10) NOT NULL,
+  `commandDate` date NOT NULL,
+  `status` int(10) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -49,11 +65,11 @@ INSERT INTO `doctor` (`id`, `name`, `firstName`, `specialization`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `medicalstock`
+-- Structure de la table `medicalproduct`
 --
 
-DROP TABLE IF EXISTS `medicalstock`;
-CREATE TABLE IF NOT EXISTS `medicalstock` (
+DROP TABLE IF EXISTS `medicalproduct`;
+CREATE TABLE IF NOT EXISTS `medicalproduct` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) COLLATE utf8_bin NOT NULL,
   `classification` varchar(255) COLLATE utf8_bin NOT NULL,
@@ -66,11 +82,24 @@ CREATE TABLE IF NOT EXISTS `medicalstock` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Déchargement des données de la table `medicalstock`
+-- Déchargement des données de la table `medicalproduct`
 --
 
-INSERT INTO `medicalstock` (`id`, `nom`, `classification`, `substance`, `excipient`, `conservation`, `toxicity`) VALUES
+INSERT INTO `medicalproduct` (`id`, `nom`, `classification`, `substance`, `excipient`, `conservation`, `toxicity`) VALUES
 (2, 'DOLIPRANE 1000 mg cp', 'ANALGESIQUES,PARACETAMOL', 'Paracétamol', 'povidone, amidon prégélatinisé, sodium carboxyméthylamidon, talc, magnésium stéarate', 'Avant ouverture : durant 36 mois', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `medicalstock`
+--
+
+DROP TABLE IF EXISTS `medicalstock`;
+CREATE TABLE IF NOT EXISTS `medicalstock` (
+  `id` int(11) NOT NULL,
+  `id_medicalProduct` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -210,9 +239,9 @@ INSERT INTO `user` (`id`, `login`, `email`, `password`, `name`, `firstName`, `id
 --
 
 --
--- Contraintes pour la table `medicalstock`
+-- Contraintes pour la table `medicalproduct`
 --
-ALTER TABLE `medicalstock`
+ALTER TABLE `medicalproduct`
   ADD CONSTRAINT `fk_toxicity` FOREIGN KEY (`toxicity`) REFERENCES `toxicity` (`id`);
 
 --

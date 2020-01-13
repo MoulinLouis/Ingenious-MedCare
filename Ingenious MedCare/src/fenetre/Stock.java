@@ -44,12 +44,17 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.BoxLayout;
+import java.awt.CardLayout;
 
 public class Stock {
 
 	private JFrame frmIngeniousMedcare;
 	private JTable tableAllUser;
 	private ImageIcon iconDeconnexion = new ImageIcon(Stock.class.getResource("/img/deconnexion.png"));
+	private JTable table_1;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -134,7 +139,7 @@ public class Stock {
 		tabbedPane.addTab("Stock", null, panelStock, null);
 		
 		try {
-			tableAllUser = new JTable(buildTableModel.buildTableModel(StockManagement.getAllMedicalStock()));
+			tableAllUser = new JTable(buildTableModel.buildTableModel(StockManagement.getAllMedicalProduct()));
 			tableAllUser.setEnabled(false);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -157,39 +162,93 @@ public class Stock {
 		
 		JLabel label_1 = new JLabel("Liste du stock");
 		
-		JButton button = new JButton("Ajouter du stock");
-		
 		JButton button_1 = new JButton("Commander du stock");
 		GroupLayout gl_panelStock = new GroupLayout(panelStock);
 		gl_panelStock.setHorizontalGroup(
 			gl_panelStock.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 429, Short.MAX_VALUE)
 				.addGroup(gl_panelStock.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelStock.createParallelGroup(Alignment.LEADING)
-						.addComponent(tableAllUser, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
 						.addGroup(gl_panelStock.createSequentialGroup()
 							.addComponent(label_1)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(button)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(button_1)))
+							.addGap(18)
+							.addComponent(button_1))
+						.addComponent(tableAllUser, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_panelStock.setVerticalGroup(
 			gl_panelStock.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 208, Short.MAX_VALUE)
 				.addGroup(gl_panelStock.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelStock.createParallelGroup(Alignment.BASELINE)
 						.addComponent(label_1)
-						.addComponent(button)
 						.addComponent(button_1))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(tableAllUser, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+					.addGap(11)
+					.addComponent(tableAllUser, GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		panelStock.setLayout(gl_panelStock);
+		
+		JPanel panelCommandes = new JPanel();
+		tabbedPane.addTab("New tab", null, panelCommandes, null);
+		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null, null},
+			},
+			new String[] {
+				"New column", "New column", "New column", "New column", "New column", "New column"
+			}
+		));
+		GroupLayout gl_panelCommandes = new GroupLayout(panelCommandes);
+		gl_panelCommandes.setHorizontalGroup(
+			gl_panelCommandes.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelCommandes.createSequentialGroup()
+					.addGap(10)
+					.addComponent(table, GroupLayout.PREFERRED_SIZE, 411, GroupLayout.PREFERRED_SIZE))
+		);
+		gl_panelCommandes.setVerticalGroup(
+			gl_panelCommandes.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelCommandes.createSequentialGroup()
+					.addGap(11)
+					.addComponent(table, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE))
+		);
+		panelCommandes.setLayout(gl_panelCommandes);
+		
+		JPanel panelMedicaments = new JPanel();
+		tabbedPane.addTab("Medicaments", null, panelMedicaments, null);
+		
+		table_1 = new JTable();
+		table_1.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+			},
+			new String[] {
+				"New column", "New column", "New column", "New column", "New column"
+			}
+		));
+		GroupLayout gl_panelMedicaments = new GroupLayout(panelMedicaments);
+		gl_panelMedicaments.setHorizontalGroup(
+			gl_panelMedicaments.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelMedicaments.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(table_1, GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		gl_panelMedicaments.setVerticalGroup(
+			gl_panelMedicaments.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panelMedicaments.createSequentialGroup()
+					.addContainerGap(20, Short.MAX_VALUE)
+					.addComponent(table_1, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+		);
+		panelMedicaments.setLayout(gl_panelMedicaments);
 		
 		JPanel panelFacturation = new JPanel();
 		tabbedPane.addTab("Facturation", null, panelFacturation, null);

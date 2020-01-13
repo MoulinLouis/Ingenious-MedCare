@@ -6,12 +6,12 @@ import java.sql.Statement;
 
 public class StockManagement extends SqlConnection{	
 	// Récupérer tous le stock médical
-	  public static  java.sql.ResultSet getAllMedicalStock() {
+	  public static  java.sql.ResultSet getAllMedicalProduct() {
 		  java.sql.ResultSet rs =null;
 			Connection cn = getInstance();
 			try {
 				Statement st = cn.createStatement();
-				String sql = "SELECT M.id, M.nom, M.classification, M.substance, M.excipient, M.conservation, M.toxicity FROM medicalstock AS M";
+				String sql = "SELECT M.id, M.nom, M.classification, M.substance, M.excipient, M.conservation, M.toxicity FROM medicalproduct AS M";
 				 rs = st.executeQuery(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -20,12 +20,12 @@ public class StockManagement extends SqlConnection{
 			return rs;		
 		}
 	  // Récupérer un médicament par rapport à son id unique
-	  public static  java.sql.ResultSet getMedicalStockById(int id) {
+	  public static  java.sql.ResultSet getMedicalProductById(int id) {
 		  java.sql.ResultSet rs =null;
 			Connection cn = getInstance();
 			try {
 				Statement st = cn.createStatement();
-				String sql = "SELECT M.id, M.nom, M.classification, M.substance, M.excipient, M.conservation, M.toxicity FROM medicalstock AS M WHERE M.id = " + id;
+				String sql = "SELECT M.id, M.nom, M.classification, M.substance, M.excipient, M.conservation, M.toxicity FROM medicalproduct AS M WHERE M.id = " + id;
 				 rs = st.executeQuery(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -34,7 +34,7 @@ public class StockManagement extends SqlConnection{
 			return rs;		
 		}
 	  
-	  public static  void createMedicalStock(String nom,String classification,String substance,String excipient,String conservation, String toxicity) {
+	  public static  void create(String nom,String classification,String substance,String excipient,String conservation, String toxicity) {
 			Connection cn = getInstance();
 			if (nom.isEmpty() || classification.isEmpty() || substance.isEmpty() || excipient.isEmpty() || conservation.isEmpty() || toxicity.isEmpty()) {
 				// A gérer une gestion d'erreur
@@ -43,7 +43,7 @@ public class StockManagement extends SqlConnection{
 			else {
 			try {
 				Statement st = cn.createStatement();
-				String sql = "INSERT INTO medicalstock (nom, classification, substance, excipient, conservation, quantity, cisCode, idToxicity) "
+				String sql = "INSERT INTO medicalproduct (nom, classification, substance, excipient, conservation, quantity, cisCode, idToxicity) "
 						+ "VALUES ('" + nom + "','" + classification + "','" + substance + "','" + excipient + "','" + conservation + "','" + toxicity + "')";
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
@@ -54,7 +54,7 @@ public class StockManagement extends SqlConnection{
 		}
 	  }
 	  
-	  public static  void updateMedicalStock(String id, String nom,String classification,String substance,String excipient,String conservation, String toxicity) {
+	  public static  void updateMedicalProduct(String id, String nom,String classification,String substance,String excipient,String conservation, String toxicity) {
 			Connection cn = getInstance();
 			if (id.isEmpty() || nom.isEmpty() || classification.isEmpty() || substance.isEmpty() || excipient.isEmpty() || conservation.isEmpty() || toxicity.isEmpty()) {
 				// A gérer une gestion d'erreur
@@ -63,7 +63,7 @@ public class StockManagement extends SqlConnection{
 			else {
 			try {
 				Statement st = cn.createStatement();
-				String sql = "UPDATE medicalstock SET nom='" + nom + "',classification='" + classification + "',substance='" + substance + "', excipient='" + excipient + "',conservation='" + conservation + "',toxicity='" + toxicity + "' WHERE id ='" + id + "'";
+				String sql = "UPDATE medicalproduct SET nom='" + nom + "',classification='" + classification + "',substance='" + substance + "', excipient='" + excipient + "',conservation='" + conservation + "',toxicity='" + toxicity + "' WHERE id ='" + id + "'";
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -73,7 +73,7 @@ public class StockManagement extends SqlConnection{
 		}
 	  }
 	  
-	  public static  void deleteMedicalStock(String id) {
+	  public static  void deleteMedicalProduct(String id) {
 			Connection cn = getInstance();
 			if (id.isEmpty()) {
 				// A gérer une gestion d'erreur
@@ -82,7 +82,7 @@ public class StockManagement extends SqlConnection{
 			else {
 			try {
 				Statement st = cn.createStatement();
-				String sql = "DELETE FROM medicalstock WHERE id='" + id + "'";
+				String sql = "DELETE FROM medicalproduct WHERE id='" + id + "'";
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

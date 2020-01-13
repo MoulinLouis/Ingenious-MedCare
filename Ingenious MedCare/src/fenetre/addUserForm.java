@@ -139,7 +139,8 @@ public class addUserForm {
 				} else if(radioBtnAdministratif.isSelected()) {
 					radioBtnSelected = "1";
 				}
-				UserManagement.createUser(fieldLogin.getText(), fieldEmail.getText(), fieldMdp.getText(), fieldNom.getText(), fieldPrenom.getText(), radioBtnSelected, frmIngeniousMedcare);
+				UserManagement.createUser(fieldLogin.getText(), fieldEmail.getText(), fieldMdp.getText(), fieldNom.getText(), fieldPrenom.getText(), radioBtnSelected);
+				frmIngeniousMedcare.dispose();
 			}
 		});
 		

@@ -113,7 +113,6 @@ public class Admin {
 			public void mouseClicked(MouseEvent e) {
 				addUserForm addUserForm = new addUserForm();
 				addUserForm.main(null);
-				frmIngeniousMedcare.dispose();
 			}
 		});
 		GroupLayout gl_panelUtilisateur = new GroupLayout(panelUtilisateur);

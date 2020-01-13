@@ -18,16 +18,20 @@ import java.awt.Font;
 import java.awt.Toolkit;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.Field;
 import javax.swing.ImageIcon;
+import java.awt.Window.Type;
+import java.awt.Dialog.ModalityType;
+import java.awt.Dialog.ModalExclusionType;
 
 public class addUserForm {
 
-	private JFrame frmIngeniousMedcare;
+	private JDialog frmIngeniousMedcare;
 	private JTextField fieldLogin;
 	private JTextField fieldEmail;
 	private JLabel lblEmail;
@@ -68,10 +72,13 @@ public class addUserForm {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmIngeniousMedcare = new JFrame();
+		frmIngeniousMedcare = new JDialog();
+		frmIngeniousMedcare.setModalityType(ModalityType.APPLICATION_MODAL);
+		frmIngeniousMedcare.setResizable(false);
+		frmIngeniousMedcare.setType(Type.POPUP);
 		frmIngeniousMedcare.setTitle("Ingenious MedCare - Ajout d'utilisateur");
 		frmIngeniousMedcare.setBounds(100, 100, 450, 300);
-		frmIngeniousMedcare.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmIngeniousMedcare.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		int x = (screenSize.width - frmIngeniousMedcare.getWidth()) / 2;  
 		int y = (screenSize.height - frmIngeniousMedcare.getHeight()) / 2;
 		frmIngeniousMedcare.setLocation(x, y); 
@@ -142,8 +149,6 @@ public class addUserForm {
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Admin admin = new Admin();
-				admin.main(null);
 				frmIngeniousMedcare.dispose();
 			}
 		});

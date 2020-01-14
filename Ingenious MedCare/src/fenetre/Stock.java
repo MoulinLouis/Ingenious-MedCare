@@ -51,9 +51,9 @@ import java.awt.CardLayout;
 public class Stock {
 
 	private JFrame frmIngeniousMedcare;
-	private JTable tableAllUser;
+	private JTable tableStock;
 	private ImageIcon iconDeconnexion = new ImageIcon(Stock.class.getResource("/img/deconnexion.png"));
-	private JTable table_1;
+	private JTable tableCommand;
 	private JTable table;
 
 	/**
@@ -139,19 +139,19 @@ public class Stock {
 		tabbedPane.addTab("Stock", null, panelStock, null);
 		
 		try {
-			tableAllUser = new JTable(buildTableModel.buildTableModel(StockManagement.getAllMedicalProduct()));
-			tableAllUser.setEnabled(false);
+			tableStock = new JTable(buildTableModel.buildTableModel(StockManagement.getAllMedicalProduct()));
+			tableStock.setEnabled(false);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		tableAllUser.addMouseListener(new java.awt.event.MouseAdapter() {
+		tableStock.addMouseListener(new java.awt.event.MouseAdapter() {
 		    @Override
 		    public void mouseClicked(java.awt.event.MouseEvent evt) {
-		    	int index = tableAllUser.getSelectedRow();
-		        int row = tableAllUser.rowAtPoint(evt.getPoint());
-		        int col = tableAllUser.columnAtPoint(evt.getPoint());
+		    	int index = tableStock.getSelectedRow();
+		        int row = tableStock.rowAtPoint(evt.getPoint());
+		        int col = tableStock.columnAtPoint(evt.getPoint());
 		        if (row >= 0 && col >= 0) {
 		           System.out.print(index);
 		           System.out.print(row);
@@ -173,7 +173,7 @@ public class Stock {
 							.addComponent(label_1)
 							.addGap(18)
 							.addComponent(button_1))
-						.addComponent(tableAllUser, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE))
+						.addComponent(tableStock, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_panelStock.setVerticalGroup(
@@ -184,7 +184,7 @@ public class Stock {
 						.addComponent(label_1)
 						.addComponent(button_1))
 					.addGap(11)
-					.addComponent(tableAllUser, GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+					.addComponent(tableStock, GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		panelStock.setLayout(gl_panelStock);
@@ -219,8 +219,8 @@ public class Stock {
 		JPanel panelMedicaments = new JPanel();
 		tabbedPane.addTab("Medicaments", null, panelMedicaments, null);
 		
-		table_1 = new JTable();
-		table_1.setModel(new DefaultTableModel(
+		tableCommand = new JTable();
+		tableCommand.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null, null, null},
 				{null, null, null, null, null},
@@ -238,14 +238,14 @@ public class Stock {
 			gl_panelMedicaments.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelMedicaments.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(table_1, GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
+					.addComponent(tableCommand, GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		gl_panelMedicaments.setVerticalGroup(
 			gl_panelMedicaments.createParallelGroup(Alignment.LEADING)
 				.addGroup(Alignment.TRAILING, gl_panelMedicaments.createSequentialGroup()
 					.addContainerGap(20, Short.MAX_VALUE)
-					.addComponent(table_1, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
+					.addComponent(tableCommand, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		panelMedicaments.setLayout(gl_panelMedicaments);

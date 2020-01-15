@@ -162,7 +162,14 @@ public class Stock {
 		
 		JLabel label_1 = new JLabel("Liste du stock");
 		
-		JButton button_1 = new JButton("Commander du stock");
+		JButton buttonCommande = new JButton("Commander du stock");
+		buttonCommande.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				addOrderForm addOrderForm = new addOrderForm();
+				addOrderForm.main(null);
+			}
+		});
 		GroupLayout gl_panelStock = new GroupLayout(panelStock);
 		gl_panelStock.setHorizontalGroup(
 			gl_panelStock.createParallelGroup(Alignment.LEADING)
@@ -172,7 +179,7 @@ public class Stock {
 						.addGroup(gl_panelStock.createSequentialGroup()
 							.addComponent(label_1)
 							.addGap(18)
-							.addComponent(button_1))
+							.addComponent(buttonCommande))
 						.addComponent(tableStock, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE))
 					.addContainerGap())
 		);
@@ -182,7 +189,7 @@ public class Stock {
 					.addContainerGap()
 					.addGroup(gl_panelStock.createParallelGroup(Alignment.BASELINE)
 						.addComponent(label_1)
-						.addComponent(button_1))
+						.addComponent(buttonCommande))
 					.addGap(11)
 					.addComponent(tableStock, GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
 					.addContainerGap())
@@ -190,7 +197,7 @@ public class Stock {
 		panelStock.setLayout(gl_panelStock);
 		
 		JPanel panelCommandes = new JPanel();
-		tabbedPane.addTab("New tab", null, panelCommandes, null);
+		tabbedPane.addTab("Commandes", null, panelCommandes, null);
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(

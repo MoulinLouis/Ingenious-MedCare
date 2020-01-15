@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 13 jan. 2020 à 16:19
--- Version du serveur :  5.7.26
--- Version de PHP :  7.2.18
+-- Hôte : 127.0.0.1
+-- Généré le :  mer. 15 jan. 2020 à 16:25
+-- Version du serveur :  10.4.11-MariaDB
+-- Version de PHP :  7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -27,33 +27,15 @@ USE `ingeniousmedcare`;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `command`
---
-
-DROP TABLE IF EXISTS `command`;
-CREATE TABLE IF NOT EXISTS `command` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `id_medicalProduct` int(10) NOT NULL,
-  `quantity` int(10) NOT NULL,
-  `commandDate` date NOT NULL,
-  `status` int(10) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `doctor`
 --
 
-DROP TABLE IF EXISTS `doctor`;
-CREATE TABLE IF NOT EXISTS `doctor` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `doctor` (
+  `id` int(10) NOT NULL,
   `name` varchar(255) COLLATE utf8_bin NOT NULL,
   `firstName` varchar(255) COLLATE utf8_bin NOT NULL,
-  `specialization` varchar(255) COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `specialization` varchar(255) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `doctor`
@@ -68,18 +50,15 @@ INSERT INTO `doctor` (`id`, `name`, `firstName`, `specialization`) VALUES
 -- Structure de la table `medicalproduct`
 --
 
-DROP TABLE IF EXISTS `medicalproduct`;
-CREATE TABLE IF NOT EXISTS `medicalproduct` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `medicalproduct` (
+  `id` int(11) NOT NULL,
   `nom` varchar(255) COLLATE utf8_bin NOT NULL,
   `classification` varchar(255) COLLATE utf8_bin NOT NULL,
   `substance` varchar(255) COLLATE utf8_bin NOT NULL,
   `excipient` varchar(255) COLLATE utf8_bin NOT NULL,
   `conservation` varchar(255) COLLATE utf8_bin NOT NULL,
-  `toxicity` int(10) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `toxicity` (`toxicity`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `toxicity` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `medicalproduct`
@@ -94,8 +73,7 @@ INSERT INTO `medicalproduct` (`id`, `nom`, `classification`, `substance`, `excip
 -- Structure de la table `medicalstock`
 --
 
-DROP TABLE IF EXISTS `medicalstock`;
-CREATE TABLE IF NOT EXISTS `medicalstock` (
+CREATE TABLE `medicalstock` (
   `id` int(11) NOT NULL,
   `id_medicalProduct` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
@@ -104,12 +82,25 @@ CREATE TABLE IF NOT EXISTS `medicalstock` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(10) NOT NULL,
+  `id_medicalProduct` int(10) NOT NULL,
+  `quantity` int(10) NOT NULL,
+  `commandDate` date NOT NULL,
+  `status` int(10) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `patient`
 --
 
-DROP TABLE IF EXISTS `patient`;
-CREATE TABLE IF NOT EXISTS `patient` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `patient` (
+  `id` int(10) NOT NULL,
   `name` varchar(255) COLLATE utf8_bin NOT NULL,
   `firstName` varchar(255) COLLATE utf8_bin NOT NULL,
   `birthDate` date NOT NULL,
@@ -128,9 +119,8 @@ CREATE TABLE IF NOT EXISTS `patient` (
   `bloodGroup` varchar(2) COLLATE utf8_bin NOT NULL,
   `pathology` varchar(255) COLLATE utf8_bin NOT NULL,
   `note` varchar(255) COLLATE utf8_bin NOT NULL,
-  `familyDoctor` varchar(255) COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `familyDoctor` varchar(255) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `patient`
@@ -145,15 +135,12 @@ INSERT INTO `patient` (`id`, `name`, `firstName`, `birthDate`, `email`, `gender`
 -- Structure de la table `planning`
 --
 
-DROP TABLE IF EXISTS `planning`;
-CREATE TABLE IF NOT EXISTS `planning` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `planning` (
+  `id` int(10) NOT NULL,
   `dateTimeStart` datetime NOT NULL,
   `dateTimeEnd` datetime NOT NULL,
-  `doctorId` int(10) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `doctorId` (`doctorId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `doctorId` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `planning`
@@ -168,12 +155,10 @@ INSERT INTO `planning` (`id`, `dateTimeStart`, `dateTimeEnd`, `doctorId`) VALUES
 -- Structure de la table `role`
 --
 
-DROP TABLE IF EXISTS `role`;
-CREATE TABLE IF NOT EXISTS `role` (
-  `idRole` int(10) NOT NULL AUTO_INCREMENT,
-  `nomRole` varchar(255) COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`idRole`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+CREATE TABLE `role` (
+  `idRole` int(10) NOT NULL,
+  `nomRole` varchar(255) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `role`
@@ -189,12 +174,10 @@ INSERT INTO `role` (`idRole`, `nomRole`) VALUES
 -- Structure de la table `toxicity`
 --
 
-DROP TABLE IF EXISTS `toxicity`;
-CREATE TABLE IF NOT EXISTS `toxicity` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(255) COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+CREATE TABLE `toxicity` (
+  `id` int(10) NOT NULL,
+  `libelle` varchar(255) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `toxicity`
@@ -213,18 +196,15 @@ INSERT INTO `toxicity` (`id`, `libelle`) VALUES
 -- Structure de la table `user`
 --
 
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user` (
+  `id` int(10) NOT NULL,
   `login` varchar(255) COLLATE utf8_bin NOT NULL,
   `email` varchar(255) COLLATE utf8_bin NOT NULL,
   `password` varchar(255) COLLATE utf8_bin NOT NULL,
   `name` varchar(255) COLLATE utf8_bin NOT NULL,
   `firstName` varchar(255) COLLATE utf8_bin NOT NULL,
-  `idRole` int(10) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idRole` (`idRole`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `idRole` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `user`
@@ -233,6 +213,113 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`id`, `login`, `email`, `password`, `name`, `firstName`, `idRole`) VALUES
 (1, 's', 's@s', 's', 'Elodie', 'Surupi', 2),
 (2, 'a', 'a@a', 'a', 'Jean', 'Dupilon', 1);
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `doctor`
+--
+ALTER TABLE `doctor`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `medicalproduct`
+--
+ALTER TABLE `medicalproduct`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `toxicity` (`toxicity`);
+
+--
+-- Index pour la table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `patient`
+--
+ALTER TABLE `patient`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `planning`
+--
+ALTER TABLE `planning`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `doctorId` (`doctorId`);
+
+--
+-- Index pour la table `role`
+--
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`idRole`);
+
+--
+-- Index pour la table `toxicity`
+--
+ALTER TABLE `toxicity`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idRole` (`idRole`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `doctor`
+--
+ALTER TABLE `doctor`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `medicalproduct`
+--
+ALTER TABLE `medicalproduct`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT pour la table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `patient`
+--
+ALTER TABLE `patient`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `planning`
+--
+ALTER TABLE `planning`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `role`
+--
+ALTER TABLE `role`
+  MODIFY `idRole` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT pour la table `toxicity`
+--
+ALTER TABLE `toxicity`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT pour la table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Contraintes pour les tables déchargées

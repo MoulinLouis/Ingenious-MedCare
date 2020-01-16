@@ -141,7 +141,7 @@ public class Stock {
 		tabbedPane.addTab("Stock", null, panelStock, null);
 		
 		try {
-			tableStock = new JTable(buildTableModel.buildTableModel(ProductManagement.getAllMedicalProduct()));
+			tableStock = new JTable(buildTableModel.buildTableModel(StockManagement.getAllMedicalStock()));
 			tableStock.setEnabled(false);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -204,7 +204,7 @@ public class Stock {
 		JLabel lblListeDesCommandes = new JLabel("Liste des commandes");
 		
 		try {
-			table = new JTable(buildTableModel.buildTableModel(ProductManagement.getAllMedicalProduct()));
+			table = new JTable(buildTableModel.buildTableModel(OrdersManagement.getAllOrders()));
 		} catch (SQLException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();

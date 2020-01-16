@@ -23,7 +23,7 @@ public class OrdersManagement extends SqlConnection{
 			return rs;		
 		}
 	  // Récupérer une commande par rapport à son id unique
-	  public static  java.sql.ResultSet getMedicalProductById(int id) {
+	  public static  java.sql.ResultSet getOrdersById(int id) {
 		  java.sql.ResultSet rs =null;
 			Connection cn = getInstance();
 			try {
@@ -63,7 +63,7 @@ public class OrdersManagement extends SqlConnection{
 		}
 	  }
 	  
-	  public static  void updateMedicalProduct(String id, String id_medicalProduct,String quantity,String orderDate,String status) {
+	  public static  void updateOrders(String id, String id_medicalProduct,String quantity,String orderDate,String status) {
 			Connection cn = getInstance();
 			if (id.isEmpty() || id_medicalProduct.isEmpty() || quantity.isEmpty() || orderDate.isEmpty() || status.isEmpty()) {
 				// A gérer une gestion d'erreur
@@ -82,7 +82,7 @@ public class OrdersManagement extends SqlConnection{
 		}
 	  }
 	  
-	  public static  void deleteMedicalProduct(String id) {
+	  public static  void deleteOrders(String id) {
 			Connection cn = getInstance();
 			if (id.isEmpty()) {
 				// A gérer une gestion d'erreur

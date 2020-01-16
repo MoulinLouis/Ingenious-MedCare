@@ -7,7 +7,7 @@ import java.sql.Statement;
 public class StockManagement extends SqlConnection{	
 	
 	// Récupérer tous le stock médical
-	  public static  java.sql.ResultSet getAllMedicalProduct() {
+	  public static  java.sql.ResultSet getAllMedicalStock() {
 		  java.sql.ResultSet rs =null;
 			Connection cn = getInstance();
 			try {
@@ -21,7 +21,7 @@ public class StockManagement extends SqlConnection{
 			return rs;		
 		}
 	  // Récupérer un médicament par rapport à son id unique
-	  public static  java.sql.ResultSet getMedicalProductById(int id) {
+	  public static  java.sql.ResultSet getMedicalStockById(int id) {
 		  java.sql.ResultSet rs =null;
 			Connection cn = getInstance();
 			try {
@@ -55,7 +55,7 @@ public class StockManagement extends SqlConnection{
 		}
 	  }
 	  
-	  public static  void updateMedicalProduct(String id, String id_medicalProduct,String quantity) {
+	  public static  void updateMedicalStock(String id, String id_medicalProduct,String quantity) {
 			Connection cn = getInstance();
 			if (id.isEmpty() || id_medicalProduct.isEmpty() || quantity.isEmpty()) {
 				// A gérer une gestion d'erreur
@@ -74,7 +74,7 @@ public class StockManagement extends SqlConnection{
 		}
 	  }
 	  
-	  public static  void deleteMedicalProduct(String id) {
+	  public static  void deleteMedicalStock(String id) {
 			Connection cn = getInstance();
 			if (id.isEmpty()) {
 				// A gérer une gestion d'erreur

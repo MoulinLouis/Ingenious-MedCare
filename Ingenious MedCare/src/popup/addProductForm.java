@@ -17,6 +17,7 @@ import javax.swing.table.TableModel;
 
 import SQL.ProductManagement;
 import SQL.SqlConnection;
+import SQL.UserManagement;
 
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -116,7 +117,7 @@ public class addProductForm {
 		
 		JLabel lblConservation = new JLabel("Conservation");
 		
-		JComboBox comboBoxToxicite = new JComboBox();
+		JComboBox comboBoxToxicity = new JComboBox();
 		
 		 try
 		 {
@@ -128,19 +129,26 @@ public class addProductForm {
 			while (rs.next())
 			{
 			        //Pour affecter une valeur de base de données à un Combobox 
-				comboBoxToxicite.addItem(rs.getString("libelle"));
+				comboBoxToxicity.addItem(rs.getString("libelle"));
 			}
 		 } 
 		    catch
 			(Exception e)
 			{
-			            System.out.print("impossible de se connecter à la base");
+			   System.out.print("impossible de se connecter à la base");
 			}
 		
 		JLabel lblAddProduct = new JLabel("Add Product");
 		lblAddProduct.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JButton btnAjouter = new JButton("Ajouter");
+		btnAjouter.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				ProductManagement.create(textFieldNom.getText(), textFieldClassification.getText(), textFieldSubstance.getText(), textFieldExcipient.getText(), textFieldConservation.getText(), comboBoxToxicity.getSelectedItem().toString());
+				frmIngeniousMedcare.dispose();
+			}
+		});
 		
 		JButton btnRetour = new JButton("Retour");
 		btnRetour.addMouseListener(new MouseAdapter() {
@@ -176,7 +184,7 @@ public class addProductForm {
 										.addGap(17))
 									.addComponent(textFieldConservation, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
 									.addGroup(gl_panel.createSequentialGroup()
-										.addComponent(comboBoxToxicite, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+										.addComponent(comboBoxToxicity, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
 										.addGap(38)))
 								.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
 									.addComponent(lblNewLabel)
@@ -220,7 +228,7 @@ public class addProductForm {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(textFieldSubstance, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(comboBoxToxicite, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(comboBoxToxicity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnRetour)

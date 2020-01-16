@@ -3,6 +3,7 @@ package SQL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 public class ProductManagement extends SqlConnection{	
 	
@@ -36,22 +37,27 @@ public class ProductManagement extends SqlConnection{
 		}
 	  
 	  public static  void create(String nom,String classification,String substance,String excipient,String conservation, String toxicity) {
-			Connection cn = getInstance();
+		  	java.sql.ResultSet rs =null;
+		  	Connection cn = getInstance();
 			if (nom.isEmpty() || classification.isEmpty() || substance.isEmpty() || excipient.isEmpty() || conservation.isEmpty() || toxicity.isEmpty()) {
 				// A gérer une gestion d'erreur
 				System.out.print("Tous les champs ne sont pas remplis");
 			}
 			else {
 			try {
+				
 				Statement st = cn.createStatement();
-				String sql = "INSERT INTO medicalproduct (nom, classification, substance, excipient, conservation, quantity, cisCode, idToxicity) "
-						+ "VALUES ('" + nom + "','" + classification + "','" + substance + "','" + excipient + "','" + conservation + "','" + toxicity + "')";
+				String sqlRecup = "SELECT T.id FROM toxicity AS T WHERE T.libelle ="+"'"+toxicity+"'";
+				rs = st.executeQuery(sqlRecup);
+			    rs.next();
+			    String idToxicity = rs.getString("id");
+				String sql = "INSERT INTO medicalproduct (nom, classification, substance, excipient, conservation, toxicity) "
+						+ "VALUES ('" + nom + "','" + classification + "','" + substance + "','" + excipient + "','" + conservation + "','" + idToxicity + "')";
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}		
-			
 		}
 	  }
 	  

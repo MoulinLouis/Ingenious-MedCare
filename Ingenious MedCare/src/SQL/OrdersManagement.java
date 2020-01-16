@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 public class OrdersManagement extends SqlConnection{	
 	
@@ -37,8 +38,8 @@ public class OrdersManagement extends SqlConnection{
 		}
 	  
 	  public static  void create(String nameProduct,String quantity) {
-		  	ResultSet rs;
-		  	long oderDate = System.currentTimeMillis();
+		  	java.sql.ResultSet rs =null;
+		  	LocalDate oderDate = LocalDate.now();
 			Connection cn = getInstance();
 			if (nameProduct.isEmpty() || quantity.isEmpty()) {
 				// A gérer une gestion d'erreur
@@ -47,10 +48,12 @@ public class OrdersManagement extends SqlConnection{
 			else {
 			try {
 				Statement st = cn.createStatement();
-				String sqlRecup = "SELECT M.id FROM medicalproduct AS M WHERE M.nom = " + nameProduct;
+				String sqlRecup = "SELECT M.id FROM medicalproduct AS M WHERE M.nom ="+"'"+nameProduct+"'";
 				rs = st.executeQuery(sqlRecup);
+			    rs.next();
+			    String idMedicalProduct = rs.getString("id");
 				String sql = "INSERT INTO orders (id_medicalProduct, quantity, orderDate) "
-						+ "VALUES ('" + rs + "','" + quantity + "','" + oderDate + "')";
+						+ "VALUES ('" + idMedicalProduct + "','" + quantity + "','" + oderDate + "')";
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

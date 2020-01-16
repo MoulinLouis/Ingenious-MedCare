@@ -112,6 +112,7 @@ public class addOrderForm {
 					System.out.print("Un des champs est vide");
 				} else {
 					OrdersManagement.create(comboBoxProduct.getSelectedItem().toString(), textFieldQuantity.getText());
+					frmIngeniousMedcare.dispose();
 				}
 			}
 		});

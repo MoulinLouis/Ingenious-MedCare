@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mer. 15 jan. 2020 à 16:25
+-- Généré le :  jeu. 16 jan. 2020 à 12:02
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP :  7.4.1
 
@@ -89,7 +89,7 @@ CREATE TABLE `orders` (
   `id` int(10) NOT NULL,
   `id_medicalProduct` int(10) NOT NULL,
   `quantity` int(10) NOT NULL,
-  `commandDate` date NOT NULL,
+  `orderDate` date NOT NULL,
   `status` int(10) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 

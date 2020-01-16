@@ -8,6 +8,7 @@ import javax.swing.GroupLayout.Alignment;
 
 import SQL.UserManagement;
 import model.buildTableModel;
+import popup.addUserForm;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
@@ -145,7 +146,7 @@ public class Admin {
 		tabbedPane.addTab("Stock", null, panelStock, null);
 		
 		try {
-			tableAllStock = new JTable(buildTableModel.buildTableModel(StockManagement.getAllMedicalProduct()));
+			tableAllStock = new JTable(buildTableModel.buildTableModel(ProductManagement.getAllMedicalProduct()));
 			tableAllStock.setEnabled(false);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

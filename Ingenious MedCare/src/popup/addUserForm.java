@@ -1,4 +1,4 @@
-package fenetre;
+package popup;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;

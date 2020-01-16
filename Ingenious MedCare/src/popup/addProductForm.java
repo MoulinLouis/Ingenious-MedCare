@@ -14,6 +14,10 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
+
+import SQL.ProductManagement;
+import SQL.SqlConnection;
+
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
@@ -21,9 +25,15 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 
 import java.awt.Window.Type;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.Dialog.ModalityType;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class addProductForm {
 
@@ -108,12 +118,39 @@ public class addProductForm {
 		
 		JComboBox comboBoxToxicite = new JComboBox();
 		
+		 try
+		 {
+			java.sql.ResultSet rs = null;
+			Connection cn = SqlConnection.getInstance();
+			Statement st = cn.createStatement();
+			String sql = "SELECT T.libelle FROM toxicity AS T";
+			rs = st.executeQuery(sql);
+			while (rs.next())
+			{
+			        //Pour affecter une valeur de base de données à un Combobox 
+				comboBoxToxicite.addItem(rs.getString("libelle"));
+			}
+		 } 
+		    catch
+			(Exception e)
+			{
+			            System.out.print("impossible de se connecter à la base");
+			}
+		
 		JLabel lblAddProduct = new JLabel("Add Product");
 		lblAddProduct.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JButton btnAjouter = new JButton("Ajouter");
 		
 		JButton btnRetour = new JButton("Retour");
+		btnRetour.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				frmIngeniousMedcare.dispose();
+			}
+		});
+		
+		JLabel lblNewLabel = new JLabel("Toxicit\u00E9");
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -121,35 +158,29 @@ public class addProductForm {
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(75)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblClassification, GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.RELATED))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblNom, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(textFieldNom, 102, 102, 102)
-									.addPreferredGap(ComponentPlacement.RELATED))
-								.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-									.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-										.addComponent(textFieldClassification, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-										.addComponent(lblSubstance, GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE))
-									.addPreferredGap(ComponentPlacement.RELATED))
+							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+								.addComponent(lblClassification, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+								.addComponent(lblNom, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textFieldNom, 102, 102, 102)
+								.addComponent(textFieldClassification, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+								.addComponent(lblSubstance, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
 								.addComponent(textFieldSubstance, 102, 102, 102))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-									.addComponent(textFieldExcipient, 173, 173, Short.MAX_VALUE)
-									.addComponent(lblExcipient, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-									.addGroup(gl_panel.createSequentialGroup()
+								.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+									.addComponent(textFieldExcipient, Alignment.LEADING, 173, 173, Short.MAX_VALUE)
+									.addComponent(lblExcipient, GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+									.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
 										.addGap(10)
 										.addComponent(lblConservation, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
 										.addGap(17))
-									.addComponent(textFieldConservation, GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
+									.addComponent(textFieldConservation, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+									.addGroup(gl_panel.createSequentialGroup()
+										.addComponent(comboBoxToxicite, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+										.addGap(38)))
 								.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-									.addComponent(comboBoxToxicite, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
-									.addGap(38))))
+									.addComponent(lblNewLabel)
+									.addGap(61))))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(168)
 							.addComponent(lblAddProduct, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)))
@@ -159,7 +190,7 @@ public class addProductForm {
 					.addComponent(btnRetour)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnAjouter)
-					.addContainerGap(168, Short.MAX_VALUE))
+					.addContainerGap(166, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -183,7 +214,9 @@ public class addProductForm {
 						.addComponent(textFieldClassification, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(textFieldConservation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblSubstance)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblSubstance)
+						.addComponent(lblNewLabel))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(textFieldSubstance, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -192,7 +225,7 @@ public class addProductForm {
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnRetour)
 						.addComponent(btnAjouter))
-					.addContainerGap(31, Short.MAX_VALUE))
+					.addContainerGap(44, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 	}

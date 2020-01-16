@@ -60,16 +60,16 @@ public class OrdersManagement extends SqlConnection{
 		}
 	  }
 	  
-	  public static  void updateMedicalProduct(String id, String nom,String classification,String substance,String excipient,String conservation, String toxicity) {
+	  public static  void updateMedicalProduct(String id, String id_medicalProduct,String quantity,String orderDate,String status) {
 			Connection cn = getInstance();
-			if (id.isEmpty() || nom.isEmpty() || classification.isEmpty() || substance.isEmpty() || excipient.isEmpty() || conservation.isEmpty() || toxicity.isEmpty()) {
+			if (id.isEmpty() || id_medicalProduct.isEmpty() || quantity.isEmpty() || orderDate.isEmpty() || status.isEmpty()) {
 				// A gérer une gestion d'erreur
 				System.out.print("Tous les champs ne sont pas remplis");
 			}
 			else {
 			try {
 				Statement st = cn.createStatement();
-				String sql = "UPDATE medicalproduct SET nom='" + nom + "',classification='" + classification + "',substance='" + substance + "', excipient='" + excipient + "',conservation='" + conservation + "',toxicity='" + toxicity + "' WHERE id ='" + id + "'";
+				String sql = "UPDATE orders SET id_medicalProduct='" + id_medicalProduct + "',quantity='" + quantity + "',orderDate='" + orderDate + "', status='" + status + "' WHERE id ='" + id + "'";
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -88,7 +88,7 @@ public class OrdersManagement extends SqlConnection{
 			else {
 			try {
 				Statement st = cn.createStatement();
-				String sql = "DELETE FROM medicalproduct WHERE id='" + id + "'";
+				String sql = "DELETE FROM orders WHERE id='" + id + "'";
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

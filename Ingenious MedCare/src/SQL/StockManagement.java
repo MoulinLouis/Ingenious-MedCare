@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ProductManagement extends SqlConnection{	
+public class StockManagement extends SqlConnection{	
 	
 	// Récupérer tous le stock médical
 	  public static  java.sql.ResultSet getAllMedicalProduct() {
@@ -12,7 +12,7 @@ public class ProductManagement extends SqlConnection{
 			Connection cn = getInstance();
 			try {
 				Statement st = cn.createStatement();
-				String sql = "SELECT P.id, P.nom, P.classification, P.substance, P.excipient, P.conservation, P.toxicity FROM medicalproduct AS P";
+				String sql = "SELECT S.id, S.id_medicalProduct, S.quantity FROM medicalstock AS S";
 				 rs = st.executeQuery(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -26,7 +26,7 @@ public class ProductManagement extends SqlConnection{
 			Connection cn = getInstance();
 			try {
 				Statement st = cn.createStatement();
-				String sql = "SELECT P.id, P.nom, P.classification, P.substance, P.excipient, P.conservation, P.toxicity FROM medicalproduct AS P WHERE P.id = " + id;
+				String sql = "SELECT S.id, S.medicalProduct, S.quantity FROM medicalstock AS S WHERE S.id = " + id;
 				 rs = st.executeQuery(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -35,17 +35,17 @@ public class ProductManagement extends SqlConnection{
 			return rs;		
 		}
 	  
-	  public static  void create(String nom,String classification,String substance,String excipient,String conservation, String toxicity) {
+	  public static  void create(String id_medicalProduct,String quantity) {
 			Connection cn = getInstance();
-			if (nom.isEmpty() || classification.isEmpty() || substance.isEmpty() || excipient.isEmpty() || conservation.isEmpty() || toxicity.isEmpty()) {
+			if (id_medicalProduct.isEmpty() || quantity.isEmpty()) {
 				// A gérer une gestion d'erreur
 				System.out.print("Tous les champs ne sont pas remplis");
 			}
 			else {
 			try {
 				Statement st = cn.createStatement();
-				String sql = "INSERT INTO medicalproduct (nom, classification, substance, excipient, conservation, quantity, cisCode, idToxicity) "
-						+ "VALUES ('" + nom + "','" + classification + "','" + substance + "','" + excipient + "','" + conservation + "','" + toxicity + "')";
+				String sql = "INSERT INTO medicalstock (id_medicalProduct, quantity) "
+						+ "VALUES ('" + id_medicalProduct + "','" + quantity + "')";
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -55,16 +55,16 @@ public class ProductManagement extends SqlConnection{
 		}
 	  }
 	  
-	  public static  void updateMedicalProduct(String id, String nom,String classification,String substance,String excipient,String conservation, String toxicity) {
+	  public static  void updateMedicalProduct(String id, String id_medicalProduct,String quantity) {
 			Connection cn = getInstance();
-			if (id.isEmpty() || nom.isEmpty() || classification.isEmpty() || substance.isEmpty() || excipient.isEmpty() || conservation.isEmpty() || toxicity.isEmpty()) {
+			if (id.isEmpty() || id_medicalProduct.isEmpty() || quantity.isEmpty()) {
 				// A gérer une gestion d'erreur
 				System.out.print("Tous les champs ne sont pas remplis");
 			}
 			else {
 			try {
 				Statement st = cn.createStatement();
-				String sql = "UPDATE medicalproduct SET nom='" + nom + "',classification='" + classification + "',substance='" + substance + "', excipient='" + excipient + "',conservation='" + conservation + "',toxicity='" + toxicity + "' WHERE id ='" + id + "'";
+				String sql = "UPDATE medicalstock SET id_medicalProduct='" + id_medicalProduct + "',quantity='" + quantity + "' WHERE id ='" + id + "'";
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

@@ -8,7 +8,7 @@ import javax.swing.GroupLayout.Alignment;
 
 import SQL.UserManagement;
 import model.buildTableModel;
-import popup.InfoClient;
+import popup.InfoPatient;
 import popup.addUserForm;
 
 import javax.swing.JTabbedPane;
@@ -181,7 +181,7 @@ public class Admin {
 			        int row = tableAllPatient.rowAtPoint(evt.getPoint());
 			        //int col = tableAllPatient.columnAtPoint(evt.getPoint());
 			        int idPatient = (int) tableAllPatient.getValueAt(row, 0);
-					InfoClient InfoClient = new InfoClient(idPatient);
+					InfoPatient InfoClient = new InfoPatient(idPatient);
 					InfoClient.main(null, idPatient);
 			        
 				}
@@ -195,6 +195,13 @@ public class Admin {
 		JLabel lblListeDesPatients = new JLabel("Liste des patients");
 		
 		JButton btnAjouterUnPatient = new JButton("Ajouter un patient");
+		btnAjouterUnPatient.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				InfoPatient InfoClient = new InfoPatient(0);
+				InfoClient.main(null, 0);
+			}
+		});
 		GroupLayout gl_panelPatient = new GroupLayout(panelPatient);
 		gl_panelPatient.setHorizontalGroup(
 			gl_panelPatient.createParallelGroup(Alignment.LEADING)

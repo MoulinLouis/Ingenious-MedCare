@@ -32,7 +32,7 @@ public class PatientManagement extends SqlConnection{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return rs;		
+			return rs;
 		}
 	  
 	  public static  void createPatient(String name,String firstName,String birthDate,String email,String gender, String address, String city, String postalCode, String phoneNumber, String homePhoneNumber, String country, String profession, String civilStatus, String mutualNumber, String bloodGroup, String pathology, String note, String familyDoctor) {

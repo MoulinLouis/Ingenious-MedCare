@@ -8,6 +8,7 @@ import javax.swing.GroupLayout.Alignment;
 
 import SQL.UserManagement;
 import model.buildTableModel;
+import popup.InfoClient;
 import popup.addUserForm;
 
 import javax.swing.JTabbedPane;
@@ -174,6 +175,17 @@ public class Admin {
 		
 		try {
 			tableAllPatient = new JTable(buildTableModel.buildTableModel(PatientManagement.getAllPatient()));
+			tableAllPatient.addMouseListener(new MouseAdapter() {
+				@Override
+			    public void mouseClicked(java.awt.event.MouseEvent evt) {
+			        int row = tableAllPatient.rowAtPoint(evt.getPoint());
+			        //int col = tableAllPatient.columnAtPoint(evt.getPoint());
+			        int idPatient = (int) tableAllPatient.getValueAt(row, 0);
+					InfoClient InfoClient = new InfoClient(idPatient);
+					InfoClient.main(null, idPatient);
+			        
+				}
+			});
 			tableAllPatient.setEnabled(false);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

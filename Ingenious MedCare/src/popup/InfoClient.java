@@ -1,5 +1,6 @@
 package popup;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -13,14 +14,19 @@ import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
+import java.awt.Dialog.ModalityType;
+import java.awt.Window.Type;
 
 public class InfoClient {
 
-	private JFrame frmIngeniousMedcare;
+	private JDialog frmIngeniousMedcare;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -35,15 +41,17 @@ public class InfoClient {
 	private JTextField textField_11;
 	private JTextField textField_12;
 	private JTextField textField_13;
-
+	Toolkit toolkit = Toolkit.getDefaultToolkit();  
+	Dimension screenSize = toolkit.getScreenSize();
+	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args, int idPatient) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InfoClient window = new InfoClient();
+					InfoClient window = new InfoClient(idPatient);
 					window.frmIngeniousMedcare.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,18 +63,23 @@ public class InfoClient {
 	/**
 	 * Create the application.
 	 */
-	public InfoClient() {
-		initialize();
+	public InfoClient(int idPatient) {
+		initialize(idPatient);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		frmIngeniousMedcare = new JFrame();
+	private void initialize(int idPatient) {
+		frmIngeniousMedcare = new JDialog();
+		frmIngeniousMedcare.setType(Type.POPUP);
+		frmIngeniousMedcare.setModalityType(ModalityType.APPLICATION_MODAL);
 		frmIngeniousMedcare.setTitle("Ingenious MedCare - Informations client");
 		frmIngeniousMedcare.setBounds(100, 100, 450, 500);
-		frmIngeniousMedcare.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmIngeniousMedcare.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		int x = (screenSize.width - frmIngeniousMedcare.getWidth()) / 2;  
+		int y = (screenSize.height - frmIngeniousMedcare.getHeight()) / 2;
+		frmIngeniousMedcare.setLocation(x, y);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		
@@ -88,7 +101,7 @@ public class InfoClient {
 					.addContainerGap())
 		);
 		
-		JButton btnNewButton = new JButton("Valider");
+		JButton btnNewButton = new JButton("Valider" + idPatient);
 		
 		JButton btnNewButton_1 = new JButton("Modifier");
 		

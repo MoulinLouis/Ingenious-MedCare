@@ -1,9 +1,9 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 16 jan. 2020 à 13:09
+-- Généré le :  Dim 19 jan. 2020 à 20:21
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP :  7.4.1
 
@@ -23,6 +23,46 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `ingeniousmedcare` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
 USE `ingeniousmedcare`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `combobox`
+--
+
+DROP TABLE IF EXISTS `combobox`;
+CREATE TABLE IF NOT EXISTS `combobox` (
+  `id_comboBox` int(10) NOT NULL,
+  `id_type` int(10) NOT NULL,
+  `value` varchar(255) COLLATE utf8_bin NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Déchargement des données de la table `combobox`
+--
+
+INSERT INTO `combobox` (`id_comboBox`, `id_type`, `value`) VALUES
+(0, 1, 'France'),
+(1, 1, 'Espagne'),
+(2, 1, 'Portugal'),
+(3, 1, 'Angleterre'),
+(0, 2, 'Homme'),
+(1, 2, 'Femme'),
+(2, 2, 'Aucun'),
+(0, 3, 'Développeur web'),
+(1, 3, 'Développeur logicielle'),
+(2, 3, 'Boulanger'),
+(3, 3, 'Professeur'),
+(4, 3, 'Caissier'),
+(5, 3, 'Boucher'),
+(0, 4, 'O-'),
+(1, 4, 'O+'),
+(2, 4, 'B-'),
+(3, 4, 'B+'),
+(4, 4, 'A-'),
+(5, 4, 'A+'),
+(6, 4, 'AB-'),
+(7, 4, 'AB+');
 
 -- --------------------------------------------------------
 
@@ -136,31 +176,30 @@ CREATE TABLE IF NOT EXISTS `patient` (
   `firstName` varchar(255) COLLATE utf8_bin NOT NULL,
   `birthDate` date NOT NULL,
   `email` varchar(255) COLLATE utf8_bin NOT NULL,
-  `gender` varchar(1) COLLATE utf8_bin NOT NULL,
+  `id_gender` int(10) NOT NULL,
   `address` varchar(255) COLLATE utf8_bin NOT NULL,
   `city` varchar(255) COLLATE utf8_bin NOT NULL,
   `postalCode` int(5) NOT NULL,
   `phoneNumber` int(10) NOT NULL,
   `homePhoneNumber` int(10) NOT NULL,
-  `country` varchar(255) COLLATE utf8_bin NOT NULL,
-  `profession` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id_country` int(10) NOT NULL,
+  `id_profession` int(10) NOT NULL,
   `civilStatus` varchar(255) COLLATE utf8_bin NOT NULL,
   `socialSecurityNumber` int(13) NOT NULL,
   `mutualNumber` int(8) NOT NULL,
-  `bloodGroup` varchar(2) COLLATE utf8_bin NOT NULL,
+  `id_bloodGroup` int(10) NOT NULL,
   `pathology` varchar(255) COLLATE utf8_bin NOT NULL,
   `note` varchar(255) COLLATE utf8_bin NOT NULL,
   `familyDoctor` varchar(255) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `patient`
 --
 
-INSERT INTO `patient` (`id`, `name`, `firstName`, `birthDate`, `email`, `gender`, `address`, `city`, `postalCode`, `phoneNumber`, `homePhoneNumber`, `country`, `profession`, `civilStatus`, `socialSecurityNumber`, `mutualNumber`, `bloodGroup`, `pathology`, `note`, `familyDoctor`) VALUES
-(1, 'Louis', 'Moulin', '2000-12-26', 'l.moulin@lprs.fr', 'H', '79 rue d\'alsace', 'Tremblay', 93290, 659737458, 123456789, 'France', 'Développeur web', 'Célibataire', 1234511111, 1234567, 'O+', 'Aucune', 'Note adressé du médecin', 'Jean Dubois'),
-(2, 'Damien', 'Da Fonseca', '1999-01-09', 'da.da.fonseca936@gmail.com', 'H', '50 rue de pologne', 'Aulnay', 93000, 612345678, 148251454, 'France', 'Développeur logiciel', 'En couple', 1234511125, 1234567, 'A+', 'Asthmatique', 'Aucune', 'Philipe Dubois');
+INSERT INTO `patient` (`id`, `name`, `firstName`, `birthDate`, `email`, `id_gender`, `address`, `city`, `postalCode`, `phoneNumber`, `homePhoneNumber`, `id_country`, `id_profession`, `civilStatus`, `socialSecurityNumber`, `mutualNumber`, `id_bloodGroup`, `pathology`, `note`, `familyDoctor`) VALUES
+(3, 'Moulin', 'Louis', '2000-12-26', 'l.moulin@lprs.fr', 0, '79 rue d\'alsace', 'Tremblay', 93290, 658737458, 145214521, 0, 0, 'Célibtaire', 1111111111, 12345678, 2, 'Asthmatique', 'Aucune', 'Eric Dupont');
 
 -- --------------------------------------------------------
 

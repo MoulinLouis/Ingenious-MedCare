@@ -14,6 +14,7 @@ import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
 
 import SQL.PatientManagement;
+import SQL.SqlConnection;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -200,7 +201,15 @@ public class InfoPatient {
 		textFieldPrenom.setColumns(10);
 		
 		JComboBox comboBoxGenre = new JComboBox();
-		comboBoxGenre.setModel(new DefaultComboBoxModel(new String[] {"Homme", "Femme"}));
+		ResultSet rs_comboBoxGenre = SqlConnection.getComboboxById(2);
+		try {
+			while(rs_comboBoxGenre.next()) {
+				comboBoxGenre.addItem(rs_comboBoxGenre.getString("value"));
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		textFieldEmail = new JTextField();
 		textFieldEmail.setColumns(10);
@@ -236,13 +245,28 @@ public class InfoPatient {
 		JLabel lblPays = new JLabel("Pays");
 		
 		JComboBox comboBoxPays = new JComboBox();
-		comboBoxPays.setModel(new DefaultComboBoxModel(new String[] {"Faire appel fichier JSON", "France", "Angleterre", "Etats-Unis", "Su\u00E8de", "Allemagne", "Portugal", "Espagne"}));
-		
+		ResultSet rs_comboBoxPays = SqlConnection.getComboboxById(1);
+		try {
+			while(rs_comboBoxPays.next()) {
+				comboBoxPays.addItem(rs_comboBoxPays.getString("value"));
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
 		JLabel lblMetier = new JLabel("M\u00E9tier");
 		
 		JComboBox comboBoxMetier = new JComboBox();
-		comboBoxMetier.setModel(new DefaultComboBoxModel(new String[] {"Faire appel fichier JSON", "D\u00E9veloppeur web", "D\u00E9veloppeur logiciel"}));
-		
+		ResultSet rs_comboBoxMetier = SqlConnection.getComboboxById(3);
+		try {
+			while(rs_comboBoxMetier.next()) {
+				comboBoxMetier.addItem(rs_comboBoxMetier.getString("value"));
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
@@ -388,7 +412,15 @@ public class InfoPatient {
 		JLabel lblGroupeSanguin = new JLabel("Groupe sanguin");
 
 		JComboBox comboBoxGroupeSanguin = new JComboBox();
-		comboBoxGroupeSanguin.setModel(new DefaultComboBoxModel(new String[] {"O", "O+", "O-", "A+", "A-"}));
+		ResultSet rs_comboBoxGroupeSanguin = SqlConnection.getComboboxById(4);
+		try {
+			while(rs_comboBoxGroupeSanguin.next()) {
+				comboBoxGroupeSanguin.addItem(rs_comboBoxGroupeSanguin.getString("value"));
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		JLabel lblMdecinTraitant = new JLabel("M\u00E9decin traitant");
 		
@@ -405,29 +437,32 @@ public class InfoPatient {
 		textFieldNote = new JTextField();
 		textFieldNote.setColumns(10);
 
-		ResultSet rs = PatientManagement.getPatientById(idPatient);
+		ResultSet rs_Patient = PatientManagement.getPatientById(idPatient);
 		try {
-			if(rs.next()){
-				textFieldNom.setText(rs.getString("name"));
-				textFieldPrenom.setText(rs.getString("firstName"));
-				textFieldEmail.setText(rs.getString("email"));
-				textFieldAdresse.setText(rs.getString("address"));
-				textFieldVille.setText(rs.getString("city"));
-				textFieldCodePostal.setText(rs.getString("postalCode"));
-				textFieldTel.setText(rs.getString("phoneNumber"));
-				textFieldFix.setText(rs.getString("homePhoneNumber"));
-				textFieldStatutCivil.setText(rs.getString("civilStatus"));
-				textFieldNumeroSecu.setText(rs.getString("socialSecurityNumber"));
-				textFieldNumeroMutuel.setText(rs.getString("mutualNumber"));
-				textFieldMedecin.setText(rs.getString("familyDoctor"));
-				textFieldPathologie.setText(rs.getString("pathology"));
-				textFieldNote.setText(rs.getString("note"));
+			if(rs_Patient.next()){
+				textFieldNom.setText(rs_Patient.getString("name"));
+				textFieldPrenom.setText(rs_Patient.getString("firstName"));
+				textFieldEmail.setText(rs_Patient.getString("email"));
+				textFieldAdresse.setText(rs_Patient.getString("address"));
+				textFieldVille.setText(rs_Patient.getString("city"));
+				textFieldCodePostal.setText(rs_Patient.getString("postalCode"));
+				textFieldTel.setText(rs_Patient.getString("phoneNumber"));
+				textFieldFix.setText(rs_Patient.getString("homePhoneNumber"));
+				textFieldStatutCivil.setText(rs_Patient.getString("civilStatus"));
+				textFieldNumeroSecu.setText(rs_Patient.getString("socialSecurityNumber"));
+				textFieldNumeroMutuel.setText(rs_Patient.getString("mutualNumber"));
+				textFieldMedecin.setText(rs_Patient.getString("familyDoctor"));
+				textFieldPathologie.setText(rs_Patient.getString("pathology"));
+				textFieldNote.setText(rs_Patient.getString("note"));
+				comboBoxGenre.setSelectedIndex(rs_Patient.getInt("id_gender"));
+				comboBoxPays.setSelectedIndex(rs_Patient.getInt("id_country"));
+				comboBoxMetier.setSelectedIndex(rs_Patient.getInt("id_profession"));
+				comboBoxGroupeSanguin.setSelectedIndex(rs_Patient.getInt("id_bloodGroup"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.print(idPatient);
 		if(idPatient != 0) {
 			isEditable = false;
 			textFieldNom.setEditable(false);

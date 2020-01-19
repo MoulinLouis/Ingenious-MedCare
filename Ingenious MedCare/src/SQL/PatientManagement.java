@@ -12,7 +12,7 @@ public class PatientManagement extends SqlConnection{
 			Connection cn = getInstance();
 			try {
 				Statement st = cn.createStatement();
-				String sql = "SELECT P.id, P.name, P.firstName, P.birthDate, P.email, P.gender, P.address, P.city, P.postalCode, P.phoneNumber, P.homePhoneNumber, P.country, P.profession, P.civilStatus, P.socialSecurityNumber, P.mutualNumber, P.bloodGroup, P.pathology, P.note, P.familyDoctor FROM patient AS P";
+				String sql = "SELECT P.id, P.name, P.firstName, P.birthDate, P.email, P.id_gender, P.address, P.city, P.postalCode, P.phoneNumber, P.homePhoneNumber, P.id_country, P.id_profession, P.civilStatus, P.socialSecurityNumber, P.mutualNumber, P.id_bloodGroup, P.pathology, P.note, P.familyDoctor FROM patient AS P";
 				 rs = st.executeQuery(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -26,7 +26,7 @@ public class PatientManagement extends SqlConnection{
 			Connection cn = getInstance();
 			try {
 				Statement st = cn.createStatement();
-				String sql = "SELECT P.id, P.name, P.firstName, P.birthDate, P.email, P.gender, P.address, P.city, P.postalCode, P.phoneNumber, P.homePhoneNumber, P.country, P.profession, P.civilStatus, P.socialSecurityNumber, P.mutualNumber, P.bloodGroup, P.pathology, P.note, P.familyDoctor FROM patient AS P WHERE P.id = " + id;
+				String sql = "SELECT P.id, P.name, P.firstName, P.birthDate, P.email, P.id_gender, P.address, P.city, P.postalCode, P.phoneNumber, P.homePhoneNumber, P.id_country, P.id_profession, P.civilStatus, P.socialSecurityNumber, P.mutualNumber, P.id_bloodGroup, P.pathology, P.note, P.familyDoctor FROM patient AS P WHERE P.id = " + id;
 				 rs = st.executeQuery(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -35,17 +35,17 @@ public class PatientManagement extends SqlConnection{
 			return rs;
 		}
 	  
-	  public static  void createPatient(String name,String firstName,String birthDate,String email,String gender, String address, String city, String postalCode, String phoneNumber, String homePhoneNumber, String country, String profession, String civilStatus, String mutualNumber, String bloodGroup, String pathology, String note, String familyDoctor) {
+	  public static  void createPatient(String name,String firstName,String birthDate,String email,String id_gender, String address, String city, String postalCode, String phoneNumber, String homePhoneNumber, String id_country, String id_profession, String civilStatus, String mutualNumber, String id_bloodGroup, String pathology, String note, String familyDoctor) {
 			Connection cn = getInstance();
-			if (name.isEmpty() || firstName.isEmpty() || birthDate.isEmpty() || email.isEmpty() || gender.isEmpty() || address.isEmpty() || city.isEmpty() || postalCode.isEmpty() || phoneNumber.isEmpty() || homePhoneNumber.isEmpty() || country.isEmpty() || profession.isEmpty() || civilStatus.isEmpty() || mutualNumber.isEmpty() || bloodGroup.isEmpty() || pathology.isEmpty() || note.isEmpty() || familyDoctor.isEmpty()) {
+			if (name.isEmpty() || firstName.isEmpty() || birthDate.isEmpty() || email.isEmpty() || id_gender.isEmpty() || address.isEmpty() || city.isEmpty() || postalCode.isEmpty() || phoneNumber.isEmpty() || homePhoneNumber.isEmpty() || id_country.isEmpty() || id_profession.isEmpty() || civilStatus.isEmpty() || mutualNumber.isEmpty() || id_bloodGroup.isEmpty() || pathology.isEmpty() || note.isEmpty() || familyDoctor.isEmpty()) {
 				// A gérer une gestion d'erreur
 				System.out.print("Tous les champs ne sont pas remplis");
 			}
 			else {
 			try {
 				Statement st = cn.createStatement();
-				String sql = "INSERT INTO patient (name, firstName, birthDate, email, gender, address, city, postalCode, phoneNumber, homePhoneNumber, country, profession, civilStatus, mutualNumber, bloodGroup, pathology, note, familyDoctor) "
-						+ "VALUES ('" + name + "','" + firstName + "','" + birthDate + "','" + email + "','" + gender + "','" + address + "','" + city + "','" + postalCode + "','" + phoneNumber + "','" + homePhoneNumber + "','" + country + "','" + profession + "','" + civilStatus + "','" + mutualNumber + "','" + bloodGroup + "','" + pathology + "','" + note + "','" + familyDoctor + "')";
+				String sql = "INSERT INTO patient (name, firstName, birthDate, email, id_gender, address, city, postalCode, phoneNumber, homePhoneNumber, id_country, id_profession, civilStatus, mutualNumber, id_bloodGroup, pathology, note, familyDoctor) "
+						+ "VALUES ('" + name + "','" + firstName + "','" + birthDate + "','" + email + "','" + id_gender + "','" + address + "','" + city + "','" + postalCode + "','" + phoneNumber + "','" + homePhoneNumber + "','" + id_country + "','" + id_profession + "','" + civilStatus + "','" + mutualNumber + "','" + id_bloodGroup + "','" + pathology + "','" + note + "','" + familyDoctor + "')";
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -55,16 +55,16 @@ public class PatientManagement extends SqlConnection{
 		}
 	  }
 	  
-	  public static  void updatePatient(String id, String name,String firstName,String birthDate,String email,String gender, String address, String city, String postalCode, String phoneNumber, String homePhoneNumber, String country, String profession, String civilStatus, String mutualNumber, String bloodGroup, String pathology, String note, String familyDoctor) {
+	  public static  void updatePatient(String id, String name,String firstName,String birthDate,String email,String id_gender, String address, String city, String postalCode, String phoneNumber, String homePhoneNumber, String id_country, String id_profession, String civilStatus, String mutualNumber, String id_bloodGroup, String pathology, String note, String familyDoctor) {
 			Connection cn = getInstance();
-			if (name.isEmpty() || firstName.isEmpty() || birthDate.isEmpty() || email.isEmpty() || gender.isEmpty() || address.isEmpty() || city.isEmpty() || postalCode.isEmpty() || phoneNumber.isEmpty() || homePhoneNumber.isEmpty() || country.isEmpty() || profession.isEmpty() || civilStatus.isEmpty() || mutualNumber.isEmpty() || bloodGroup.isEmpty() || pathology.isEmpty() || note.isEmpty() || familyDoctor.isEmpty()) {
+			if (name.isEmpty() || firstName.isEmpty() || birthDate.isEmpty() || email.isEmpty() || id_gender.isEmpty() || address.isEmpty() || city.isEmpty() || postalCode.isEmpty() || phoneNumber.isEmpty() || homePhoneNumber.isEmpty() || id_country.isEmpty() || id_profession.isEmpty() || civilStatus.isEmpty() || mutualNumber.isEmpty() || id_bloodGroup.isEmpty() || pathology.isEmpty() || note.isEmpty() || familyDoctor.isEmpty()) {
 				// A gérer une gestion d'erreur
 				System.out.print("Tous les champs ne sont pas remplis");
 			}
 			else {
 			try {
 				Statement st = cn.createStatement();
-				String sql = "UPDATE patient SET name='" + name + "',firstName='" + firstName + "', birthDate='" + birthDate + "',email='" + email + "',gender='" + gender + "',address='" + address + "',city='" + city + "',postalCode='" + postalCode + "',phoneNumber='" + phoneNumber + "',homePhoneNumber='" + homePhoneNumber + "',country='" + country + "',profession='" + profession + "',civilStatus='" + civilStatus + "',mutualNumber='" + mutualNumber + "',bloodGroup='" + bloodGroup + "',pathology='" + pathology + "',note='" + note + "',familyDoctor='" + familyDoctor + "' WHERE id='" + id + "'";
+				String sql = "UPDATE patient SET name='" + name + "',firstName='" + firstName + "', birthDate='" + birthDate + "',email='" + email + "',id_gender='" + id_gender + "',address='" + address + "',city='" + city + "',postalCode='" + postalCode + "',phoneNumber='" + phoneNumber + "',homePhoneNumber='" + homePhoneNumber + "',id_country='" + id_country + "',id_profession='" + id_profession + "',civilStatus='" + civilStatus + "',mutualNumber='" + mutualNumber + "',id_bloodGroup='" + id_bloodGroup + "',pathology='" + pathology + "',note='" + note + "',familyDoctor='" + familyDoctor + "' WHERE id='" + id + "'";
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

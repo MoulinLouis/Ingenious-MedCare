@@ -13,7 +13,8 @@ public class ProductManagement extends SqlConnection{
 			Connection cn = getInstance();
 			try {
 				Statement st = cn.createStatement();
-				String sql = "SELECT P.id, P.nom, P.classification, P.substance, P.excipient, P.conservation, P.toxicity FROM medicalproduct AS P";
+				String sql = "SELECT P.id, P.nom, P.classification, P.substance, P.excipient, P.conservation, T.libelle FROM medicalproduct AS P"
+						+ " INNER JOIN toxicity AS T ON T.id = P.toxicity;";
 				 rs = st.executeQuery(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

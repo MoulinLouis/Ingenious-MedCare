@@ -9,15 +9,23 @@ import javax.swing.table.*;
 import com.mysql.*;
 
 public class buildTableModel {
-	public static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
-
+	public static DefaultTableModel buildTableModel(ResultSet rs, String choosenTable) throws SQLException {
 	    ResultSetMetaData metaData = rs.getMetaData();
-
-	    // names of columns
+	    String[] tabColumns = null;
+	    switch(choosenTable) {
+	    case "tabUsers":
+	    	tabColumns = new String[]{"Id","Login","Email","Mot de passe","Prénom","Nom","Rôle"};
+	    	break;
+	    case "tabPatients":
+	    	tabColumns = new String[]{"Id","Prénom","Nom","Date de naissance","Email","Genre","Pays","Métier"};
+	    	break;
+	  }
 	    Vector<String> columnNames = new Vector<String>();
 	    int columnCount = metaData.getColumnCount();
-	    for (int column = 1; column <= columnCount; column++) {
-	        columnNames.add("abc");
+	    System.out.print(columnCount);
+	    for (int column = 0; column < columnCount; column++) {
+	    	System.out.print(column);
+	        columnNames.add(tabColumns[column]);
 	    }
 
 	    // data of the table

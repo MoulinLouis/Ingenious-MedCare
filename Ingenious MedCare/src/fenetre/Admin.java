@@ -98,34 +98,34 @@ public class Admin {
 		);
 		panelAccueil.setLayout(gl_panelAccueil);
 		
-		JPanel panelUtilisateura = new JPanel();
-		tabbedPane.addTab("Utilisateurs", null, panelUtilisateura, null);
+		JPanel panelUtilisateur = new JPanel();
+		tabbedPane.addTab("Utilisateurs", null, panelUtilisateur, null);
 		
-		JLabel lblListeDesUtilisateursa = new JLabel("Liste des utilisateurs");
+		JLabel lblListeDesUtilisateurs = new JLabel("Liste des utilisateurs");
 		
-		JButton btnAjouterUnUtilisateura = new JButton("Ajouter un utilisateur");
+		JButton btnAjouterUnUtilisateur = new JButton("Ajouter un utilisateur");
 		
 		JScrollPane scrollPaneUsers = new JScrollPane();
-		GroupLayout gl_panelUtilisateura = new GroupLayout(panelUtilisateura);
-		gl_panelUtilisateura.setHorizontalGroup(
-			gl_panelUtilisateura.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelUtilisateura.createSequentialGroup()
+		GroupLayout gl_panelUtilisateur = new GroupLayout(panelUtilisateur);
+		gl_panelUtilisateur.setHorizontalGroup(
+			gl_panelUtilisateur.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelUtilisateur.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panelUtilisateura.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_panelUtilisateur.createParallelGroup(Alignment.LEADING)
 						.addComponent(scrollPaneUsers, GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
-						.addGroup(gl_panelUtilisateura.createSequentialGroup()
-							.addComponent(lblListeDesUtilisateursa)
+						.addGroup(gl_panelUtilisateur.createSequentialGroup()
+							.addComponent(lblListeDesUtilisateurs)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnAjouterUnUtilisateura)))
+							.addComponent(btnAjouterUnUtilisateur)))
 					.addContainerGap())
 		);
-		gl_panelUtilisateura.setVerticalGroup(
-			gl_panelUtilisateura.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_panelUtilisateura.createSequentialGroup()
+		gl_panelUtilisateur.setVerticalGroup(
+			gl_panelUtilisateur.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_panelUtilisateur.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panelUtilisateura.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblListeDesUtilisateursa)
-						.addComponent(btnAjouterUnUtilisateura))
+					.addGroup(gl_panelUtilisateur.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblListeDesUtilisateurs)
+						.addComponent(btnAjouterUnUtilisateur))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(scrollPaneUsers, GroupLayout.PREFERRED_SIZE, 586, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(88, Short.MAX_VALUE))
@@ -139,38 +139,38 @@ public class Admin {
 		}
 		tableAllUsers.setEnabled(false);
 		scrollPaneUsers.setViewportView(tableAllUsers);
-		panelUtilisateura.setLayout(gl_panelUtilisateura);
+		panelUtilisateur.setLayout(gl_panelUtilisateur);
 		
-		JPanel panelPatienta = new JPanel();
-		tabbedPane.addTab("Patients", null, panelPatienta, null);
+		JPanel panelPatient = new JPanel();
+		tabbedPane.addTab("Patients", null, panelPatient, null);
 		
-		JLabel lblListeDesPatientsa = new JLabel("Liste des patients");
+		JLabel lblListeDesPatients = new JLabel("Liste des patients");
 		
-		JButton btnAjouterUnPatienta = new JButton("Ajouter un patient");
+		JButton btnAjouterUnPatient = new JButton("Ajouter un patient");
 		
 		JScrollPane tableAllPatient = new JScrollPane();
-		GroupLayout gl_panelPatienta = new GroupLayout(panelPatienta);
-		gl_panelPatienta.setHorizontalGroup(
-			gl_panelPatienta.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelPatienta.createSequentialGroup()
+		GroupLayout gl_panelPatient = new GroupLayout(panelPatient);
+		gl_panelPatient.setHorizontalGroup(
+			gl_panelPatient.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelPatient.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panelPatienta.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelPatienta.createSequentialGroup()
-							.addComponent(lblListeDesPatientsa, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_panelPatient.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelPatient.createSequentialGroup()
+							.addComponent(lblListeDesPatients, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
 							.addGap(10)
-							.addComponent(btnAjouterUnPatienta, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
+							.addComponent(btnAjouterUnPatient, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
 						.addComponent(tableAllPatient, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE))
 					.addContainerGap())
 		);
-		gl_panelPatienta.setVerticalGroup(
-			gl_panelPatienta.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_panelPatienta.createSequentialGroup()
+		gl_panelPatient.setVerticalGroup(
+			gl_panelPatient.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_panelPatient.createSequentialGroup()
 					.addGap(8)
-					.addGroup(gl_panelPatienta.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelPatienta.createSequentialGroup()
+					.addGroup(gl_panelPatient.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelPatient.createSequentialGroup()
 							.addGap(4)
-							.addComponent(lblListeDesPatientsa))
-						.addComponent(btnAjouterUnPatienta))
+							.addComponent(lblListeDesPatients))
+						.addComponent(btnAjouterUnPatient))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(tableAllPatient, GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE))
 		);
@@ -183,10 +183,10 @@ public class Admin {
 		}
 		table_1.setEnabled(false);
 		tableAllPatient.setViewportView(table_1);
-		panelPatienta.setLayout(gl_panelPatienta);
+		panelPatient.setLayout(gl_panelPatient);
 		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("Stock", null, panel, null);
+		JPanel panelStock = new JPanel();
+		tabbedPane.addTab("Stock", null, panelStock, null);
 		frmIngeniousMedcare.getContentPane().setLayout(groupLayout);
 	}
 }

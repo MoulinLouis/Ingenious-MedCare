@@ -19,10 +19,18 @@ public class buildTableModel {
 	    case "tabPatients":
 	    	tabColumns = new String[]{"Id","Prénom","Nom","Date de naissance","Email","Genre","Pays","Métier"};
 	    	break;
+	    case "tabProduct":
+	    	tabColumns = new String[]{"Id", "Nom", "Classification", "Substance", "Excipient", "Conservation", "Toxicité"};
+	    	break;
+	    case "tabOrders":
+	    	tabColumns = new String[]{"id", "nom", "quantity", "orderDate", "status"};
+	    	break;
+	    case "tabStock":
+	    	tabColumns = new String[]{"id", "nom", "quantity"};
+	    	break;
 	  }
 	    Vector<String> columnNames = new Vector<String>();
 	    int columnCount = metaData.getColumnCount();
-	    System.out.print(columnCount);
 	    for (int column = 0; column < columnCount; column++) {
 	    	System.out.print(column);
 	        columnNames.add(tabColumns[column]);

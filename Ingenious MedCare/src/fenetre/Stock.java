@@ -271,5 +271,6 @@ public class Stock {
 		scrollPane.setViewportView(table_1);
 		panelProduct.setLayout(gl_panelProduct);
 		
+		
 	}
 }

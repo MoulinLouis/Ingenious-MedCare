@@ -20,13 +20,13 @@ public class buildTableModel {
 	    	tabColumns = new String[]{"Id","Prénom","Nom","Date de naissance","Email","Genre","Pays","Métier"};
 	    	break;
 	    case "tabProduct":
-	    	tabColumns = new String[]{"Id", "Nom", "Classification", "Substance", "Excipient", "Conservation", "Toxicité"};
+	    	tabColumns = new String[]{"Id", "Nom du produit", "Classification", "Substance", "Excipient", "Conservation", "Toxicité"};
 	    	break;
 	    case "tabOrders":
-	    	tabColumns = new String[]{"id", "nom", "quantity", "orderDate", "status"};
+	    	tabColumns = new String[]{"id", "Nom du produit", "quantité", "Date de la commande", "status"};
 	    	break;
 	    case "tabStock":
-	    	tabColumns = new String[]{"id", "nom", "quantity"};
+	    	tabColumns = new String[]{"id", "Nom du produit", "quantité"};
 	    	break;
 	  }
 	    Vector<String> columnNames = new Vector<String>();
@@ -44,7 +44,7 @@ public class buildTableModel {
 	        }
 	        data.add(vector);
 	    }
-	    
+	  
 	    return new DefaultTableModel(data, columnNames);
 
 	}

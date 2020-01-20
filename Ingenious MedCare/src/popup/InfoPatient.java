@@ -110,6 +110,50 @@ public class InfoPatient {
 					.addContainerGap())
 		);
 		
+		JComboBox comboBoxGenre = new JComboBox();
+		ResultSet rs_comboBoxGenre = SqlConnection.getComboboxById(2);
+		try {
+			while(rs_comboBoxGenre.next()) {
+				comboBoxGenre.addItem(rs_comboBoxGenre.getString("value"));
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		JComboBox comboBoxPays = new JComboBox();
+		ResultSet rs_comboBoxPays = SqlConnection.getComboboxById(1);
+		try {
+			while(rs_comboBoxPays.next()) {
+				comboBoxPays.addItem(rs_comboBoxPays.getString("value"));
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		JComboBox comboBoxMetier = new JComboBox();
+		ResultSet rs_comboBoxMetier = SqlConnection.getComboboxById(3);
+		try {
+			while(rs_comboBoxMetier.next()) {
+				comboBoxMetier.addItem(rs_comboBoxMetier.getString("value"));
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		JComboBox comboBoxGroupeSanguin = new JComboBox();
+		ResultSet rs_comboBoxGroupeSanguin = SqlConnection.getComboboxById(4);
+		try {
+			while(rs_comboBoxGroupeSanguin.next()) {
+				comboBoxGroupeSanguin.addItem(rs_comboBoxGroupeSanguin.getString("value"));
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		JButton btnNewButton = new JButton("Valider");
 		
 		JButton btnNewButton_1 = new JButton("Modifier");
@@ -132,7 +176,10 @@ public class InfoPatient {
 					textFieldMedecin.setEditable(true);
 					textFieldPathologie.setEditable(true);
 					textFieldNote.setEditable(true);
-					
+					comboBoxGenre.setEnabled(true);
+					comboBoxPays.setEnabled(true);
+					comboBoxMetier.setEnabled(true);
+					comboBoxGroupeSanguin.setEnabled(true);					
 				} else if(isEditable == true) {
 					isEditable = false;
 					textFieldNom.setEditable(false);
@@ -149,6 +196,10 @@ public class InfoPatient {
 					textFieldMedecin.setEditable(false);
 					textFieldPathologie.setEditable(false);
 					textFieldNote.setEditable(false);
+					comboBoxGenre.setEnabled(false);
+					comboBoxPays.setEnabled(false);
+					comboBoxMetier.setEnabled(false);
+					comboBoxGroupeSanguin.setEnabled(false);
 				}
 
 			}
@@ -201,17 +252,6 @@ public class InfoPatient {
 		textFieldPrenom = new JTextField();
 		textFieldPrenom.setColumns(10);
 		
-		JComboBox comboBoxGenre = new JComboBox();
-		ResultSet rs_comboBoxGenre = SqlConnection.getComboboxById(2);
-		try {
-			while(rs_comboBoxGenre.next()) {
-				comboBoxGenre.addItem(rs_comboBoxGenre.getString("value"));
-			}
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
 		textFieldEmail = new JTextField();
 		textFieldEmail.setColumns(10);
 		JLabel lblEmail = new JLabel("Email");
@@ -245,29 +285,7 @@ public class InfoPatient {
 		
 		JLabel lblPays = new JLabel("Pays");
 		
-		JComboBox comboBoxPays = new JComboBox();
-		ResultSet rs_comboBoxPays = SqlConnection.getComboboxById(1);
-		try {
-			while(rs_comboBoxPays.next()) {
-				comboBoxPays.addItem(rs_comboBoxPays.getString("value"));
-			}
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
 		JLabel lblMetier = new JLabel("M\u00E9tier");
-		
-		JComboBox comboBoxMetier = new JComboBox();
-		ResultSet rs_comboBoxMetier = SqlConnection.getComboboxById(3);
-		try {
-			while(rs_comboBoxMetier.next()) {
-				comboBoxMetier.addItem(rs_comboBoxMetier.getString("value"));
-			}
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 	
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
@@ -411,17 +429,6 @@ public class InfoPatient {
 		textFieldNumeroMutuel.setColumns(10);
 		
 		JLabel lblGroupeSanguin = new JLabel("Groupe sanguin");
-
-		JComboBox comboBoxGroupeSanguin = new JComboBox();
-		ResultSet rs_comboBoxGroupeSanguin = SqlConnection.getComboboxById(4);
-		try {
-			while(rs_comboBoxGroupeSanguin.next()) {
-				comboBoxGroupeSanguin.addItem(rs_comboBoxGroupeSanguin.getString("value"));
-			}
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		
 		JLabel lblMdecinTraitant = new JLabel("M\u00E9decin traitant");
 		
@@ -480,6 +487,10 @@ public class InfoPatient {
 			textFieldMedecin.setEditable(false);
 			textFieldPathologie.setEditable(false);
 			textFieldNote.setEditable(false);
+			comboBoxGenre.setEnabled(false);
+			comboBoxPays.setEnabled(false);
+			comboBoxMetier.setEnabled(false);
+			comboBoxGroupeSanguin.setEnabled(false);
 		}
 		
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);

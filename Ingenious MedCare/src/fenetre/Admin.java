@@ -25,13 +25,14 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
 
 public class Admin {
 
 	private JFrame frmIngeniousMedcare;
-	private JTable tableAllUser;
-	private JTable tableAllStock;
-	private JTable tableAllPatient;
+	private JTable tableAllUsers;
+	private JTable table_1;
 
 	/**
 	 * Launch the application.
@@ -97,140 +98,95 @@ public class Admin {
 		);
 		panelAccueil.setLayout(gl_panelAccueil);
 		
-		JPanel panelUtilisateur = new JPanel();
-		tabbedPane.addTab("Utilisateur", null, panelUtilisateur, null);
-		try {
-			tableAllUser = new JTable(buildTableModel.buildTableModel(UserManagement.getAllUser()));
-			tableAllUser.setEnabled(false);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		JPanel panelUtilisateura = new JPanel();
+		tabbedPane.addTab("Utilisateurs", null, panelUtilisateura, null);
 		
-		JLabel lblListeDesUtilisateurs = new JLabel("Liste des utilisateurs");
+		JLabel lblListeDesUtilisateursa = new JLabel("Liste des utilisateurs");
 		
-		JButton btnAjouterUnUtilisateur = new JButton("Ajouter un utilisateur");
-		btnAjouterUnUtilisateur.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				addUserForm addUserForm = new addUserForm();
-				addUserForm.main(null);
-			}
-		});
-		GroupLayout gl_panelUtilisateur = new GroupLayout(panelUtilisateur);
-		gl_panelUtilisateur.setHorizontalGroup(
-			gl_panelUtilisateur.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelUtilisateur.createSequentialGroup()
+		JButton btnAjouterUnUtilisateura = new JButton("Ajouter un utilisateur");
+		
+		JScrollPane scrollPaneUsers = new JScrollPane();
+		GroupLayout gl_panelUtilisateura = new GroupLayout(panelUtilisateura);
+		gl_panelUtilisateura.setHorizontalGroup(
+			gl_panelUtilisateura.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelUtilisateura.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panelUtilisateur.createParallelGroup(Alignment.LEADING)
-						.addComponent(tableAllUser, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
-						.addGroup(gl_panelUtilisateur.createSequentialGroup()
-							.addComponent(lblListeDesUtilisateurs)
+					.addGroup(gl_panelUtilisateura.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPaneUsers, GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
+						.addGroup(gl_panelUtilisateura.createSequentialGroup()
+							.addComponent(lblListeDesUtilisateursa)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnAjouterUnUtilisateur)))
-					.addGap(12))
-		);
-		gl_panelUtilisateur.setVerticalGroup(
-			gl_panelUtilisateur.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panelUtilisateur.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panelUtilisateur.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblListeDesUtilisateurs)
-						.addComponent(btnAjouterUnUtilisateur))
-					.addGap(13)
-					.addComponent(tableAllUser, GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+							.addComponent(btnAjouterUnUtilisateura)))
 					.addContainerGap())
 		);
-		panelUtilisateur.setLayout(gl_panelUtilisateur);
-		
-		JPanel panelStock = new JPanel();
-		tabbedPane.addTab("Stock", null, panelStock, null);
-		
-		try {
-			tableAllStock = new JTable(buildTableModel.buildTableModel(ProductManagement.getAllMedicalProduct()));
-			tableAllStock.setEnabled(false);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		GroupLayout gl_panelStock = new GroupLayout(panelStock);
-		gl_panelStock.setHorizontalGroup(
-			gl_panelStock.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelStock.createSequentialGroup()
+		gl_panelUtilisateura.setVerticalGroup(
+			gl_panelUtilisateura.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_panelUtilisateura.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(tableAllStock, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
-					.addGap(12))
-		);
-		gl_panelStock.setVerticalGroup(
-			gl_panelStock.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panelStock.createSequentialGroup()
-					.addGap(47)
-					.addComponent(tableAllStock, GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		panelStock.setLayout(gl_panelStock);
-		
-		JPanel panelPatient = new JPanel();
-		tabbedPane.addTab("Patient", null, panelPatient, null);
-		
-		try {
-			tableAllPatient = new JTable(buildTableModel.buildTableModel(PatientManagement.getAllPatient()));
-			tableAllPatient.addMouseListener(new MouseAdapter() {
-				@Override
-			    public void mouseClicked(java.awt.event.MouseEvent evt) {
-			        int row = tableAllPatient.rowAtPoint(evt.getPoint());
-			        //int col = tableAllPatient.columnAtPoint(evt.getPoint());
-			        int idPatient = (int) tableAllPatient.getValueAt(row, 0);
-					InfoPatient InfoClient = new InfoPatient(idPatient);
-					InfoClient.main(null, idPatient);
-			        
-				}
-			});
-			tableAllPatient.setEnabled(false);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		JLabel lblListeDesPatients = new JLabel("Liste des patients");
-		
-		JButton btnAjouterUnPatient = new JButton("Ajouter un patient");
-		btnAjouterUnPatient.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				InfoPatient InfoClient = new InfoPatient(0);
-				InfoClient.main(null, 0);
-			}
-		});
-		GroupLayout gl_panelPatient = new GroupLayout(panelPatient);
-		gl_panelPatient.setHorizontalGroup(
-			gl_panelPatient.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelPatient.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panelPatient.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelPatient.createSequentialGroup()
-							.addComponent(tableAllPatient, GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
-							.addGap(12))
-						.addGroup(gl_panelPatient.createSequentialGroup()
-							.addComponent(lblListeDesPatients, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(btnAjouterUnPatient, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(179, Short.MAX_VALUE))))
-		);
-		gl_panelPatient.setVerticalGroup(
-			gl_panelPatient.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panelPatient.createSequentialGroup()
-					.addGap(8)
-					.addGroup(gl_panelPatient.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelPatient.createSequentialGroup()
-							.addGap(4)
-							.addComponent(lblListeDesPatients))
-						.addComponent(btnAjouterUnPatient))
+					.addGroup(gl_panelUtilisateura.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblListeDesUtilisateursa)
+						.addComponent(btnAjouterUnUtilisateura))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tableAllPatient, GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+					.addComponent(scrollPaneUsers, GroupLayout.PREFERRED_SIZE, 586, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(88, Short.MAX_VALUE))
+		);
+		
+		try {
+			tableAllUsers = new JTable(buildTableModel.buildTableModel(UserManagement.getAllUser(), "tabUsers"));
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		tableAllUsers.setEnabled(false);
+		scrollPaneUsers.setViewportView(tableAllUsers);
+		panelUtilisateura.setLayout(gl_panelUtilisateura);
+		
+		JPanel panelPatienta = new JPanel();
+		tabbedPane.addTab("Patients", null, panelPatienta, null);
+		
+		JLabel lblListeDesPatientsa = new JLabel("Liste des patients");
+		
+		JButton btnAjouterUnPatienta = new JButton("Ajouter un patient");
+		
+		JScrollPane tableAllPatient = new JScrollPane();
+		GroupLayout gl_panelPatienta = new GroupLayout(panelPatienta);
+		gl_panelPatienta.setHorizontalGroup(
+			gl_panelPatienta.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelPatienta.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelPatienta.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelPatienta.createSequentialGroup()
+							.addComponent(lblListeDesPatientsa, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
+							.addGap(10)
+							.addComponent(btnAjouterUnPatienta, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
+						.addComponent(tableAllPatient, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE))
 					.addContainerGap())
 		);
-		panelPatient.setLayout(gl_panelPatient);
+		gl_panelPatienta.setVerticalGroup(
+			gl_panelPatienta.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_panelPatienta.createSequentialGroup()
+					.addGap(8)
+					.addGroup(gl_panelPatienta.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelPatienta.createSequentialGroup()
+							.addGap(4)
+							.addComponent(lblListeDesPatientsa))
+						.addComponent(btnAjouterUnPatienta))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(tableAllPatient, GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE))
+		);
+		
+		try {
+			table_1 = new JTable(buildTableModel.buildTableModel(PatientManagement.getAllPatient(), "tabPatients"));
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		table_1.setEnabled(false);
+		tableAllPatient.setViewportView(table_1);
+		panelPatienta.setLayout(gl_panelPatienta);
+		
+		JPanel panel = new JPanel();
+		tabbedPane.addTab("Stock", null, panel, null);
 		frmIngeniousMedcare.getContentPane().setLayout(groupLayout);
 	}
 }

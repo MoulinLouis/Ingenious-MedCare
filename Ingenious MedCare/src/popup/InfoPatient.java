@@ -132,6 +132,7 @@ public class InfoPatient {
 					textFieldMedecin.setEditable(true);
 					textFieldPathologie.setEditable(true);
 					textFieldNote.setEditable(true);
+					
 				} else if(isEditable == true) {
 					isEditable = false;
 					textFieldNom.setEditable(false);

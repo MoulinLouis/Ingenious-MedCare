@@ -12,7 +12,7 @@ public class PatientManagement extends SqlConnection{
 			Connection cn = getInstance();
 			try {
 				Statement st = cn.createStatement();
-				String sql = "SELECT P.id, P.name, P.firstName, P.birthDate, P.email, P.id_gender, P.address, P.city, P.postalCode, P.phoneNumber, P.homePhoneNumber, P.id_country, P.id_profession, P.civilStatus, P.socialSecurityNumber, P.mutualNumber, P.id_bloodGroup, P.pathology, P.note, P.familyDoctor FROM patient AS P";
+				String sql = "SELECT P.id, P.name, P.firstName, P.birthDate, P.email, P.id_gender, P.id_country, P.id_profession FROM patient AS P";
 				 rs = st.executeQuery(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

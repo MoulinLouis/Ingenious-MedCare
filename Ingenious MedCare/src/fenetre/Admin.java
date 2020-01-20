@@ -32,7 +32,7 @@ public class Admin {
 
 	private JFrame frmIngeniousMedcare;
 	private JTable tableAllUsers;
-	private JTable table_1;
+	private JTable tableAllPatients;
 
 	/**
 	 * Launch the application.
@@ -104,6 +104,13 @@ public class Admin {
 		JLabel lblListeDesUtilisateurs = new JLabel("Liste des utilisateurs");
 		
 		JButton btnAjouterUnUtilisateur = new JButton("Ajouter un utilisateur");
+		btnAjouterUnUtilisateur.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				addUserForm addUserForm = new addUserForm();
+				addUserForm.main(null);
+			}
+		});
 		
 		JScrollPane scrollPaneUsers = new JScrollPane();
 		GroupLayout gl_panelUtilisateur = new GroupLayout(panelUtilisateur);
@@ -147,6 +154,13 @@ public class Admin {
 		JLabel lblListeDesPatients = new JLabel("Liste des patients");
 		
 		JButton btnAjouterUnPatient = new JButton("Ajouter un patient");
+		btnAjouterUnPatient.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				InfoPatient InfoClient = new InfoPatient(0);
+				InfoClient.main(null, 0);
+			}
+		});
 		
 		JScrollPane tableAllPatient = new JScrollPane();
 		GroupLayout gl_panelPatient = new GroupLayout(panelPatient);
@@ -176,13 +190,23 @@ public class Admin {
 		);
 		
 		try {
-			table_1 = new JTable(buildTableModel.buildTableModel(PatientManagement.getAllPatient(), "tabPatients"));
+			tableAllPatients = new JTable(buildTableModel.buildTableModel(PatientManagement.getAllPatient(), "tabPatients"));
+			tableAllPatients.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(java.awt.event.MouseEvent evt) {
+					int row = tableAllPatients.rowAtPoint(evt.getPoint());
+			        //int col = tableAllPatient.columnAtPoint(evt.getPoint());
+			        int idPatient = (int) tableAllPatients.getValueAt(row, 0);
+					InfoPatient InfoClient = new InfoPatient(idPatient);
+					InfoClient.main(null, idPatient);
+				}
+			});
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		table_1.setEnabled(false);
-		tableAllPatient.setViewportView(table_1);
+		tableAllPatients.setEnabled(false);
+		tableAllPatient.setViewportView(tableAllPatients);
 		panelPatient.setLayout(gl_panelPatient);
 		
 		JPanel panelStock = new JPanel();

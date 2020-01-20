@@ -12,7 +12,7 @@ public class PatientManagement extends SqlConnection{
 			Connection cn = getInstance();
 			try {
 				Statement st = cn.createStatement();
-				String sql = "SELECT P.id, P.name, P.firstName, P.birthDate, P.email, P.id_gender, P.id_country, P.id_profession FROM patient AS P";
+				String sql = "SELECT P.id, P.name, P.firstName, P.birthDate, P.email, (SELECT C.value FROM combobox AS C WHERE C.id_comboBox = P.id_gender AND C.id_type = 1), (SELECT C.value FROM combobox AS C WHERE C.id_comboBox = P.id_country AND C.id_type = 2), (SELECT C.value FROM combobox AS C WHERE C.id_comboBox = P.id_profession AND C.id_type = 3) FROM patient AS P";
 				 rs = st.executeQuery(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

@@ -32,7 +32,6 @@ public class buildTableModel {
 	    Vector<String> columnNames = new Vector<String>();
 	    int columnCount = metaData.getColumnCount();
 	    for (int column = 0; column < columnCount; column++) {
-	    	System.out.print(column);
 	        columnNames.add(tabColumns[column]);
 	    }
 
@@ -45,7 +44,7 @@ public class buildTableModel {
 	        }
 	        data.add(vector);
 	    }
-
+	    
 	    return new DefaultTableModel(data, columnNames);
 
 	}

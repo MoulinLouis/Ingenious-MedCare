@@ -16,7 +16,6 @@ public class OrdersManagement extends SqlConnection{
 				Statement st = cn.createStatement();
 				String sql = "SELECT O.id, P.nom, O.quantity, O.orderDate, O.status FROM orders AS O"
 							+" INNER JOIN medicalproduct AS P ON P.id = O.id_medicalProduct;";
-				System.out.print(sql);
 				 rs = st.executeQuery(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

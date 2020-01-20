@@ -14,7 +14,6 @@ public class StockManagement extends SqlConnection{
 				Statement st = cn.createStatement();
 				String sql = "SELECT S.id, P.nom, S.quantity FROM medicalstock AS S"
 						+ " INNER JOIN medicalproduct AS P ON P.id = S.id_medicalProduct;";
-				System.out.print(sql);
 				 rs = st.executeQuery(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

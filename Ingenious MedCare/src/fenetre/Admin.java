@@ -9,7 +9,7 @@ import javax.swing.GroupLayout.Alignment;
 import SQL.UserManagement;
 import model.buildTableModel;
 import popup.InfoPatient;
-import popup.addUserForm;
+import popup.InfoUser;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
@@ -107,8 +107,8 @@ public class Admin {
 		btnAjouterUnUtilisateur.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				addUserForm addUserForm = new addUserForm();
-				addUserForm.main(null);
+				InfoUser addUserForm = new InfoUser(0);
+				addUserForm.main(null, 0);
 			}
 		});
 		
@@ -140,6 +140,16 @@ public class Admin {
 		
 		try {
 			tableAllUsers = new JTable(buildTableModel.buildTableModel(UserManagement.getAllUser(), "tabUsers"));
+			tableAllUsers.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(java.awt.event.MouseEvent evt) {
+					int row = tableAllUsers.rowAtPoint(evt.getPoint());
+			        //int col = tableAllPatient.columnAtPoint(evt.getPoint());
+			        int idUser = (int) tableAllUsers.getValueAt(row, 0);
+					InfoUser InfoUser = new InfoUser(idUser);
+					InfoUser.main(null, idUser);
+				}
+			});
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -162,7 +172,7 @@ public class Admin {
 			}
 		});
 		
-		JScrollPane tableAllPatient = new JScrollPane();
+		JScrollPane scrollPanelPatient = new JScrollPane();
 		GroupLayout gl_panelPatient = new GroupLayout(panelPatient);
 		gl_panelPatient.setHorizontalGroup(
 			gl_panelPatient.createParallelGroup(Alignment.LEADING)
@@ -173,7 +183,7 @@ public class Admin {
 							.addComponent(lblListeDesPatients, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
 							.addGap(10)
 							.addComponent(btnAjouterUnPatient, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
-						.addComponent(tableAllPatient, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE))
+						.addComponent(scrollPanelPatient, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_panelPatient.setVerticalGroup(
@@ -186,7 +196,7 @@ public class Admin {
 							.addComponent(lblListeDesPatients))
 						.addComponent(btnAjouterUnPatient))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tableAllPatient, GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE))
+					.addComponent(scrollPanelPatient, GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE))
 		);
 		
 		try {
@@ -206,7 +216,7 @@ public class Admin {
 			e1.printStackTrace();
 		}
 		tableAllPatients.setEnabled(false);
-		tableAllPatient.setViewportView(tableAllPatients);
+		scrollPanelPatient.setViewportView(tableAllPatients);
 		panelPatient.setLayout(gl_panelPatient);
 		
 		JPanel panelStock = new JPanel();

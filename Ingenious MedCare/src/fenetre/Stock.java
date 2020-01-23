@@ -11,8 +11,10 @@ import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 
 import model.buildTableModel;
+import popup.InfoProduct;
+import popup.InfoUser;
 import popup.addOrderForm;
-import popup.addProductForm;
+import popup.InfoProduct;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
@@ -33,6 +35,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingUtilities;
 import javax.swing.JButton;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -55,9 +58,9 @@ public class Stock {
 
 	private JFrame frmIngeniousMedcare;
 	private ImageIcon iconDeconnexion = new ImageIcon(Stock.class.getResource("/img/deconnexion.png"));
-	private JTable table_1;
-	private JTable table;
-	private JTable table_2;
+	public static JTable tableProduct;
+	public JTable tableOrders;
+	public JTable tableStock;
 
 	/**
 	 * Launch the application.
@@ -179,12 +182,13 @@ public class Stock {
 		);
 		
 		try {
-			table_2 = new JTable(buildTableModel.buildTableModel(StockManagement.getAllMedicalStock(), "tabStock"));
+			tableStock = new JTable(buildTableModel.buildTableModel(StockManagement.getAllMedicalStock(), "tabStock"));
+			tableStock.setEnabled(false);
 		} catch (SQLException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		scrollPane_2.setViewportView(table_2);
+		scrollPane_2.setViewportView(tableStock);
 		panelStock.setLayout(gl_panelStock);
 		
 		JPanel panelOrder = new JPanel();
@@ -214,12 +218,13 @@ public class Stock {
 		);
 		
 		try {
-			table = new JTable(buildTableModel.buildTableModel(OrdersManagement.getAllOrders(), "tabOrders"));
+			tableOrders = new JTable(buildTableModel.buildTableModel(OrdersManagement.getAllOrders(), "tabOrders"));
+			tableOrders.setEnabled(false);
 		} catch (SQLException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		scrollPane_1.setViewportView(table);
+		scrollPane_1.setViewportView(tableOrders);
 		panelOrder.setLayout(gl_panelOrder);
 		
 		JPanel panelProduct = new JPanel();
@@ -231,8 +236,8 @@ public class Stock {
 		btnAddProduct.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				addProductForm addProductForm = new addProductForm();
-				addProductForm.main(null);
+				InfoProduct InfoProduct = new InfoProduct(0);
+				InfoProduct.main(null,0);
 			}
 		});
 		
@@ -263,14 +268,24 @@ public class Stock {
 		);
 
 		try {
-			table_1 = new JTable(buildTableModel.buildTableModel(ProductManagement.getAllMedicalProduct(), "tabProduct"));
+			tableProduct = new JTable(buildTableModel.buildTableModel(ProductManagement.getAllMedicalProduct(), "tabProduct"));
+			tableProduct.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(java.awt.event.MouseEvent evt) {
+					int row = tableProduct.rowAtPoint(evt.getPoint());
+			        //int col = tableAllPatient.columnAtPoint(evt.getPoint());
+			        int idProduct = (int) tableProduct.getValueAt(row, 0);
+					InfoProduct InfoProduct = new InfoProduct(idProduct);
+					InfoProduct.main(null, idProduct);
+				}
+			});
 		} catch (SQLException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		scrollPane.setViewportView(table_1);
+		tableProduct.setEnabled(false);
+		scrollPane.setViewportView(tableProduct);
 		panelProduct.setLayout(gl_panelProduct);
-		
-		
+			
 	}
 }

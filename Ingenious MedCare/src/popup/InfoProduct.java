@@ -17,7 +17,6 @@ import javax.swing.table.TableModel;
 
 import SQL.ProductManagement;
 import SQL.SqlConnection;
-import SQL.UserManagement;
 
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -36,7 +35,7 @@ import java.awt.Dialog.ModalityType;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class addProductForm {
+public class InfoProduct {
 
 	private JDialog frmIngeniousMedcare;
 	private JTextField textFieldClassification;
@@ -46,15 +45,16 @@ public class addProductForm {
 	private JTextField textFieldConservation;
 	Toolkit toolkit = Toolkit.getDefaultToolkit();  
 	Dimension screenSize = toolkit.getScreenSize();
+	private boolean isEditable;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args, int idProduct) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					addProductForm window = new addProductForm();
+					InfoProduct window = new InfoProduct(idProduct);
 					window.frmIngeniousMedcare.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -66,14 +66,14 @@ public class addProductForm {
 	/**
 	 * Create the application.
 	 */
-	public addProductForm() {
-		initialize();
+	public InfoProduct(int idProduct) {
+		initialize(idProduct);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(int idProduct) {
 		frmIngeniousMedcare = new JDialog();
 		frmIngeniousMedcare.setType(Type.POPUP);
 		frmIngeniousMedcare.setResizable(false);
@@ -141,11 +141,15 @@ public class addProductForm {
 		JLabel lblAddProduct = new JLabel("Add Product");
 		lblAddProduct.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
-		JButton btnAjouter = new JButton("Ajouter");
-		btnAjouter.addMouseListener(new MouseAdapter() {
+		JButton btnValider = new JButton("Valider");
+		btnValider.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				ProductManagement.create(textFieldNom.getText(), textFieldClassification.getText(), textFieldSubstance.getText(), textFieldExcipient.getText(), textFieldConservation.getText(), comboBoxToxicity.getSelectedItem().toString());
+				if(idProduct != 0) {
+					ProductManagement.updateMedicalProduct(idProduct,textFieldNom.getText(), textFieldClassification.getText(), textFieldSubstance.getText(), textFieldExcipient.getText(), textFieldConservation.getText(), comboBoxToxicity.getSelectedItem().toString());
+				}else {
+					ProductManagement.create(textFieldNom.getText(), textFieldClassification.getText(), textFieldSubstance.getText(), textFieldExcipient.getText(), textFieldConservation.getText(), comboBoxToxicity.getSelectedItem().toString());
+				}
 				frmIngeniousMedcare.dispose();
 			}
 		});
@@ -159,6 +163,58 @@ public class addProductForm {
 		});
 		
 		JLabel lblNewLabel = new JLabel("Toxicit\u00E9");
+		
+		JButton btnModifier = new JButton("Modifier");
+		btnModifier.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(isEditable == false) {
+					isEditable = true;
+					textFieldNom.setEditable(true);
+					textFieldClassification.setEditable(true);
+					textFieldSubstance.setEditable(true);
+					textFieldExcipient.setEditable(true);
+					textFieldConservation.setEditable(true);	
+					comboBoxToxicity.setEnabled(true);
+				} else if(isEditable == true) {
+					isEditable = false;
+					textFieldNom.setEditable(false);
+					textFieldClassification.setEditable(false);
+					textFieldSubstance.setEditable(false);
+					textFieldExcipient.setEditable(false);
+					textFieldConservation.setEditable(false);
+					comboBoxToxicity.setEnabled(false);
+				}
+
+			}
+		});
+		
+		ResultSet rsProduct = ProductManagement.getMedicalProductById(idProduct);
+		try {
+			if(rsProduct.next()){
+				textFieldNom.setText(rsProduct.getString("nom"));
+				textFieldClassification.setText(rsProduct.getString("classification"));
+				textFieldSubstance.setText(rsProduct.getString("substance"));
+				textFieldExcipient.setText(rsProduct.getString("excipient"));
+				textFieldConservation.setText(rsProduct.getString("conservation"));
+				comboBoxToxicity.setSelectedIndex(rsProduct.getInt("toxicity")-1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(idProduct != 0) {
+			isEditable = false;
+			textFieldNom.setEditable(false);
+			textFieldClassification.setEditable(false);
+			textFieldSubstance.setEditable(false);
+			textFieldExcipient.setEditable(false);
+			textFieldConservation.setEditable(false);
+			comboBoxToxicity.setEnabled(false);
+		}else {
+			btnModifier.setVisible(false);
+		}
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -167,38 +223,40 @@ public class addProductForm {
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(75)
 							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblClassification, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+								.addComponent(lblClassification, GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
 								.addComponent(lblNom, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
 								.addComponent(textFieldNom, 102, 102, 102)
-								.addComponent(textFieldClassification, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-								.addComponent(lblSubstance, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+								.addComponent(textFieldClassification, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+								.addComponent(lblSubstance, GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
 								.addComponent(textFieldSubstance, 102, 102, 102))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-									.addComponent(textFieldExcipient, Alignment.LEADING, 173, 173, Short.MAX_VALUE)
-									.addComponent(lblExcipient, GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-									.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
-										.addGap(10)
-										.addComponent(lblConservation, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-										.addGap(17))
-									.addComponent(textFieldConservation, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-									.addGroup(gl_panel.createSequentialGroup()
-										.addComponent(comboBoxToxicity, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
-										.addGap(38)))
-								.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+								.addComponent(textFieldExcipient, 173, 173, Short.MAX_VALUE)
+								.addComponent(lblExcipient, GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addGap(10)
+									.addComponent(lblConservation, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+									.addGap(17))
+								.addComponent(textFieldConservation, GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(comboBoxToxicity, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+									.addGap(38))
+								.addGroup(gl_panel.createSequentialGroup()
 									.addComponent(lblNewLabel)
-									.addGap(61))))
+									.addGap(61))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addGap(10)
+									.addComponent(btnValider)
+									.addGap(18)
+									.addComponent(btnModifier))))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(168)
 							.addComponent(lblAddProduct, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)))
 					.addGap(90))
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(134)
+					.addGap(98)
 					.addComponent(btnRetour)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnAjouter)
-					.addContainerGap(166, Short.MAX_VALUE))
+					.addContainerGap(281, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -232,7 +290,8 @@ public class addProductForm {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnRetour)
-						.addComponent(btnAjouter))
+						.addComponent(btnValider)
+						.addComponent(btnModifier))
 					.addContainerGap(44, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);

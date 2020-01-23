@@ -62,16 +62,21 @@ public class ProductManagement extends SqlConnection{
 		}
 	  }
 	  
-	  public static  void updateMedicalProduct(String id, String nom,String classification,String substance,String excipient,String conservation, String toxicity) {
-			Connection cn = getInstance();
-			if (id.isEmpty() || nom.isEmpty() || classification.isEmpty() || substance.isEmpty() || excipient.isEmpty() || conservation.isEmpty() || toxicity.isEmpty()) {
+	  public static  void updateMedicalProduct(Integer id, String nom,String classification,String substance,String excipient,String conservation, String toxicity) {
+		  java.sql.ResultSet rs =null;
+		  Connection cn = getInstance();
+			if (nom.isEmpty() || classification.isEmpty() || substance.isEmpty() || excipient.isEmpty() || conservation.isEmpty() || toxicity.isEmpty()) {
 				// A gérer une gestion d'erreur
 				System.out.print("Tous les champs ne sont pas remplis");
 			}
 			else {
 			try {
 				Statement st = cn.createStatement();
-				String sql = "UPDATE medicalproduct SET nom='" + nom + "',classification='" + classification + "',substance='" + substance + "', excipient='" + excipient + "',conservation='" + conservation + "',toxicity='" + toxicity + "' WHERE id ='" + id + "'";
+				String sqlRecup = "SELECT T.id FROM toxicity AS T WHERE T.libelle ="+"'"+toxicity+"'";
+				rs = st.executeQuery(sqlRecup);
+			    rs.next();
+			    String idToxicity = rs.getString("id");
+				String sql = "UPDATE medicalproduct SET nom='" + nom + "',classification='" + classification + "',substance='" + substance + "', excipient='" + excipient + "',conservation='" + conservation + "',toxicity='" + idToxicity + "' WHERE id ='" + id + "'";
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

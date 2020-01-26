@@ -13,7 +13,7 @@ import javax.swing.GroupLayout.Alignment;
 import model.buildTableModel;
 import popup.InfoProduct;
 import popup.InfoUser;
-import popup.addOrderForm;
+import popup.InfoStock;
 import popup.InfoProduct;
 
 import javax.swing.JTabbedPane;
@@ -150,8 +150,8 @@ public class Stock {
 		buttonCommande.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				addOrderForm addOrderForm = new addOrderForm();
-				addOrderForm.main(null);
+				InfoStock InfoStock = new InfoStock();
+				InfoStock.main(null);
 			}
 		});
 		

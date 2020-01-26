@@ -29,7 +29,7 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class addOrderForm {
+public class InfoStock {
 
 	private JDialog frmIngeniousMedcare;
 	private JTextField textFieldQuantity;
@@ -43,7 +43,7 @@ public class addOrderForm {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					addOrderForm window = new addOrderForm();
+					InfoStock window = new InfoStock();
 					window.frmIngeniousMedcare.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,7 +55,7 @@ public class addOrderForm {
 	/**
 	 * Create the application.
 	 */
-	public addOrderForm() {
+	public InfoStock() {
 		initialize();
 	}
 

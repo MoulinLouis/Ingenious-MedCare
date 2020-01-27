@@ -148,6 +148,7 @@ public class Admin {
 			        int idUser = (int) tableAllUsers.getValueAt(row, 0);
 					InfoUser InfoUser = new InfoUser(idUser);
 					InfoUser.main(null, idUser);
+					
 				}
 			});
 		} catch (SQLException e1) {
@@ -215,7 +216,6 @@ public class Admin {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		tableAllPatients.setEnabled(false);
 		scrollPanelPatient.setViewportView(tableAllPatients);
 		panelPatient.setLayout(gl_panelPatient);
 		

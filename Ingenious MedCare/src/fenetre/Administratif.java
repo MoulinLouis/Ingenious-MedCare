@@ -15,10 +15,10 @@ import javax.swing.JButton;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 import SQL.*;
+import javax.swing.JScrollPane;
 public class Administratif {
 
 	private JFrame frmIngeniousMedcare;
-	private JTable tableAllPatient;
 
 	/**
 	 * Launch the application.
@@ -79,23 +79,23 @@ public class Administratif {
 		JPanel panelPatients = new JPanel();
 		tabbedPane.addTab("Patients", null, panelPatients, null);
 		
-		tableAllPatient = new JTable();
-		
 		JLabel lblListeDesPatients = new JLabel("Liste des patients");
 		
 		JButton btnAjouterUnPatient = new JButton("Ajouter un patient");
+		
+		JScrollPane scrollPane = new JScrollPane();
 		GroupLayout gl_panelPatients = new GroupLayout(panelPatients);
 		gl_panelPatients.setHorizontalGroup(
 			gl_panelPatients.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelPatients.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelPatients.createParallelGroup(Alignment.LEADING)
-						.addComponent(tableAllPatient, GroupLayout.PREFERRED_SIZE, 411, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_panelPatients.createSequentialGroup()
 							.addComponent(lblListeDesPatients)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnAjouterUnPatient)))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addComponent(btnAjouterUnPatient))
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 411, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(61, Short.MAX_VALUE))
 		);
 		gl_panelPatients.setVerticalGroup(
 			gl_panelPatients.createParallelGroup(Alignment.LEADING)
@@ -104,9 +104,9 @@ public class Administratif {
 					.addGroup(gl_panelPatients.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblListeDesPatients)
 						.addComponent(btnAjouterUnPatient))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(tableAllPatient, GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-					.addContainerGap())
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 600, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panelPatients.setLayout(gl_panelPatients);
 		frmIngeniousMedcare.getContentPane().setLayout(groupLayout);

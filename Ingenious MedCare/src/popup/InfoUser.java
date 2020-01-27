@@ -13,7 +13,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import SQL.PatientManagement;
 import SQL.UserManagement;
-import constructor.User;
 
 import java.awt.Font;
 import java.awt.Toolkit;

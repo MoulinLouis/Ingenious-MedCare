@@ -1,5 +1,7 @@
 package fenetre;
+
 import SQL.*;
+import extensions.*;
 
 import java.awt.EventQueue;
 
@@ -197,13 +199,24 @@ public class Stock {
 		JLabel lblListeDesCommandes = new JLabel("Liste des commandes");
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
+		
+		JButton btnSendMail = new JButton("SendMail");
+		btnSendMail.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				extensions.MailExtension.sendMessage();
+			}
+		});
 		GroupLayout gl_panelOrder = new GroupLayout(panelOrder);
 		gl_panelOrder.setHorizontalGroup(
 			gl_panelOrder.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelOrder.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelOrder.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblListeDesCommandes)
+						.addGroup(gl_panelOrder.createSequentialGroup()
+							.addComponent(lblListeDesCommandes)
+							.addGap(18)
+							.addComponent(btnSendMail))
 						.addComponent(scrollPane_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
 					.addContainerGap())
 		);
@@ -211,7 +224,9 @@ public class Stock {
 			gl_panelOrder.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelOrder.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblListeDesCommandes)
+					.addGroup(gl_panelOrder.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblListeDesCommandes)
+						.addComponent(btnSendMail))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
 					.addContainerGap())

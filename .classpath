@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="org.eclipse.swt/bin/swt.jar"/>
 	<classpathentry kind="lib" path="org.eclipse.swt/swt-debug.jar"/>
 	<classpathentry kind="lib" path="org.eclipse.swt/swt.jar"/>
+	<classpathentry kind="lib" path="Ingenious MedCare/lib/javax.mail-1.6.2.jar"/>
 	<classpathentry kind="output" path="Ingenious MedCare/bin"/>
 </classpath>

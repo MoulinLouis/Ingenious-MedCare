@@ -111,9 +111,9 @@ public class UserManagement extends SqlConnection{
 		}
 	  }
 	  
-	  public static  void updateUser(String id, String login,String email,String password,String name,String firstName, String idRole) {
+	  public static  void updateUser(int idUser, String login,String email,String password,String name,String firstName, String idRole) {
 			Connection cn = getInstance();
-			if (id.isEmpty() || login.isEmpty() || email.isEmpty() || password.isEmpty() || name.isEmpty() || firstName.isEmpty() || idRole.isEmpty()) {
+			if (login.isEmpty() || email.isEmpty() || password.isEmpty() || name.isEmpty() || firstName.isEmpty() || idRole.isEmpty()) {
 				// A gérer une gestion d'erreur
 				System.out.print("Tous les champs ne sont pas remplis");
 			}

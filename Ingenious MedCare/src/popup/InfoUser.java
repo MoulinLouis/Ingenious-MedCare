@@ -122,7 +122,11 @@ public class InfoUser {
 				} else if(radioBtnAdministratif.isSelected()) {
 					radioBtnSelected = "1";
 				}
-				UserManagement.createUser(fieldLogin.getText(), fieldEmail.getText(), fieldMdp.getText(), fieldNom.getText(), fieldPrenom.getText(), radioBtnSelected);
+				if(idUser != 0) {
+					UserManagement.updateUser(idUser, fieldLogin.getText(), fieldEmail.getText(), fieldMdp.getText(), fieldNom.getText(), fieldPrenom.getText(), radioBtnSelected);
+				} else {
+					UserManagement.createUser(fieldLogin.getText(), fieldEmail.getText(), fieldMdp.getText(), fieldNom.getText(), fieldPrenom.getText(), radioBtnSelected);
+				}
 				frmIngeniousMedcare.dispose();
 			}
 		});

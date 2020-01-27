@@ -51,7 +51,7 @@ public class Administratif {
 		frmIngeniousMedcare.setTitle("Ingenious MedCare - Administratif");
 		frmIngeniousMedcare.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frmIngeniousMedcare.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GroupLayout groupLayout = new GroupLayout(frmIngeniousMedcare.getContentPane());
 		groupLayout.setHorizontalGroup(

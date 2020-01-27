@@ -64,7 +64,8 @@ public class Login {
 		frmIngeniousMedcare.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		int x = (screenSize.width - frmIngeniousMedcare.getWidth()) / 2;  
 		int y = (screenSize.height - frmIngeniousMedcare.getHeight()) / 2;
-		frmIngeniousMedcare.setLocation(x, y);  
+		frmIngeniousMedcare.setLocation(x, y); 
+		frmIngeniousMedcare.setResizable(false);
 
 		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(frmIngeniousMedcare.getContentPane());

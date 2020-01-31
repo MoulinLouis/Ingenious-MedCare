@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -155,7 +156,23 @@ public class InfoPatient {
 			e1.printStackTrace();
 		}
 		
+		JXDatePicker datePickerBirthDate = new JXDatePicker();
+
+		
 		JButton btnNewButton = new JButton("Valider");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				final SimpleDateFormat formater = new SimpleDateFormat("yyyy/MM/dd");
+				if(idPatient != 0) {
+					System.out.print("modif");
+					PatientManagement.updatePatient(idPatient, textFieldNom.getText(), textFieldPrenom.getText(), formater.format(datePickerBirthDate.getDate()), textFieldEmail.getText(), comboBoxGenre.getSelectedIndex(), textFieldAdresse.getText(), textFieldVille.getText(), textFieldCodePostal.getText(), textFieldTel.getText(), textFieldFix.getText(), comboBoxPays.getSelectedIndex(), comboBoxMetier.getSelectedIndex(), textFieldStatutCivil.getText(), textFieldNumeroMutuel.getText(), textFieldNumeroSecu.getText(), comboBoxMetier.getSelectedIndex(), textFieldPathologie.getText(), textFieldNote.getText(), textFieldMedecin.getText());
+				} else {
+					System.out.print("ajout");
+					PatientManagement.createPatient(textFieldNom.getText(), textFieldPrenom.getText(), formater.format(datePickerBirthDate.getDate()), textFieldEmail.getText(), comboBoxGenre.getSelectedIndex(), textFieldAdresse.getText(), textFieldVille.getText(), textFieldCodePostal.getText(), textFieldTel.getText(), textFieldFix.getText(), comboBoxPays.getSelectedIndex(), comboBoxMetier.getSelectedIndex(), textFieldStatutCivil.getText(), textFieldNumeroMutuel.getText(), textFieldNumeroSecu.getText(), comboBoxMetier.getSelectedIndex(), textFieldPathologie.getText(), textFieldNote.getText(), textFieldMedecin.getText());
+				}
+			}
+		});
 		
 		JButton btnNewButton_1 = new JButton("Modifier");
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
@@ -181,7 +198,7 @@ public class InfoPatient {
 					comboBoxGenre.setEnabled(true);
 					comboBoxPays.setEnabled(true);
 					comboBoxMetier.setEnabled(true);
-					comboBoxGroupeSanguin.setEnabled(true);					
+					comboBoxMetier.setEnabled(true);					
 				} else if(isEditable == true) {
 					isEditable = false;
 					textFieldNom.setEditable(false);
@@ -290,16 +307,20 @@ public class InfoPatient {
 		JLabel lblMetier = new JLabel("M\u00E9tier");
 		
 		JXDatePicker picker = new JXDatePicker();
-		picker.setDate(Calendar.getInstance().getTime());
-		
-		SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd");
-		Date dateobj = new Date();
-		panel.add(picker);
-		picker.setDate(dateobj);
+		String dateValue = "2000-12-26";  // must be in (yyyy- mm- dd ) format
+		Date date;
+		try {
+			date = new SimpleDateFormat("yyyy-mm-dd").parse(dateValue);
+			picker.setDate(date);
+			System.out.print(date
+					);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		JLabel lblDateDeNaissance = new JLabel("Date de naissance");
-		
-		JXDatePicker datePicker = new JXDatePicker();
-	
+		Date date1 = new Date();
+		System.out.print(date1);
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -356,7 +377,7 @@ public class InfoPatient {
 						.addComponent(lblPays)
 						.addComponent(lblFix)
 						.addComponent(textFieldFix, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
-						.addComponent(datePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(datePickerBirthDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(17))
 		);
 		gl_panel_1.setVerticalGroup(
@@ -415,7 +436,7 @@ public class InfoPatient {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
 						.addComponent(comboBoxMetier, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(datePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(datePickerBirthDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(108, Short.MAX_VALUE))
 		);
 		panel_1.setLayout(gl_panel_1);

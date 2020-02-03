@@ -55,23 +55,37 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.BoxLayout;
 import java.awt.CardLayout;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JToolBar;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class Stock {
 
 	private JFrame frmIngeniousMedcare;
-	private ImageIcon iconDeconnexion = new ImageIcon(Stock.class.getResource("/img/deconnexion.png"));
 	public static JTable tableProduct;
 	public JTable tableOrders;
 	public JTable tableStock;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args, int connectedId) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Stock window = new Stock();
+					Stock window = new Stock(connectedId);
 					window.frmIngeniousMedcare.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -83,14 +97,14 @@ public class Stock {
 	/**
 	 * Create the application.
 	 */
-	public Stock() {
-		initialize();
+	public Stock(int connectedId) {
+		initialize(connectedId);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(int connectedId) {
 		frmIngeniousMedcare = new JFrame();
 		frmIngeniousMedcare.setTitle("Ingenious MedCare - Stock");
 		frmIngeniousMedcare.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -99,23 +113,27 @@ public class Stock {
 		JMenuBar menuBar = new JMenuBar();
 		frmIngeniousMedcare.getContentPane().add(menuBar, BorderLayout.NORTH);
 		
-		Image img = iconDeconnexion.getImage();
-		Image newimg = img.getScaledInstance(35, 35, java.awt.Image.SCALE_SMOOTH);
-		iconDeconnexion = new ImageIcon(newimg);
+		JMenu menuOptions = new JMenu("Options");
+		menuBar.add(menuOptions);
 		
-		JButton btnDeconnect = new JButton(iconDeconnexion);
-		btnDeconnect.addMouseListener(new MouseAdapter() {
+		JMenuItem mntmNewMenuItem = new JMenuItem("Mon compte");
+		mntmNewMenuItem.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Login login = new Login();
-				login.main(null);
+				/* Mettre pour infoUser
+				InfoUser administratif = new Administratif(idBase);
+				administratif.main(null, idBase);
 				frmIngeniousMedcare.dispose();
+				*/
 			}
 		});
-		btnDeconnect.setBorder(BorderFactory.createEmptyBorder());
-		btnDeconnect.setContentAreaFilled(false);
-		menuBar.add(btnDeconnect);
+		menuOptions.add(mntmNewMenuItem);
 		
+		JMenuItem mntmSeDconnecter = new JMenuItem("Se d\u00E9connecter");
+		menuOptions.add(mntmSeDconnecter);
+		
+		JList list = new JList();
+		menuBar.add(list);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		frmIngeniousMedcare.getContentPane().add(tabbedPane, BorderLayout.CENTER);
@@ -301,6 +319,110 @@ public class Stock {
 		tableProduct.setEnabled(false);
 		scrollPane.setViewportView(tableProduct);
 		panelProduct.setLayout(gl_panelProduct);
+		
+		JPanel panelMonCompte = new JPanel();
+		tabbedPane.addTab("Mon compte", null, panelMonCompte, null);
+		
+		JLabel label_2 = new JLabel("Login");
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		
+		JLabel label_3 = new JLabel("Mot de passe");
+		
+		JLabel label_4 = new JLabel("Pr\u00E9nom");
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		
+		JLabel label_5 = new JLabel("Email");
+		
+		JLabel label_6 = new JLabel("Nom");
+		
+		JButton btnModifier = new JButton("Modifier");
+		
+		JLabel lblModificationDeCompte = new JLabel("Modification de compte");
+		lblModificationDeCompte.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GroupLayout gl_panelMonCompte = new GroupLayout(panelMonCompte);
+		gl_panelMonCompte.setHorizontalGroup(
+			gl_panelMonCompte.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panelMonCompte.createSequentialGroup()
+					.addContainerGap(48, Short.MAX_VALUE)
+					.addGroup(gl_panelMonCompte.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelMonCompte.createSequentialGroup()
+							.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
+							.addGap(4)
+							.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(label_6, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+							.addGap(36)
+							.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelMonCompte.createSequentialGroup()
+							.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+							.addGap(33)
+							.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelMonCompte.createSequentialGroup()
+							.addGroup(gl_panelMonCompte.createParallelGroup(Alignment.TRAILING)
+								.addComponent(btnModifier)
+								.addGroup(gl_panelMonCompte.createSequentialGroup()
+									.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+									.addGap(44)
+									.addComponent(textField, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(label_5, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)))
+							.addGap(32)
+							.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)))
+					.addGap(44))
+				.addGroup(Alignment.LEADING, gl_panelMonCompte.createSequentialGroup()
+					.addGap(141)
+					.addComponent(lblModificationDeCompte)
+					.addContainerGap(241, Short.MAX_VALUE))
+		);
+		gl_panelMonCompte.setVerticalGroup(
+			gl_panelMonCompte.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelMonCompte.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblModificationDeCompte)
+					.addGap(11)
+					.addGroup(gl_panelMonCompte.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelMonCompte.createSequentialGroup()
+							.addGap(3)
+							.addComponent(label_2))
+						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panelMonCompte.createSequentialGroup()
+							.addGap(3)
+							.addComponent(label_5))
+						.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(3)
+					.addGroup(gl_panelMonCompte.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelMonCompte.createSequentialGroup()
+							.addGap(3)
+							.addComponent(label_3))
+						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panelMonCompte.createSequentialGroup()
+							.addGap(3)
+							.addComponent(label_6))
+						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(6)
+					.addGroup(gl_panelMonCompte.createParallelGroup(Alignment.LEADING)
+						.addComponent(label_4)
+						.addGroup(gl_panelMonCompte.createSequentialGroup()
+							.addGap(1)
+							.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnModifier)
+					.addContainerGap(63, Short.MAX_VALUE))
+		);
+		panelMonCompte.setLayout(gl_panelMonCompte);
 			
 	}
 }

@@ -20,12 +20,14 @@ public class UserManagement extends SqlConnection{
 			Connection cn = getInstance();
 			String loginBase = "";
 			String passwordBase = "";
+			int idBase = 0;
 			int roleIdBase = 0;
 			try {
 				Statement st = cn.createStatement();
-				String sql = "SELECT login, password, idRole FROM user WHERE login='" + login + "' AND password='" + password + "' ";
+				String sql = "SELECT id, login, password, idRole FROM user WHERE login='" + login + "' AND password='" + password + "' ";
 				rs = st.executeQuery(sql);
 				if(rs.next()) {
+					idBase = rs.getInt("id");
 					loginBase = rs.getString("login");
 					passwordBase = rs.getString("password");
 					roleIdBase = rs.getInt("idRole");
@@ -47,13 +49,13 @@ public class UserManagement extends SqlConnection{
 				if(login.equals(loginBase) && password.equals(passwordBase)) {
 					if(roleIdBase == 2) {
 						showMessageDialog(null, "Connexion effectuée en tant que gestionnaire de stock avec succès !");
-						Stock stock = new Stock();
-						stock.main(null);
+						Stock stock = new Stock(idBase);
+						stock.main(null, idBase);
 						frmIngeniousMedcare.dispose();
 					} else if(roleIdBase == 1) {
 						showMessageDialog(null, "Connexion effectuée en tant qu'administratif avec succès !");
-						Administratif administratif = new Administratif();
-						administratif.main(null);
+						Administratif administratif = new Administratif(idBase);
+						administratif.main(null, idBase);
 						frmIngeniousMedcare.dispose();
 					}
 				}

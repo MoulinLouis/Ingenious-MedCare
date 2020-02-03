@@ -16,18 +16,24 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 import SQL.*;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 public class Administratif {
 
 	private JFrame frmIngeniousMedcare;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args, int connectedId) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Administratif window = new Administratif();
+					Administratif window = new Administratif(connectedId);
 					window.frmIngeniousMedcare.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,14 +45,14 @@ public class Administratif {
 	/**
 	 * Create the application.
 	 */
-	public Administratif() {
-		initialize();
+	public Administratif(int connectedId) {
+		initialize(connectedId);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(int connectedId) {
 		frmIngeniousMedcare = new JFrame();
 		frmIngeniousMedcare.setTitle("Ingenious MedCare - Administratif");
 		frmIngeniousMedcare.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -109,6 +115,95 @@ public class Administratif {
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panelPatients.setLayout(gl_panelPatients);
+		
+		JPanel panelMonCompte = new JPanel();
+		tabbedPane.addTab("Mon compte", null, panelMonCompte, null);
+		
+		JLabel label = new JLabel("Login");
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		
+		JLabel label_1 = new JLabel("Mot de passe");
+		
+		JLabel label_2 = new JLabel("Pr\u00E9nom");
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		
+		JLabel label_3 = new JLabel("Email");
+		
+		JLabel label_4 = new JLabel("Nom");
+		GroupLayout gl_panelMonCompte = new GroupLayout(panelMonCompte);
+		gl_panelMonCompte.setHorizontalGroup(
+			gl_panelMonCompte.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelMonCompte.createSequentialGroup()
+					.addGap(42)
+					.addGroup(gl_panelMonCompte.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelMonCompte.createSequentialGroup()
+							.addComponent(label, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+							.addGap(44)
+							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+							.addGap(32)
+							.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelMonCompte.createSequentialGroup()
+							.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
+							.addGap(4)
+							.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+							.addGap(36)
+							.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelMonCompte.createSequentialGroup()
+							.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+							.addGap(33)
+							.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(50, Short.MAX_VALUE))
+		);
+		gl_panelMonCompte.setVerticalGroup(
+			gl_panelMonCompte.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelMonCompte.createSequentialGroup()
+					.addGap(43)
+					.addGap(1)
+					.addGroup(gl_panelMonCompte.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelMonCompte.createSequentialGroup()
+							.addGap(3)
+							.addComponent(label))
+						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panelMonCompte.createSequentialGroup()
+							.addGap(3)
+							.addComponent(label_3))
+						.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(3)
+					.addGroup(gl_panelMonCompte.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelMonCompte.createSequentialGroup()
+							.addGap(3)
+							.addComponent(label_1))
+						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panelMonCompte.createSequentialGroup()
+							.addGap(3)
+							.addComponent(label_4))
+						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(6)
+					.addGroup(gl_panelMonCompte.createParallelGroup(Alignment.LEADING)
+						.addComponent(label_2)
+						.addGroup(gl_panelMonCompte.createSequentialGroup()
+							.addGap(1)
+							.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(538, Short.MAX_VALUE))
+		);
+		panelMonCompte.setLayout(gl_panelMonCompte);
 		frmIngeniousMedcare.getContentPane().setLayout(groupLayout);
 	}
 }

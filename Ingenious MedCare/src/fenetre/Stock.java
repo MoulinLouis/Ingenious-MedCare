@@ -117,19 +117,22 @@ public class Stock {
 		menuBar.add(menuOptions);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Mon compte");
-		mntmNewMenuItem.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				/* Mettre pour infoUser
-				InfoUser administratif = new Administratif(idBase);
-				administratif.main(null, idBase);
-				frmIngeniousMedcare.dispose();
-				*/
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frmIngeniousMedcare.getContentPane().removeAll();
+				frmIngeniousMedcare.repaint();
 			}
 		});
 		menuOptions.add(mntmNewMenuItem);
 		
 		JMenuItem mntmSeDconnecter = new JMenuItem("Se d\u00E9connecter");
+		mntmSeDconnecter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frmIngeniousMedcare.dispose();
+				Login login = new Login();
+				login.main(null);
+			}
+		});
 		menuOptions.add(mntmSeDconnecter);
 		
 		JList list = new JList();

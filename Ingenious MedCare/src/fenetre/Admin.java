@@ -6,19 +6,24 @@ import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
-import SQL.UserManagement;
-import model.buildTableModel;
+import models.OrdersModel;
+import models.PatientModel;
+import models.UserModel;
 import popup.InfoPatient;
+import popup.InfoProduct;
 import popup.InfoUser;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import static javax.swing.JOptionPane.showMessageDialog;
 import java.awt.FlowLayout;
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.table.TableModel;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -55,7 +60,68 @@ public class Admin {
 	 */
 	public Admin() {
 		initialize();
+		Show_Users_In_JTable();
+		Show_Patients_In_JTable();
 	}
+	
+	// Execute The Insert Update And Delete Querys
+		public void executeSQlQuery(String query, String message)
+		{
+		   Connection cn = SqlConnection.getInstance();
+		   Statement st;
+		   try{
+		       st = cn.createStatement();
+		       if((st.executeUpdate(query)) == 1)
+		       {
+			    	// refresh jtable data
+			    	//DefaultTableModel model = (DefaultTableModel)tableOrders.getModel();
+			    	//model.setRowCount(0);
+			    	//Show_Orders_In_JTable();    
+		    	   JOptionPane.showMessageDialog(null, "Data "+message+" Succefully");
+		       	}else{
+		           JOptionPane.showMessageDialog(null, "Data Not "+message);
+		        }
+		        }catch(Exception ex){
+		           ex.printStackTrace();
+		       }
+		 }
+		 public void Show_Users_In_JTable()
+		   {
+			   ArrayList<UserModel> Userlist = UserManagement.getAllUser();
+		       DefaultTableModel UserModel = (DefaultTableModel) tableAllUsers.getModel();
+		       Object[] UserRow = new Object[7];
+		       for(int i = 0; i < Userlist.size(); i++)
+		       {
+		    	   UserRow[0] = Userlist.get(i).getId();
+		    	   UserRow[1] = Userlist.get(i).getLogin();
+		    	   UserRow[2] = Userlist.get(i).getEmail();
+		    	   UserRow[3] = Userlist.get(i).getPassword();
+		    	   UserRow[4] = Userlist.get(i).getName();
+		    	   UserRow[5] = Userlist.get(i).getFirstname();
+		    	   UserRow[6] = Userlist.get(i).getIdRole();
+		    	   
+		    	   UserModel.addRow(UserRow);
+		       }
+		    }
+		 public void Show_Patients_In_JTable()
+		   {
+			   ArrayList<PatientModel> PatientList = PatientManagement.getAllPatient();
+		       DefaultTableModel PatientModel = (DefaultTableModel) tableAllPatients.getModel();
+		       Object[] PatientRow = new Object[5];
+		       for(int i = 0; i < PatientList.size(); i++)
+		       {
+		    	   PatientRow[0] = PatientList.get(i).getId();
+		    	   PatientRow[1] = PatientList.get(i).getName();
+		    	   PatientRow[2] = PatientList.get(i).getFirstName();
+		    	   PatientRow[3] = PatientList.get(i).getBirthDate();
+		    	   PatientRow[4] = PatientList.get(i).getEmail();
+		    	   PatientRow[4] = PatientList.get(i).getGender();
+		    	   PatientRow[4] = PatientList.get(i).getCountry();
+		    	   PatientRow[4] = PatientList.get(i).getProfession();
+		    	   
+		           PatientModel.addRow(PatientRow);
+		       }
+		    }
 
 	/**
 	 * Initialize the contents of the frame.
@@ -65,6 +131,9 @@ public class Admin {
 		frmIngeniousMedcare.setTitle("Ingenious MedCare - Administrateur");
 		frmIngeniousMedcare.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmIngeniousMedcare.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		
+		tableAllUsers = new javax.swing.JTable();
+		tableAllPatients = new javax.swing.JTable();
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GroupLayout groupLayout = new GroupLayout(frmIngeniousMedcare.getContentPane());
@@ -138,26 +207,28 @@ public class Admin {
 					.addContainerGap(88, Short.MAX_VALUE))
 		);
 		
-		try {
-			tableAllUsers = new JTable(buildTableModel.buildTableModel(UserManagement.getAllUser(), "tabUsers"));
-			tableAllUsers.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					int row = tableAllUsers.rowAtPoint(evt.getPoint());
-			        //int col = tableAllPatient.columnAtPoint(evt.getPoint());
-			        int idUser = (int) tableAllUsers.getValueAt(row, 0);
-					InfoUser InfoUser = new InfoUser(idUser);
-					InfoUser.main(null, idUser);
-					
-				}
-			});
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		tableAllUsers.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                    "Id", "Login", "Email", "Password", "Name", "Firstname", "Role"
+                }
+            ));
 		tableAllUsers.setEnabled(false);
 		scrollPaneUsers.setViewportView(tableAllUsers);
 		panelUtilisateur.setLayout(gl_panelUtilisateur);
+		
+		tableAllUsers.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				int row = tableAllUsers.rowAtPoint(evt.getPoint());
+		        //int col = tableAllPatient.columnAtPoint(evt.getPoint());
+				int idUser = (int) tableAllUsers.getValueAt(row, 0);
+		        InfoUser InfoUser = new InfoUser(idUser);
+				InfoUser.main(null, idUser);
+			}
+		});
 		
 		JPanel panelPatient = new JPanel();
 		tabbedPane.addTab("Patients", null, panelPatient, null);
@@ -200,25 +271,29 @@ public class Admin {
 					.addComponent(scrollPanelPatient, GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE))
 		);
 		
-		try {
-			tableAllPatients = new JTable(buildTableModel.buildTableModel(PatientManagement.getAllPatient(), "tabPatients"));
-			tableAllPatients.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					int row = tableAllPatients.rowAtPoint(evt.getPoint());
-			        //int col = tableAllPatient.columnAtPoint(evt.getPoint());
-			        int idPatient = (int) tableAllPatients.getValueAt(row, 0);
-					InfoPatient InfoClient = new InfoPatient(idPatient);
-					InfoClient.main(null, idPatient);
-				}
-			});
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		tableAllPatients.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                    "Id", "Name", "FirstName", "BirthDate", "Email", "Gender", "Country", "Profession"
+                }
+            ));
+		tableAllPatients.setEnabled(false);
 		scrollPanelPatient.setViewportView(tableAllPatients);
 		panelPatient.setLayout(gl_panelPatient);
 		
+		tableAllPatients.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				int row = tableAllPatients.rowAtPoint(evt.getPoint());
+		        //int col = tableAllPatient.columnAtPoint(evt.getPoint());
+		        int idPatient = (int) tableAllPatients.getValueAt(row, 0);
+				InfoPatient InfoClient = new InfoPatient(idPatient);
+				InfoClient.main(null, idPatient);
+			}
+		});
+
 		JPanel panelStock = new JPanel();
 		tabbedPane.addTab("Stock", null, panelStock, null);
 		frmIngeniousMedcare.getContentPane().setLayout(groupLayout);

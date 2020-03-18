@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 import com.mysql.jdbc.ResultSet;
 
@@ -68,6 +69,7 @@ public class SqlConnection {
 			}
 			return rs;		
 		}
+	  
 }
 
 

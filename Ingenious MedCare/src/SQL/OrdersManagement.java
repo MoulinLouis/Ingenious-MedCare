@@ -1,15 +1,20 @@
 package SQL;
 
 import java.sql.Connection;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import models.OrdersModel;
 
 public class OrdersManagement extends SqlConnection{	
 	
 	// Récupérer les commandes
-	  public static  java.sql.ResultSet getAllOrders() {
+	  public static  ArrayList<OrdersModel> getAllOrders() {
+		  
+		  ArrayList<OrdersModel> ordersList = new ArrayList<OrdersModel>();
 		  java.sql.ResultSet rs =null;
 			Connection cn = getInstance();
 			try {
@@ -17,11 +22,18 @@ public class OrdersManagement extends SqlConnection{
 				String sql = "SELECT O.id, P.nom, O.quantity, O.orderDate, O.status FROM orders AS O"
 							+" INNER JOIN medicalproduct AS P ON P.id = O.id_medicalProduct;";
 				 rs = st.executeQuery(sql);
+				 OrdersModel order;
+				 while(rs.next())
+		           {
+		               order = new OrdersModel(rs.getInt("id"),rs.getString("nom"),rs.getInt("quantity"),rs.getString("orderDate"), rs.getString("status"));
+		               ordersList.add(order);
+		               System.out.print(order.getId());
+		           }
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return rs;		
+			return ordersList;
 		}
 	  // Récupérer une commande par rapport à son id unique
 	  public static  java.sql.ResultSet getOrdersById(int id) {

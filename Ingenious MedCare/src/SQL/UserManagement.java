@@ -5,6 +5,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -12,6 +13,8 @@ import javax.swing.JOptionPane;
 import fenetre.Admin;
 import fenetre.Administratif;
 import fenetre.Stock;
+import models.StockModel;
+import models.UserModel;
 
 public class UserManagement extends SqlConnection{	
 	
@@ -63,18 +66,25 @@ public class UserManagement extends SqlConnection{
 		}
 	
 	// Récupérer tous les utilisateurs
-	  public static  java.sql.ResultSet getAllUser() {
+	  public static  ArrayList<UserModel> getAllUser() {
+		  ArrayList<UserModel> userList = new ArrayList<UserModel>();
 		  java.sql.ResultSet rs = null;
 			Connection cn = getInstance();
 			try {
 				Statement st = cn.createStatement();
 				String sql = "SELECT U.id, U.login, U.email, U.password, U.name, U.firstName, U.idRole FROM user AS U";
 				 rs = st.executeQuery(sql);
+				 UserModel user;
+				 while(rs.next())
+		           {
+		               user = new UserModel(rs.getInt("id"),rs.getString("login"),rs.getString("email"),rs.getString("password"),rs.getString("name"),rs.getString("firstname"),rs.getInt("idRole"));
+		               userList.add(user);
+		           }
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return rs;		
+			return userList;		
 		}
 	  // Récupérer un utilisateur par rapport à son id unique 
 	  public static java.sql.ResultSet getUserById(int id) {

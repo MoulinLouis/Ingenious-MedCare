@@ -20,11 +20,15 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import SQL.OrdersManagement;
 import SQL.ProductManagement;
 import SQL.UserManagement;
+import models.ProductModel;
+import fenetre.Stock;
 
 import javax.swing.JTextField;
 import java.awt.Dialog.ModalityType;
 import java.awt.Window.Type;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -78,14 +82,14 @@ public class InfoStock {
 		frmIngeniousMedcare.getContentPane().add(panel, BorderLayout.CENTER);
 		
 		JComboBox comboBoxProduct = new JComboBox();
-		
+
 		 try
 		 {
-		    ResultSet Rs = ProductManagement.getAllMedicalProduct();
-			    while (Rs.next())
+		    ArrayList<ProductModel> Rs = ProductManagement.getAllMedicalProduct();
+			    Object[] StockRow = new Object[3];
+			    for(int i = 0; i < Rs.size(); i++)
 			    {
-			        //Pour affecter une valeur de base de données à un Combobox 
-			    	comboBoxProduct.addItem(Rs.getString("nom"));
+			    	comboBoxProduct.addItem(Rs.get(i).getNom());
 			    }
 		 } 
 		    catch

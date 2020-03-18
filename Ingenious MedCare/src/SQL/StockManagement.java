@@ -3,11 +3,18 @@ package SQL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+
+import models.OrdersModel;
+import models.ProductModel;
+import models.StockModel;
 
 public class StockManagement extends SqlConnection{	
 	
 	// Récupérer tous le stock médical
-	  public static  java.sql.ResultSet getAllMedicalStock() {
+	  public static  ArrayList<StockModel> getAllMedicalStock() {
+		  
+		  ArrayList<StockModel> stockList = new ArrayList<StockModel>();
 		  java.sql.ResultSet rs =null;
 			Connection cn = getInstance();
 			try {
@@ -15,11 +22,18 @@ public class StockManagement extends SqlConnection{
 				String sql = "SELECT S.id, P.nom, S.quantity FROM medicalstock AS S"
 						+ " INNER JOIN medicalproduct AS P ON P.id = S.id_medicalProduct;";
 				 rs = st.executeQuery(sql);
+				 StockModel stock;
+				 while(rs.next())
+		           {
+		               stock = new StockModel(rs.getInt("id"),rs.getString("nom"),rs.getInt("quantity"));
+		               stockList.add(stock);
+		               System.out.print(stock.getId());
+		           }
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return rs;		
+			return stockList;		
 		}
 	  // Récupérer un médicament par rapport à son id unique
 	  public static  java.sql.ResultSet getMedicalStockById(int id) {

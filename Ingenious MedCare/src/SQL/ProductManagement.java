@@ -4,11 +4,16 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+
+import models.ProductModel;
 
 public class ProductManagement extends SqlConnection{	
 	
 	// Récupérer tous le stock médical
-	  public static  java.sql.ResultSet getAllMedicalProduct() {
+	  public static  ArrayList<ProductModel> getAllMedicalProduct() {
+		  
+		  ArrayList<ProductModel> productList = new ArrayList<ProductModel>();
 		  java.sql.ResultSet rs =null;
 			Connection cn = getInstance();
 			try {
@@ -16,11 +21,18 @@ public class ProductManagement extends SqlConnection{
 				String sql = "SELECT P.id, P.nom, P.classification, P.substance, P.excipient, P.conservation, T.libelle FROM medicalproduct AS P"
 						+ " INNER JOIN toxicity AS T ON T.id = P.toxicity;";
 				 rs = st.executeQuery(sql);
+				 ProductModel product;
+				 while(rs.next())
+		           {
+					 product = new ProductModel(rs.getInt("id"),rs.getString("nom"),rs.getString("classification"),rs.getString("substance"), rs.getString("excipient"), rs.getString("conservation"), rs.getString("libelle"));
+					 productList.add(product);
+		               System.out.print(product.getId());
+		           }
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return rs;		
+			return productList;		
 		}
 	  // Récupérer un médicament par rapport à son id unique
 	  public static  java.sql.ResultSet getMedicalProductById(int id) {

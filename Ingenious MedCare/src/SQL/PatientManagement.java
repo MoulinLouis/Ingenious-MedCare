@@ -2,23 +2,34 @@ package SQL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import models.PatientModel;
+import models.StockModel;
+
 public class PatientManagement extends SqlConnection{	
 	// Récupérer tous les patients
-	  public static  java.sql.ResultSet getAllPatient() {
+	  public static  ArrayList<PatientModel> getAllPatient() {
+		  ArrayList<PatientModel> patientList = new ArrayList<PatientModel>();
 		  java.sql.ResultSet rs = null;
 			Connection cn = getInstance();
 			try {
 				Statement st = cn.createStatement();
 				String sql = "SELECT P.id, P.name, P.firstName, P.birthDate, P.email, (SELECT C.value FROM combobox AS C WHERE C.id_comboBox = P.id_gender AND C.id_type = 1), (SELECT C.value FROM combobox AS C WHERE C.id_comboBox = P.id_country AND C.id_type = 2), (SELECT C.value FROM combobox AS C WHERE C.id_comboBox = P.id_profession AND C.id_type = 3) FROM patient AS P";
 				 rs = st.executeQuery(sql);
+				 PatientModel patient;
+				 while(rs.next())
+		           {
+					 patient = new PatientModel(rs.getInt("id"),rs.getString("name"),rs.getString("firstname"),rs.getString("birthDate"),rs.getString("email"),rs.getString("value"),rs.getString("value"), rs.getString("value"));
+					 patientList.add(patient);
+		           }
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return rs;		
+			return patientList;		
 		}
 	  // Récupérer un patient par rapport à son id unique
 	  public static java.sql.ResultSet getPatientById(int id) {

@@ -1,70 +1,43 @@
 package fenetre;
 
-import SQL.*;
-import extensions.*;
-
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.GroupLayout;
-import javax.swing.ImageIcon;
-import javax.swing.GroupLayout.Alignment;
-
-import model.buildTableModel;
-import popup.InfoProduct;
-import popup.InfoUser;
-import popup.InfoStock;
-import popup.InfoProduct;
-
-import javax.swing.JTabbedPane;
-import javax.swing.JPanel;
-import javax.swing.JLayeredPane;
-import javax.swing.JLabel;
-import javax.swing.JTable;
-import java.awt.FlowLayout;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import javax.swing.table.TableModel;
-
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLayeredPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JPanel;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.SwingUtilities;
-import javax.swing.JButton;
-import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-
-import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.JMenuBar;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.BoxLayout;
-import java.awt.CardLayout;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JToolBar;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.table.DefaultTableModel;
+
+import SQL.OrdersManagement;
+import SQL.ProductManagement;
+import SQL.SqlConnection;
+import SQL.StockManagement;
+import models.OrdersModel;
+import models.ProductModel;
+import models.StockModel;
+import popup.InfoProduct;
+import popup.InfoStock;
 
 public class Stock {
 
@@ -99,7 +72,81 @@ public class Stock {
 	 */
 	public Stock(int connectedId) {
 		initialize(connectedId);
+		Show_Orders_In_JTable();
+		Show_Product_In_JTable();
+		Show_Stock_In_JTable();
 	}
+	
+	// Execute The Insert Update And Delete Querys
+	public void executeSQlQuery(String query, String message)
+	{
+	   Connection cn = SqlConnection.getInstance();
+	   Statement st;
+	   try{
+	       st = cn.createStatement();
+	       if((st.executeUpdate(query)) == 1)
+	       {
+		    	// refresh jtable data
+		    	DefaultTableModel model = (DefaultTableModel)tableOrders.getModel();
+		    	model.setRowCount(0);
+		    	Show_Orders_In_JTable();    
+	    	   JOptionPane.showMessageDialog(null, "Data "+message+" Succefully");
+	       	}else{
+	           JOptionPane.showMessageDialog(null, "Data Not "+message);
+	        }
+	        }catch(Exception ex){
+	           ex.printStackTrace();
+	       }
+	 }
+	
+	 public void Show_Orders_In_JTable()
+	   {
+		   ArrayList<OrdersModel> Orderslist = OrdersManagement.getAllOrders();
+	       DefaultTableModel OrdersModel = (DefaultTableModel) tableOrders.getModel();
+	       Object[] OdersRow = new Object[5];
+	       for(int i = 0; i < Orderslist.size(); i++)
+	       {
+	    	   OdersRow[0] = Orderslist.get(i).getId();
+	    	   OdersRow[1] = Orderslist.get(i).getNom();
+	    	   OdersRow[2] = Orderslist.get(i).getQuantity();
+	    	   OdersRow[3] = Orderslist.get(i).getOrderDate();
+	    	   OdersRow[4] = Orderslist.get(i).getStatus();
+	           
+	           OrdersModel.addRow(OdersRow);
+	       }
+	    }
+	 public void Show_Product_In_JTable() {
+	       
+		   ArrayList<ProductModel> Productlist = ProductManagement.getAllMedicalProduct();
+	       DefaultTableModel ProductModel = (DefaultTableModel) tableProduct.getModel();
+	       Object[] ProductRow = new Object[7];
+	       for(int i = 0; i < Productlist.size(); i++)
+	       {
+	    	   ProductRow[0] = Productlist.get(i).getId();
+	    	   ProductRow[1] = Productlist.get(i).getNom();
+	    	   ProductRow[2] = Productlist.get(i).getClassification();
+	    	   ProductRow[3] = Productlist.get(i).getSubstance();
+	    	   ProductRow[4] = Productlist.get(i).getExcipient();
+	    	   ProductRow[5] = Productlist.get(i).getConservation();
+	    	   ProductRow[6] = Productlist.get(i).getLibelle();
+	    	   
+	           ProductModel.addRow(ProductRow);
+	       }
+	 }
+	 public void Show_Stock_In_JTable() {
+	       
+		   ArrayList<StockModel> Stocklist = StockManagement.getAllMedicalStock();
+	       DefaultTableModel StockModel = (DefaultTableModel) tableStock.getModel();
+	       Object[] StockRow = new Object[3];
+	       for(int i = 0; i < Stocklist.size(); i++)
+	       {
+	    	   StockRow[0] = Stocklist.get(i).getId();
+	    	   StockRow[1] = Stocklist.get(i).getNom();
+	    	   StockRow[2] = Stocklist.get(i).getQuantity();
+	    	   
+	           StockModel.addRow(StockRow);
+	       }
+	 }
 
 	/**
 	 * Initialize the contents of the frame.
@@ -109,7 +156,11 @@ public class Stock {
 		frmIngeniousMedcare.setTitle("Ingenious MedCare - Stock");
 		frmIngeniousMedcare.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmIngeniousMedcare.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
+		
+		tableOrders = new javax.swing.JTable();
+		tableProduct = new javax.swing.JTable();
+		tableStock = new javax.swing.JTable();
+		
 		JMenuBar menuBar = new JMenuBar();
 		frmIngeniousMedcare.getContentPane().add(menuBar, BorderLayout.NORTH);
 		
@@ -185,11 +236,11 @@ public class Stock {
 				.addGroup(gl_panelStock.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelStock.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
 						.addGroup(gl_panelStock.createSequentialGroup()
 							.addComponent(label_1)
 							.addGap(18)
-							.addComponent(buttonCommande))
-						.addComponent(scrollPane_2, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
+							.addComponent(buttonCommande)))
 					.addContainerGap())
 		);
 		gl_panelStock.setVerticalGroup(
@@ -200,17 +251,19 @@ public class Stock {
 						.addComponent(label_1)
 						.addComponent(buttonCommande))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+					.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		
-		try {
-			tableStock = new JTable(buildTableModel.buildTableModel(StockManagement.getAllMedicalStock(), "tabStock"));
-			tableStock.setEnabled(false);
-		} catch (SQLException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
+		tableStock.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                    "Id", "Nom produit", "Quantity"
+                }
+            ));
+		tableStock.setEnabled(false);
 		scrollPane_2.setViewportView(tableStock);
 		panelStock.setLayout(gl_panelStock);
 		
@@ -234,11 +287,11 @@ public class Stock {
 				.addGroup(gl_panelOrder.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelOrder.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
 						.addGroup(gl_panelOrder.createSequentialGroup()
 							.addComponent(lblListeDesCommandes)
 							.addGap(18)
-							.addComponent(btnSendMail))
-						.addComponent(scrollPane_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
+							.addComponent(btnSendMail)))
 					.addContainerGap())
 		);
 		gl_panelOrder.setVerticalGroup(
@@ -249,17 +302,21 @@ public class Stock {
 						.addComponent(lblListeDesCommandes)
 						.addComponent(btnSendMail))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		
-		try {
-			tableOrders = new JTable(buildTableModel.buildTableModel(OrdersManagement.getAllOrders(), "tabOrders"));
-			tableOrders.setEnabled(false);
-		} catch (SQLException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
+	
+		
+		tableOrders.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                    "Id", "Nom produit", "Quantité", "Date de commande","Status"
+                }
+            ));
+		tableOrders.setEnabled(false);
 		scrollPane_1.setViewportView(tableOrders);
 		panelOrder.setLayout(gl_panelOrder);
 		
@@ -284,11 +341,11 @@ public class Stock {
 				.addGroup(gl_panelProduct.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelProduct.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
 						.addGroup(gl_panelProduct.createSequentialGroup()
 							.addComponent(lblListeDesProduits)
 							.addGap(18)
-							.addComponent(btnAddProduct))
-						.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
+							.addComponent(btnAddProduct)))
 					.addContainerGap())
 		);
 		gl_panelProduct.setVerticalGroup(
@@ -299,29 +356,32 @@ public class Stock {
 						.addComponent(lblListeDesProduits)
 						.addComponent(btnAddProduct))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 
-		try {
-			tableProduct = new JTable(buildTableModel.buildTableModel(ProductManagement.getAllMedicalProduct(), "tabProduct"));
-			tableProduct.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					int row = tableProduct.rowAtPoint(evt.getPoint());
-			        //int col = tableAllPatient.columnAtPoint(evt.getPoint());
-			        int idProduct = (int) tableProduct.getValueAt(row, 0);
-					InfoProduct InfoProduct = new InfoProduct(idProduct);
-					InfoProduct.main(null, idProduct);
-				}
-			});
-		} catch (SQLException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
+		tableProduct.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                    "Id", "Nom produit", "Classification", "Substance","excipient", "Conservation", "Libelle"
+                }
+            ));
 		tableProduct.setEnabled(false);
 		scrollPane.setViewportView(tableProduct);
 		panelProduct.setLayout(gl_panelProduct);
+		
+		tableProduct.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				int row = tableProduct.rowAtPoint(evt.getPoint());
+		        //int col = tableAllPatient.columnAtPoint(evt.getPoint());
+		        int idProduct = (int) tableProduct.getValueAt(row, 0);
+				InfoProduct InfoProduct = new InfoProduct(idProduct);
+				InfoProduct.main(null, idProduct);
+			}
+		});
 		
 		JPanel panelMonCompte = new JPanel();
 		tabbedPane.addTab("Mon compte", null, panelMonCompte, null);
